@@ -8,7 +8,7 @@ for i=1:K
     u = rand(n, 1);
     
     m = 1/n * sum(u);
-    s = sqrt(1/n * sum((u - m).^2));
+    s = sqrt(1/(n-1) * sum((u - m).^2));
     
     eta = 1.96;
     ci_mean = m + [-eta*s/sqrt(n) eta*s/sqrt(n)];
