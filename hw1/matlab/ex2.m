@@ -3,23 +3,18 @@ close all; clear all; clc;
 K = 1000;
 n = 48;
 mean_confidence_intervals = zeros(K, 2);
+true_m = 0.5;
 m_out_count = 0;
 for i=1:K
     u = rand(n, 1);
-    
-    m = 1/n * sum(u);
-    s = sqrt(1/(n-1) * sum((u - m).^2));
-    
-    eta = 1.96;
-    ci_mean = m + [-eta*s/sqrt(n) eta*s/sqrt(n)];
-    
-    mean_confidence_intervals(i,:) = ci_mean;
-    if 0.5 < ci_mean(1) || 0.5 > ci_mean(2)
+    [m, m_ci_low, m_ci_upp] = mean_ci_95(u);        
+    mean_confidence_intervals(i,:) = [m_ci_low m_ci_upp];
+    if true_m < m_ci_low || true_m > m_ci_upp
         m_out_count = m_out_count + 1;
     end
 end
 
-fprintf('The mean CI does not contain 0.5 in %d/%d cases\n', m_out_count, K);
+fprintf('The CI does not contain the true mean in %d / %d cases\n', m_out_count, K);
 
 [sorted_low_ci, sort_i] = sort(mean_confidence_intervals(:,1));
 
