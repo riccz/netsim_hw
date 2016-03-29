@@ -14,6 +14,22 @@ subplot(2,2,2);
 scatter((1:length(sgbdnew)), sgbdnew, 'Marker', 'O');
 ylim([0, 200]);
 title('New');
+
+h_bins = linspace(0, 200, 10+1);
+h_bins = h_bins(2:11);
+h_old = histogram_1(sgbdold, h_bins);
+h_new = histogram_1(sgbdnew, h_bins);
+
+subplot(2,2,3);
+bar(h_bins, h_old);
+xlim([0 220]);
+set(gca,'XTick', 20:40:200);
+
+subplot(2,2,4);
+bar(h_bins, h_new);
+xlim([0 220]);
+set(gca,'XTick', 20:40:200);
+
 print('fig2_1', '-depsc');
 
 % Figure 2.2
