@@ -5,13 +5,13 @@ load 'data/figure 2.1/sgbdold.dat'
 
 % Figure 2.1
 figure;
-subplot(1,2,1);
-scatter((1:length(sgbdold)), sgbdold, 'Marker', '+', 'MarkerEdgeColor', 'blue');
+subplot(2,2,1);
+scatter((1:length(sgbdold)), sgbdold, 'Marker', '+');
 ylim([0, 200]);
 title('Old');
 
-subplot(1,2,2);
-scatter((1:length(sgbdnew)), sgbdnew, 'Marker', 'O', 'MarkerEdgeColor', 'red');
+subplot(2,2,2);
+scatter((1:length(sgbdnew)), sgbdnew, 'Marker', 'O');
 ylim([0, 200]);
 title('New');
 print('fig2_1', '-depsc');
