@@ -1,0 +1,6 @@
+*.aux
+*.pdf
+*.out
+*.log
+hw1.zip
+matlab/*.eps
