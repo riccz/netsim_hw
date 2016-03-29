@@ -26,3 +26,18 @@ stairs(t_old, ecdf_old, 'Color', 'blue');
 stairs(t_new, ecdf_new, 'Color', 'red');
 legend('Old', 'New');
 print('fig2_2', '-depsc');
+% Figure 2.7
+diff = sgbdold - sgbdnew;
+figure;
+subplot(1,3,1);
+scatter((1:length(diff)), diff, 'Marker', '+');
+subplot(1,3,2);
+histogram(diff, 10);
+subplot(1,3,3);
+box_plot_with_mean(diff);
+print('diff_plots', '-depsc');
+
+% Figure 2.8
+
+% Figure 2.10
+
