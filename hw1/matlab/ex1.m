@@ -38,8 +38,8 @@ print('fig2_1', '-depsc');
 
 figure;
 hold all;
-stairs(t_old, ecdf_old, 'Color', 'blue');
-stairs(t_new, ecdf_new, 'Color', 'red');
+stairs(t_old, ecdf_old);
+stairs(t_new, ecdf_new);
 legend('Old', 'New');
 print('fig2_2', '-depsc');
 % Figure 2.7
