@@ -42,6 +42,39 @@ stairs(t_old, ecdf_old);
 stairs(t_new, ecdf_new);
 legend('Old', 'New');
 print('fig2_2', '-depsc');
+
+% Figure 2.3
+[med_old, med_old_ci_low, med_old_ci_upp] = median_ci_95(sgbdold);
+[med_new, med_new_ci_low, med_new_ci_upp] = median_ci_95(sgbdnew);
+
+[mean_old, mean_old_ci_low, mean_old_ci_upp] = mean_ci_95(sgbdold);
+[mean_new, mean_new_ci_low, mean_new_ci_upp] = mean_ci_95(sgbdnew);
+
+[pi_old_low, pi_old_upp] = prediction_interval(sgbdold, 0.95);
+[pi_new_low, pi_new_upp] = prediction_interval(sgbdnew, 0.95);
+
+sorted_old = sort(sgbdold);
+sorted_new = sort(sgbdnew);
+first_quartile_old = sorted_old(25);
+third_quartile_old = sorted_old(75);
+first_quartile_new = sorted_new(25);
+third_quartile_new = sorted_new(75);
+
+%iq_dist_old = third_quartile_old - first_quartile_old;
+%dispersion_old = 1.5*iq_dist_old;
+
+fprintf('For the old data:\n');
+fprintf('  mean: %f CI [%f, %f]\n', mean_old, mean_old_ci_low, mean_old_ci_upp);
+fprintf('  median: %f CI [%f, %f]\n', med_old, med_old_ci_low, med_old_ci_upp);
+fprintf('  first quartile: %f, third quartile: %f\n', first_quartile_old, third_quartile_old);
+fprintf('  prediction interval: [%f, %f]\n', pi_old_low, pi_old_upp);
+
+fprintf('For the new data:\n');
+fprintf('  mean: %f CI [%f, %f]\n', mean_new, mean_new_ci_low, mean_new_ci_upp);
+fprintf('  median: %f CI [%f, %f]\n', med_new, med_new_ci_low, med_new_ci_upp);
+fprintf('  first quartile: %f, third quartile: %f\n', first_quartile_new, third_quartile_new);
+fprintf('  prediction interval: [%f, %f]\n', pi_new_low, pi_new_upp);
+
 % Figure 2.7
 diff = sgbdold - sgbdnew;
 figure;
