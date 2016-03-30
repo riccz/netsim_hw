@@ -1,4 +1,4 @@
-function [low, upp] = prediction_interval(x, gamma)
+function [low, upp] = prediction_interval_bootstrap(x, gamma)
 sorted_x = sort(x);
 n = length(x);
 alpha = 1- gamma;
