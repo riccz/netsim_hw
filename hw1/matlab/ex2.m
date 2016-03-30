@@ -7,7 +7,8 @@ true_m = 0.5;
 m_out_count = 0;
 for i=1:K
     u = rand(n, 1);
-    [m, m_ci_low, m_ci_upp] = mean_ci_95(u);        
+    [m, m_ci_low, m_ci_upp] = mean_ci_95(u);  
+    s = sqrt(var(u));
     mean_confidence_intervals(i,:) = [m_ci_low m_ci_upp];
     if true_m < m_ci_low || true_m > m_ci_upp
         m_out_count = m_out_count + 1;

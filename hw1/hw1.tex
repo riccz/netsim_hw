@@ -38,6 +38,84 @@
   upquote=true,
 }
 \maketitle
-\section*{Ex 1}
+\begin{enumerate}
+\item
+\item The confidence intervals for the mean of the 48 uniform random
+  variables generated 1000 times are shown in
+  Fig.~\ref{uniform_mean_ci}. $51$ of them don't contain the true
+  value of the mean (0.5) but this is expected as the probability that
+  this intervals contain 0.5 is $\approx 5\%$.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/uniform_mean_ci}
+    \caption{Uniform mean CIs}
+    \label{uniform_mean_ci}
+  \end{figure}
+  The plot shape is in accordance with the central limit theorem that
+  allows the distribution of the sample mean to be approximated with a
+  gaussian.
+\item
+\item The mean for the $n$ uniform random variables generated in the
+  script \inlinecode{ex4.m} for $ 1 \leq n \leq 100 $ are plotted in
+  Fig.~\ref{uniform_mean}. The variances with their confidence
+  intervals at level $\gamma = 95\%$ computed with the bootstrap
+  method are plotted in Fig.~\ref{uniform_var}. It can be seen that
+  the mean goes toward the true value $0.5$ as $1/n$ while the
+  variance goes toward $1/12$ as $1/\sqrt{n}$ (and also the CI
+  decreases with the same speed).
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/uniform_mean_n}
+    \caption{Mean for $n$ uniform random variables}
+    \label{uniform_mean}
+  \end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/uniform_variance_n}
+    \caption{Variance for $n$ uniform random variables}
+    \label{uniform_var}
+  \end{figure}
+  The prediction interval (Fig.~\ref{pred_int_unif}) does not depend
+  on $n$, so as soon as there are enough samples ($n=39$) it remains
+  around the same value. The theoretical values for a 95\% prediction
+  interval are $[0.025, 0.975]$.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/uniform_prediction_interval_n}
+    \caption{Prediction interval for $n$ uniform random variables}
+    \label{pred_int_unif}
+  \end{figure}
+\item In the same way of point 2 the plot of the mean CIs is computed
+  (fig.~\ref{gaussian_mean_ci}), it has $\approx 5\%$ of the CIs that
+  don't contain the true value 0 and the same gaussian shape.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/gaussian_mean_ci}
+    \caption{Mean CIs for the gaussian r.v.s}
+    \label{gaussian_mean_ci}
+  \end{figure}
 
+  As in point 4 the mean (Fig.~\ref{gaussian_mean_n}), variance with
+  CIs (Fig.\ref{gaussian_var_n}) and the prediction interval
+  (Fig.\ref{gaussian_pred_int_n}) are computed for $1 \leq n \leq 100$.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/normal_mean_n}
+    \caption{Mean for $n$ gaussian random variables}
+    \label{gaussian_mean_n}
+  \end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/normal_variance_n}
+    \caption{Variance for $n$ gaussian random variables}
+    \label{gaussian_var_n}
+  \end{figure}
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/normal_prediction_interval_n}
+    \caption{Prediction interval for $n$ gaussian random variables}
+    \label{gaussian_pred_int_n}
+  \end{figure}
+
+\end{enumerate}
 \end{document}
