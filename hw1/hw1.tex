@@ -39,7 +39,26 @@
 }
 \maketitle
 \begin{enumerate}
-\item
+\item The replicas of figure 2.1 and 2.2 are shown as
+  Fig.~\ref{plot_2_1}~and~\ref{plot_2_2}. The histogram values are
+  computed with \inlinecode{histogram_1} and the ECDF with
+  \inlinecode{empirical_cdf}.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/fig2_1}
+    \caption{Data and histograms}
+    \label{plot_2_1}
+  \end{figure}
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/fig2_2}
+    \caption{ECDFs}
+    \label{plot_2_2}
+    \end{figure}
+
+    The values of figure 2.3 are:
+    \begin{table}
+      
 \item The confidence intervals for the mean of the 48 uniform random
   variables generated 1000 times are shown in
   Fig.~\ref{uniform_mean_ci}. $51$ of them don't contain the true
