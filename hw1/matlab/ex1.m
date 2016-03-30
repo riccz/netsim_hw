@@ -50,8 +50,8 @@ print('fig2_2', '-depsc');
 [mean_old, mean_old_ci_low, mean_old_ci_upp] = mean_ci_95(sgbdold);
 [mean_new, mean_new_ci_low, mean_new_ci_upp] = mean_ci_95(sgbdnew);
 
-[pi_old_low, pi_old_upp] = prediction_interval(sgbdold, 0.95);
-[pi_new_low, pi_new_upp] = prediction_interval(sgbdnew, 0.95);
+[pi_old_low, pi_old_upp] = prediction_interval_bootstrap(sgbdold, 0.95);
+[pi_new_low, pi_new_upp] = prediction_interval_bootstrap(sgbdnew, 0.95);
 
 sorted_old = sort(sgbdold);
 sorted_new = sort(sgbdnew);
