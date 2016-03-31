@@ -19,6 +19,8 @@
     label={lst:#1}]{matlab/#1.m}}
 \newcommand{\inlinecode}[1]{\lstinline[basicstyle=\ttfamily,keywordstyle={}]{#1}}
 
+\newcolumntype{L}{>{$}l<{$}}
+
 \author{Riccardo Zanol}
 \title{Homework 1}
 
@@ -43,28 +45,53 @@
   Fig.~\ref{plot_2_1}~and~\ref{plot_2_2}. The histogram values are
   computed with \inlinecode{histogram_1} and the ECDF with
   \inlinecode{empirical_cdf}.
-  \begin{figure}[h]
+  \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{matlab/fig2_1}
     \caption{Data and histograms}
     \label{plot_2_1}
   \end{figure}
-    \begin{figure}[h]
+    \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{matlab/fig2_2}
     \caption{ECDFs}
     \label{plot_2_2}
     \end{figure}
-
-    The values of figure 2.3 are:
-    \begin{table}
+    The values of figure 2.3 are in Table~\ref{boxplot_table}, in this
+    table the dispersion is cut to 0 because the data cannot assume
+    negative values.
+    \begin{table}[h]
+      \centering
+      \begin{tabular}{l||L|L}
+         & \text{Old data} & \text{New data} \\
+        \hline
+        Mean & 60.16 \quad \text{CI} \quad [50.93, 69.40] & 34.10 \quad \text{CI} \quad [29.26, 38.94] \\
+        Median & 48.10 \quad \text{CI} \quad [39.18, 61.10] & 28.86 \quad \text{CI} \quad [25.26, 36.65] \\
+        First quartile & 22.80 & 16.54 \\
+        Third quartile & 94.04 & 45.45 \\
+        Dispersion & [0, 200.90] & [0, 88.83] \\
+        Prediction interval & [0.538, 182.31] & [1.51, 100,86] 
+      \end{tabular}
+      \caption{Box plot data}
+      \label{boxplot_table}
+    \end{table}
+    The difference between the old and the new data of Figure 2.7 is
+    plotted together with its histogram and box plot in
+    Fig.~\ref{diff_plots}. In the box plot there is also the mean with
+    its 95\% confidence interval.
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/diff_plots}
+    \caption{Difference}
+    \label{diff_plots}
+    \end{figure}
       
 \item The confidence intervals for the mean of the 48 uniform random
   variables generated 1000 times are shown in
   Fig.~\ref{uniform_mean_ci}. $51$ of them don't contain the true
   value of the mean (0.5) but this is expected as the probability that
   this intervals contain 0.5 is $\approx 5\%$.
-  \begin{figure}[h]
+  \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{matlab/uniform_mean_ci}
     \caption{Uniform mean CIs}
@@ -82,13 +109,13 @@
   the mean goes toward the true value $0.5$ as $1/n$ while the
   variance goes toward $1/12$ as $1/\sqrt{n}$ (and also the CI
   decreases with the same speed).
-  \begin{figure}[h]
+  \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{matlab/uniform_mean_n}
     \caption{Mean for $n$ uniform random variables}
     \label{uniform_mean}
   \end{figure}
-  \begin{figure}[h]
+  \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{matlab/uniform_variance_n}
     \caption{Variance for $n$ uniform random variables}
@@ -98,7 +125,7 @@
   on $n$, so as soon as there are enough samples ($n=39$) it remains
   around the same value. The theoretical values for a 95\% prediction
   interval are $[0.025, 0.975]$.
-  \begin{figure}[h]
+  \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{matlab/uniform_prediction_interval_n}
     \caption{Prediction interval for $n$ uniform random variables}
@@ -107,7 +134,7 @@
 \item In the same way of point 2 the plot of the mean CIs is computed
   (fig.~\ref{gaussian_mean_ci}), it has $\approx 5\%$ of the CIs that
   don't contain the true value 0 and the same gaussian shape.
-  \begin{figure}[h]
+  \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{matlab/gaussian_mean_ci}
     \caption{Mean CIs for the gaussian r.v.s}
@@ -117,19 +144,19 @@
   As in point 4 the mean (Fig.~\ref{gaussian_mean_n}), variance with
   CIs (Fig.\ref{gaussian_var_n}) and the prediction interval
   (Fig.\ref{gaussian_pred_int_n}) are computed for $1 \leq n \leq 100$.
-  \begin{figure}[h]
+  \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{matlab/normal_mean_n}
     \caption{Mean for $n$ gaussian random variables}
     \label{gaussian_mean_n}
   \end{figure}
-  \begin{figure}[h]
+  \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{matlab/normal_variance_n}
     \caption{Variance for $n$ gaussian random variables}
     \label{gaussian_var_n}
   \end{figure}
-    \begin{figure}[h]
+    \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{matlab/normal_prediction_interval_n}
     \caption{Prediction interval for $n$ gaussian random variables}
