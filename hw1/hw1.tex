@@ -85,7 +85,35 @@
     \caption{Difference}
     \label{diff_plots}
     \end{figure}
-      
+    Figure 2.8 is replicated in Fig.~\ref{cis_plot}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{matlab/cis_plot}
+    \caption{Confidence intervals calculated assuming normal data, in
+      the general case and using bootstrap}
+    \label{cis_plot}
+    \end{figure}
+In Fig.~\ref{joe_data} the timeseries of figure 2.10 is plotted, its
+autocorrelation is shown in Fig.~\ref{joe_autocorr} and the lag plots
+for a lag between 1 and 9 are shown in Fig.~\ref{joe_lagplot}.
+    \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.7\textwidth]{matlab/joe_data}
+    \caption{Data}
+    \label{joe_data}
+    \end{figure}
+    \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.7\textwidth]{matlab/joe_autocorr}
+      \caption{Autocorrelation}
+    \label{joe_autocorr}
+    \end{figure}
+    \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.7\textwidth]{matlab/lagplot}
+    \caption{Lag plot}
+    \label{joe_lagplot}
+    \end{figure}      
 \item The confidence intervals for the mean of the 48 uniform random
   variables generated 1000 times are shown in
   Fig.~\ref{uniform_mean_ci}. $51$ of them don't contain the true

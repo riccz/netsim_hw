@@ -95,6 +95,42 @@ box_plot_with_mean(diff);
 print('diff_plots', '-depsc');
 
 % Figure 2.8
+m_old = mean(sgbdold);
+[~, m_old_ci_ctl_low, m_old_ci_ctl_high] = mean_ci_95(sgbdold);
+[~, m_old_ci_gauss_low, m_old_ci_gauss_high] = mean_ci_95_gaussian(sgbdold);
+[~, m_old_ci_boot_low, m_old_ci_boot_high] = mean_ci_95_bootstrap(sgbdold);
+
+m_new = mean(sgbdnew);
+[~, m_new_ci_ctl_low, m_new_ci_ctl_high] = mean_ci_95(sgbdnew);
+[~, m_new_ci_gauss_low, m_new_ci_gauss_high] = mean_ci_95_gaussian(sgbdnew);
+[~, m_new_ci_boot_low, m_new_ci_boot_high] = mean_ci_95_bootstrap(sgbdnew);
+
+figure;
+errorbar([1 1.2 1.4 2 2.2 2.4], ...
+    [m_old m_old m_old m_new m_new m_new], ...
+    [ m_old_ci_gauss_low m_old_ci_ctl_low m_old_ci_boot_low  m_new_ci_gauss_low m_new_ci_ctl_low m_new_ci_boot_low], ...
+     [ m_old_ci_gauss_high m_old_ci_ctl_high m_old_ci_boot_high  m_new_ci_gauss_high m_new_ci_ctl_high m_new_ci_boot_high], ...
+     'bx');
+ set(gca,'XTick', 1:2);
+ print('cis_plot', '-depsc');
 
 % Figure 2.10
+load 'data/figure 2.10/joe.dat'
+k = 0:length(joe)-1;
 
+figure;
+plot(k, joe);
+print('joe_data', '-depsc');
+
+figure;
+autocorr(joe, length(k)-1);
+print('joe_autocorr', '-depsc');
+
+figure;
+for lag=1:9
+    subplot(3,3,lag);
+       joe_lag = joe(1+lag:length(joe));
+    plot(joe(1:length(joe)-lag), joe_lag, '.');
+     title(['lag = ' num2str(lag)]);
+end
+print('lagplot', '-depsc');
