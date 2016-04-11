@@ -50,21 +50,33 @@
   \inlinecode{empirical_cdf}.
   \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{matlab/fig2_1}
-    \caption{Data and histograms}
-    \label{plot_2_1}
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=0.95\textwidth]{matlab/fig2_1}
+      \caption{Raw data and histograms}
+      \label{plot_2_1}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=0.7\textwidth]{matlab/fig2_2}
+      \caption{ECDFs}
+      \label{plot_2_2}
+    \end{subfigure}
+    \caption{Figures 2.1 and 2.2}
   \end{figure}
-    \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{matlab/fig2_2}
-    \caption{ECDFs}
-    \label{plot_2_2}
-    \end{figure}
     
     The statistics that are needed to draw Fig.2.3 are shown in
     Table~\ref{boxplot_table}, in this table the dispersion lower
     bound is set to zero for both the new and the old execution times
-    because they cannot assume negative values.
+    because they cannot assume negative values. To compute the mean
+    confidence intervals the function \inlinecode{mean_ci} is used,
+    which uses the central limit theorem to approximate it. The median
+    CIs are computed by \inlinecode{median_ci} which applies the
+    Theorem~2.1. For the dispersion, the definition given in the
+    caption of Fig.~2.3 is used to computed it as 1.5 times the
+    interquartile distance. Theorem~2.5 is used to compute the
+    prediction intervals based on the order statistic in
+    \inlinecode{prediction_interval}.
     \begin{table}[htbp]
       \centering
       \begin{tabular}{lLL}
@@ -86,7 +98,8 @@
     The difference between the old and the new execution times of
     Figure 2.7 is plotted together with its histogram and box plot in
     Fig.~\ref{diff_plots}. The mean of the difference, along with its
-    95\% confidence interval, is overlayed on the box plot.
+    95\% confidence interval, is overlayed on the box plot by
+    \inlinecode{box_plot_with_mean}.
     \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{matlab/diff_plots}
@@ -96,10 +109,11 @@
     
     Figure 2.8 is replicated in Fig.~\ref{cis_plot}, where the blue
     bars represent the mean and the CI of the execution times
-    calculated assuming that the samples are gaussian, the red bars
-    are calculated like in the general case using the central limit
-    theorem, while the green bars are calculated using the bootstrap
-    technique.
+    calculated assuming that the samples are gaussian
+    (\inlinecode{mean_ci_gaussian}), the red bars are calculated like
+    in the general case using the central limit theorem, while the
+    green bars are calculated using the bootstrap technique
+    (\inlinecode{mean_ci_bootstrap}).
     \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{matlab/cis_plot}
