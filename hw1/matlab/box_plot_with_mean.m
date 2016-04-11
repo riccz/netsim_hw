@@ -4,10 +4,11 @@ boxplot(x, 'notch', 'on');
 washold = ishold;
 hold on;
 
-[m, m_ci_low, m_ci_high] = mean_ci_95(x);
-plot(xlim, [m m], 'Color', 'red');
-plot(xlim, [m_ci_low m_ci_low], 'Color', 'blue', 'LineStyle', ':');
-plot(xlim, [m_ci_high m_ci_high], 'Color', 'blue', 'LineStyle', ':');
+m = mean(x);
+ci = mean_ci(x);
+plot(xlim, m * ones(2,1), 'Color', 'red');
+plot(xlim, ci(1) * ones(2,1), 'Color', 'blue', 'LineStyle', ':');
+plot(xlim, ci(2) * ones(2,1), 'Color', 'blue', 'LineStyle', ':');
 
 if ~washold
     hold off;
