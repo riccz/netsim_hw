@@ -11,6 +11,9 @@
 \usepackage{color}
 \usepackage{textcomp}
 \usepackage{graphicx}
+\usepackage[margin=2.54cm]{geometry}
+\usepackage{subcaption}
+\usepackage[section]{placeins}
 
 \definecolor{matlabgreen}{RGB}{28,172,0}
 \definecolor{matlablilas}{RGB}{170,55,241}
@@ -40,8 +43,8 @@
   upquote=true,
 }
 \maketitle
-\begin{enumerate}
-\item The replicas of figure 2.1 and 2.2 are shown as
+\section*{1}
+  The replicas of figure 2.1 and 2.2 are shown as
   Fig.~\ref{plot_2_1}~and~\ref{plot_2_2}. The histogram values are
   computed with \inlinecode{histogram_1} and the ECDF with
   \inlinecode{empirical_cdf}.
@@ -85,10 +88,16 @@
     \caption{Difference}
     \label{diff_plots}
     \end{figure}
-    Figure 2.8 is replicated in Fig.~\ref{cis_plot}
+    
+    Figure 2.8 is replicated in Fig.~\ref{cis_plot}, where the blue
+    bars represent the mean and the CI of the execution times
+    calculated assuming that the samples are gaussian, the red bars
+    are calculated like in the general case using the central limit
+    theorem, while the green bars are calculated using the bootstrap
+    technique.
     \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{matlab/cis_plot}
+    \includegraphics[width=0.5\textwidth]{matlab/cis_plot}
     \caption{Confidence intervals calculated assuming normal data, in
       the general case and using bootstrap}
     \label{cis_plot}
@@ -108,24 +117,29 @@
     -0.5$.
     \begin{figure}[htbp]
       \centering
-      \includegraphics[width=0.7\textwidth]{matlab/joe_data}
-    \caption{Time series of Fig.~2.10}
-    \label{joe_data}
+      \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{matlab/joe_data}
+        \caption{Raw data}
+        \label{joe_data}
+      \end{subfigure}%
+      \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{matlab/joe_autocorr}
+        \caption{Autocorrelation}
+        \label{joe_autocorr}
+      \end{subfigure}
+      \caption{Data of Fig.~2.10}
     \end{figure}
     \begin{figure}[htbp]
       \centering
-      \includegraphics[width=0.7\textwidth]{matlab/joe_autocorr}
-      \caption{Autocorrelation of Fig.~2.10}
-    \label{joe_autocorr}
-    \end{figure}
-    \begin{figure}[htbp]
-      \centering
-      \includegraphics[width=0.7\textwidth]{matlab/lagplot}
-    \caption{Lag plots pf Fig.~2.10}
-    \label{joe_lagplot}
+      \includegraphics[width=\textwidth]{matlab/lagplot}
+      \caption{Lag plots pf Fig.~2.10}
+      \label{joe_lagplot}
     \end{figure}
     
-\item The confidence intervals for the mean of the 48 uniform random
+    \section*{2}
+    The confidence intervals for the mean of the 48 uniform random
   variables generated 1000 times are shown in
   Fig.~\ref{uniform_mean_ci}. $51$ of them don't contain the true
   value of the mean (0.5) but this is expected as the probability that
@@ -139,8 +153,8 @@
   The plot shape is in accordance with the central limit theorem that
   allows the distribution of the sample mean to be approximated with a
   gaussian.
-\item
-\item The mean for the $n$ uniform random variables generated in the
+\section*{3}
+\section*{4} The mean for the $n$ uniform random variables generated in the
   script \inlinecode{ex4.m} for $ 1 \leq n \leq 100 $ are plotted in
   Fig.~\ref{uniform_mean}. The variances with their confidence
   intervals at level $\gamma = 95\%$ computed with the bootstrap
@@ -170,7 +184,7 @@
     \caption{Prediction interval for $n$ uniform random variables}
     \label{pred_int_unif}
   \end{figure}
-\item In the same way of point 2 the plot of the mean CIs is computed
+\section*{5} In the same way of point 2 the plot of the mean CIs is computed
   (fig.~\ref{gaussian_mean_ci}), it has $\approx 5\%$ of the CIs that
   don't contain the true value 0 and the same gaussian shape.
   \begin{figure}[htbp]
@@ -202,5 +216,4 @@
     \label{gaussian_pred_int_n}
   \end{figure}
 
-\end{enumerate}
 \end{document}

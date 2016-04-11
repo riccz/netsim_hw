@@ -96,23 +96,22 @@ print('diff_plots', '-depsc');
 
 % Figure 2.8
 m_old = mean(sgbdold);
-[~, m_old_ci_ctl_low, m_old_ci_ctl_high] = mean_ci_95(sgbdold);
-[~, m_old_ci_gauss_low, m_old_ci_gauss_high] = mean_ci_95_gaussian(sgbdold);
-[~, m_old_ci_boot_low, m_old_ci_boot_high] = mean_ci_95_bootstrap(sgbdold);
+m_old_ci = mean_ci(sgbdold);
+m_old_ci_gaussian = mean_ci_gaussian(sgbdold);
+m_old_ci_bootstrap = mean_ci_bootstrap(sgbdold);
 
 m_new = mean(sgbdnew);
-[~, m_new_ci_ctl_low, m_new_ci_ctl_high] = mean_ci_95(sgbdnew);
-[~, m_new_ci_gauss_low, m_new_ci_gauss_high] = mean_ci_95_gaussian(sgbdnew);
-[~, m_new_ci_boot_low, m_new_ci_boot_high] = mean_ci_95_bootstrap(sgbdnew);
+m_new_ci = mean_ci(sgbdnew);
+m_new_ci_gaussian = mean_ci_gaussian(sgbdnew);
+m_new_ci_bootstrap = mean_ci_bootstrap(sgbdnew);
 
 figure;
-errorbar([1 1.2 1.4 2 2.2 2.4], ...
-    [m_old m_old m_old m_new m_new m_new], ...
-    [ m_old_ci_gauss_low m_old_ci_ctl_low m_old_ci_boot_low  m_new_ci_gauss_low m_new_ci_ctl_low m_new_ci_boot_low], ...
-     [ m_old_ci_gauss_high m_old_ci_ctl_high m_old_ci_boot_high  m_new_ci_gauss_high m_new_ci_ctl_high m_new_ci_boot_high], ...
-     'bx');
- set(gca,'XTick', 1:2);
- print('cis_plot', '-depsc');
+hold on;
+errorbar([1, 2], [m_old, m_new], [m_old_ci_gaussian(1), m_new_ci_gaussian(1)], [m_old_ci_gaussian(2), m_new_ci_gaussian(2)], 'bx');
+errorbar([1.2, 2.2], [m_old, m_new], [m_old_ci(1), m_new_ci(1)], [m_old_ci(2), m_new_ci(2)], 'rx');
+errorbar([1.4, 2.4], [m_old, m_new], [m_old_ci_bootstrap(1), m_new_ci_bootstrap(1)], [m_old_ci_bootstrap(2), m_new_ci_bootstrap(2)], 'gx');
+set(gca,'XTick', [1,2]);
+print('cis_plot', '-depsc');
 
 % Figure 2.10
 load 'data/figure 2.10/joe.dat'
