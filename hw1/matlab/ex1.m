@@ -118,19 +118,26 @@ errorbar([1 1.2 1.4 2 2.2 2.4], ...
 load 'data/figure 2.10/joe.dat'
 k = 0:length(joe)-1;
 
+% 2.10 a)
 figure;
-plot(k, joe);
+plot(k, joe, 'b');
 print('joe_data', '-depsc');
 
+% 2.10 c)
+r = xcorr(joe, 'coeff');
 figure;
-autocorr(joe, length(k)-1);
+hold on;
+stem(k, r(length(k):2*length(k)-1), 'b');
+plot(k, ones(length(k), 1) .* 1.96/sqrt(length(joe)), 'r:');
+plot(k, ones(length(k), 1) .* -1.96/sqrt(length(joe)), 'r:');
 print('joe_autocorr', '-depsc');
 
+% 2.10 d)
 figure;
 for lag=1:9
     subplot(3,3,lag);
        joe_lag = joe(1+lag:length(joe));
-    plot(joe(1:length(joe)-lag), joe_lag, '.');
+    plot(joe(1:length(joe)-lag), joe_lag, 'b.');
      title(['lag = ' num2str(lag)]);
 end
 print('lagplot', '-depsc');

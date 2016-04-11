@@ -93,27 +93,38 @@
       the general case and using bootstrap}
     \label{cis_plot}
     \end{figure}
-In Fig.~\ref{joe_data} the timeseries of figure 2.10 is plotted, its
-autocorrelation is shown in Fig.~\ref{joe_autocorr} and the lag plots
-for a lag between 1 and 9 are shown in Fig.~\ref{joe_lagplot}.
+    
+    The plots of Example 2.5 are reproduced in
+    Figures~\ref{joe_data},~\ref{joe_autocorr}~and~\ref{joe_lagplot}. The
+    first one shows the values that the random variable $Y_t$ assumes
+    for $N = 93$ days. In the second plot there is the autocorrelation
+    $r_Y(n)$ of $Y_t$ (normalized with $r_Y(0)$) along with the 95\%
+    confidence interval $[-1.96/\sqrt{N}, 1.96/\sqrt{N}]$ that should
+    contain the estimated values of $r_Y(n>0)$ if the samples were
+    i.i.d., in this case we can see that they are very correlated when
+    the lag $n=1$.  In the last figure there are the lag plots of
+    $Y_t$ for lags $1\dots9$. In the plot with lag 1 a downward trend
+    can be seen, in agreement with the fact that $r_Y(1) \approx
+    -0.5$.
     \begin{figure}[htbp]
       \centering
       \includegraphics[width=0.7\textwidth]{matlab/joe_data}
-    \caption{Data}
+    \caption{Time series of Fig.~2.10}
     \label{joe_data}
     \end{figure}
     \begin{figure}[htbp]
       \centering
       \includegraphics[width=0.7\textwidth]{matlab/joe_autocorr}
-      \caption{Autocorrelation}
+      \caption{Autocorrelation of Fig.~2.10}
     \label{joe_autocorr}
     \end{figure}
     \begin{figure}[htbp]
       \centering
       \includegraphics[width=0.7\textwidth]{matlab/lagplot}
-    \caption{Lag plot}
+    \caption{Lag plots pf Fig.~2.10}
     \label{joe_lagplot}
-    \end{figure}      
+    \end{figure}
+    
 \item The confidence intervals for the mean of the 48 uniform random
   variables generated 1000 times are shown in
   Fig.~\ref{uniform_mean_ci}. $51$ of them don't contain the true
