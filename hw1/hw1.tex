@@ -60,22 +60,26 @@
     \caption{ECDFs}
     \label{plot_2_2}
     \end{figure}
-    The values of figure 2.3 are in Table~\ref{boxplot_table}, in this
-    table the dispersion is cut to 0 because the data cannot assume
-    negative values.
-    \begin{table}[h]
+    
+    The statistics that are needed to draw Fig.2.3 are shown in
+    Table~\ref{boxplot_table}, in this table the dispersion lower
+    bound is set to zero for both the new and the old execution times
+    because they cannot assume negative values.
+    \begin{table}[htbp]
       \centering
-      \begin{tabular}{l||L|L}
-         & \text{Old data} & \text{New data} \\
+      \begin{tabular}{lLL}
+        & \text{Old} & \text{New} \\
         \hline
-        Mean & 60.16 \quad \text{CI} \quad [50.93, 69.40] & 34.10 \quad \text{CI} \quad [29.26, 38.94] \\
-        Median & 48.10 \quad \text{CI} \quad [39.18, 61.10] & 28.86 \quad \text{CI} \quad [25.26, 36.65] \\
-        First quartile & 22.80 & 16.54 \\
-        Third quartile & 94.04 & 45.45 \\
-        Dispersion & [0, 200.90] & [0, 88.83] \\
-        Prediction interval & [0.538, 182.31] & [1.51, 100,86] 
+        Mean & 60.162 & 34.100 \\
+        Mean CI & [50.928, 69.395] & [29.262, 38.938] \\
+        Median & 48.104 & 28.865 \\
+        Median CI & [44.430, 55.873] & [27.813, 31.233] \\
+        First quartile & 22.956 & 16.626 \\
+        Third quartile & 94.786 & 45.626 \\
+        Dispersion & [0, 202.530] & [0, 89.127] \\
+        Prediction interval & [0.538, 182.308] & [1.511, 100.863] \\
       \end{tabular}
-      \caption{Box plot data}
+      \caption{Data for the box plot of the execution times of Fig.~2.3}
       \label{boxplot_table}
     \end{table}
     

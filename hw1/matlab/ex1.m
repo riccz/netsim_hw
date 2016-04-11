@@ -44,44 +44,38 @@ legend('Old', 'New');
 print('fig2_2', '-depsc');
 
 % Figure 2.3
-[med_old, med_old_ci_low, med_old_ci_upp] = median_ci_95(sgbdold);
-[med_new, med_new_ci_low, med_new_ci_upp] = median_ci_95(sgbdnew);
+m_old = mean(sgbdold);
+m_old_ci = mean_ci(sgbdold);
+m_new = mean(sgbdnew);
+m_new_ci = mean_ci(sgbdnew);
 
-[mean_old, mean_old_ci_low, mean_old_ci_upp] = mean_ci_95(sgbdold);
-[mean_new, mean_new_ci_low, mean_new_ci_upp] = mean_ci_95(sgbdnew);
+med_old = median(sgbdold);
+med_old_ci = median_ci(sgbdold);
+med_new = median(sgbdnew);
+med_new_ci = median_ci(sgbdnew);
 
-[pi_old_low, pi_old_upp] = prediction_interval_bootstrap(sgbdold, 0.95);
-[pi_new_low, pi_new_upp] = prediction_interval_bootstrap(sgbdnew, 0.95);
+pi_old = prediction_interval(sgbdold);
+pi_new = prediction_interval(sgbdnew);
 
-sorted_old = sort(sgbdold);
-sorted_new = sort(sgbdnew);
-first_quartile_old = sorted_old(25);
-third_quartile_old = sorted_old(75);
-first_quartile_new = sorted_new(25);
-third_quartile_new = sorted_new(75);
+quartiles_old = quantile(sgbdold, 3);
+quartiles_new = quantile(sgbdnew, 3);
 
-iq_dist_old = third_quartile_old - first_quartile_old;
-dispersion_old_low = first_quartile_old - 1.5*iq_dist_old;
-dispersion_old_high = third_quartile_old + 1.5*iq_dist_old;
+iq_dist_old = quartiles_old(3) - quartiles_old(1);
+dispersion_old = [quartiles_old(1) - 1.5*iq_dist_old, quartiles_old(3) + 1.5*iq_dist_old];
 
-iq_dist_new = third_quartile_new - first_quartile_new;
-dispersion_new_low = first_quartile_new - 1.5*iq_dist_new;
-dispersion_new_high = third_quartile_new + 1.5*iq_dist_new;
+iq_dist_new = quartiles_new(3) - quartiles_new(1);
+dispersion_new = [quartiles_new(1) - 1.5*iq_dist_new, quartiles_new(3) + 1.5*iq_dist_new];
 
-
-fprintf('For the old data:\n');
-fprintf('  mean: %f CI [%f, %f]\n', mean_old, mean_old_ci_low, mean_old_ci_upp);
-fprintf('  median: %f CI [%f, %f]\n', med_old, med_old_ci_low, med_old_ci_upp);
-fprintf('  first quartile: %f, third quartile: %f\n', first_quartile_old, third_quartile_old);
-fprintf('  dispersion: [%f,, %f]\n', dispersion_old_low, dispersion_old_high);
-fprintf('  prediction interval: [%f, %f]\n', pi_old_low, pi_old_upp);
-
-fprintf('For the new data:\n');
-fprintf('  mean: %f CI [%f, %f]\n', mean_new, mean_new_ci_low, mean_new_ci_upp);
-fprintf('  median: %f CI [%f, %f]\n', med_new, med_new_ci_low, med_new_ci_upp);
-fprintf('  first quartile: %f, third quartile: %f\n', first_quartile_new, third_quartile_new);
-fprintf('  dispersion: [%f,, %f]\n', dispersion_new_low, dispersion_new_high);
-fprintf('  prediction interval: [%f, %f]\n', pi_new_low, pi_new_upp);
+fprintf('Data from the box plot of fig.2.3\n');
+fprintf('  & Old & New \\\\\n');
+fprintf('  Mean & %.3f & %.3f \\\\\n', m_old, m_new);
+fprintf('  Mean CI & [%.3f, %.3f] & [%.3f, %.3f] \\\\\n', m_old_ci, m_new_ci);
+fprintf('  Median & %.3f & %.3f \\\\\n', med_old, med_new);
+fprintf('  Median CI & [%.3f, %.3f] & [%.3f, %.3f] \\\\\n', med_old_ci, med_new_ci);
+fprintf('  First quartile & %.3f & %.3f \\\\\n', quartiles_old(1), quartiles_new(1));
+fprintf('  Third quartile & %.3f & %.3f \\\\\n', quartiles_old(3), quartiles_new(3));
+fprintf('  Dispersion & [%.3f, %.3f] & [%.3f, %.3f] \\\\\n', dispersion_old, dispersion_new);
+fprintf('  Prediction interval & [%.3f, %.3f] & [%.3f, %.3f] \\\\\n', pi_old, pi_new);
 
 % Figure 2.7
 diff = sgbdold - sgbdnew;
