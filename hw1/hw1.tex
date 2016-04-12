@@ -158,20 +158,26 @@ can be seen, in agreement with the fact that $r_Y(1) \approx
 \end{figure}
 
 \section*{2}
-The confidence intervals for the mean of the 48 uniform random
-variables generated 1000 times are shown in
-Fig.~\ref{uniform_mean_ci}. $51$ of them don't contain the true
-value of the mean (0.5) but this is expected as the probability that
-this intervals contain 0.5 is $\approx 5\%$.
+The script \inlinecode{ex2.m} generates $K=1000$ times a vector of
+$n=48$ uniform random variables, calculates the sample mean of each
+vector with its CI and plots them sorted by lower extreme in
+Fig.~\ref{uniform_mean_ci}. Since the number of samples $n$ in each
+vector is big enough, the CIs are computed approximating the sample
+mean r.v. with a gaussian.
+
+The confidence intervals don't contain the true value of the mean
+$\mu=0.5$ in 52 cases out of $K$, but this is expected since, by
+definition of CI, the probability that it contains $\mu$ is $\approx
+5\%$.
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.7\textwidth]{matlab/uniform_mean_ci}
-  \caption{Uniform mean CIs}
+  \includegraphics[width=0.5\textwidth]{matlab/uniform_mean_ci}
+  \caption{Confidence intervals for the mean of $n$ samples of a uniform r.v.}
   \label{uniform_mean_ci}
 \end{figure}
-The plot shape is in accordance with the central limit theorem that
-allows the distribution of the sample mean to be approximated with a
-gaussian.
+The two lines in the plot have the shape of a gaussian distribution
+function and this tells that the approximation from the CLT used to
+compute the CIs is good.
 \section*{3}
 \section*{4} The mean for the $n$ uniform random variables generated in the
 script \inlinecode{ex4.m} for $ 1 \leq n \leq 100 $ are plotted in

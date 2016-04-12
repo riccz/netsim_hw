@@ -7,10 +7,11 @@ true_m = 0.5;
 m_out_count = 0;
 for i=1:K
     u = rand(n, 1);
-    [m, m_ci_low, m_ci_upp] = mean_ci_95(u);  
+    m = mean(u);
+    m_ci = mean_ci(u);  
     s = sqrt(var(u));
-    mean_confidence_intervals(i,:) = [m_ci_low m_ci_upp];
-    if true_m < m_ci_low || true_m > m_ci_upp
+    mean_confidence_intervals(i,:) = m_ci;
+    if true_m < m_ci(1) || true_m > m_ci(2)
         m_out_count = m_out_count + 1;
     end
 end
@@ -18,12 +19,11 @@ end
 fprintf('The CI does not contain the true mean in %d / %d cases\n', m_out_count, K);
 
 [sorted_low_ci, sort_i] = sort(mean_confidence_intervals(:,1));
-
 mean_confidence_intervals = [sorted_low_ci, mean_confidence_intervals(sort_i, 2)];
 
 figure;
 hold all;
 plot(1:K, mean_confidence_intervals(:,1), 'Color', 'blue');
 plot(1:K, mean_confidence_intervals(:, 2), 'Color', 'blue');
-plot(1:K, 0.5*ones(K, 1), 'Color', 'red');
+plot(1:K, true_m*ones(K, 1), 'Color', 'red');
 print('uniform_mean_ci', '-depsc');
