@@ -179,33 +179,43 @@ The two lines in the plot have the shape of a gaussian distribution
 function and this tells that the approximation from the CLT used to
 compute the CIs is good.
 \section*{3}
-\section*{4} The mean for the $n$ uniform random variables generated in the
-script \inlinecode{ex4.m} for $ 1 \leq n \leq 100 $ are plotted in
-Fig.~\ref{uniform_mean}. The variances with their confidence
-intervals at level $\gamma = 95\%$ computed with the bootstrap
-method are plotted in Fig.~\ref{uniform_var}. It can be seen that
-the mean goes toward the true value $0.5$ as $1/n$ while the
-variance goes toward $1/12$ as $1/\sqrt{n}$ (and also the CI
-decreases with the same speed).
+\section*{4}
+The script \inlinecode{ex4.m} generates a vector of $n$ uniform random
+variables for $n = 1,2\dots500$, computes the mean, the variance with
+its CI and the prediction interval for each vector and plots
+everything as $n$ varies. In Fig.~\ref{uniform_mean} there is the
+sample mean of the vectors, that can be seen to converge to the true
+value $\mu=0.5$ like $1/n$. In Fig.\ref{uniform_var} there is the plot
+of the variances with their 95\% confidence intervals computed using
+the bootstrap method and the true value of the variance $\sigma^2 =
+\frac{1}{12}$. In this case the estimate converges more slowly to the
+true value as $1/\sqrt{n}$ (and the size of the CIs also decreases at
+the same rate).
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.7\textwidth]{matlab/uniform_mean_n}
-  \caption{Mean for $n$ uniform random variables}
-  \label{uniform_mean}
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/uniform_mean_n}
+    \caption{Sample mean for $n$ uniform random variables}
+    \label{uniform_mean}
+    \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/uniform_variance_n}
+    \caption{Sample variance for $n$ uniform random variables}
+    \label{uniform_var}
+  \end{subfigure}
+  \caption{Statistics for a vector of uniform random variables}
 \end{figure}
+The prediction interval, shown in Fig.~\ref{pred_int_unif}, does not
+depend on $n$, so as soon as there are enough samples ($n=39$) it
+remains around the same value. A theoretical 95\% prediction interval
+for a uniform r.v. is just any interval of length 0.95 contained in
+$[0,1]$. In the figure the interval $[0.025, 0.975]$ is compared to
+the estimated one.
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.7\textwidth]{matlab/uniform_variance_n}
-  \caption{Variance for $n$ uniform random variables}
-  \label{uniform_var}
-\end{figure}
-The prediction interval (Fig.~\ref{pred_int_unif}) does not depend
-on $n$, so as soon as there are enough samples ($n=39$) it remains
-around the same value. The theoretical values for a 95\% prediction
-interval are $[0.025, 0.975]$.
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\textwidth]{matlab/uniform_prediction_interval_n}
+  \includegraphics[width=0.5\textwidth]{matlab/uniform_prediction_interval_n}
   \caption{Prediction interval for $n$ uniform random variables}
   \label{pred_int_unif}
 \end{figure}
