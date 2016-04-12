@@ -44,195 +44,195 @@
 }
 \maketitle
 \section*{1}
-  The replicas of figure 2.1 and 2.2 are shown as
-  Fig.~\ref{plot_2_1}~and~\ref{plot_2_2}. The histogram values are
-  computed with \inlinecode{histogram_1} and the ECDF with
-  \inlinecode{empirical_cdf}.
-  \begin{figure}[htbp]
+The replicas of figure 2.1 and 2.2 are shown as
+Fig.~\ref{plot_2_1}~and~\ref{plot_2_2}. The histogram values are
+computed with \inlinecode{histogram_1} and the ECDF with
+\inlinecode{empirical_cdf}.
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{0.5\textwidth}
     \centering
-    \begin{subfigure}{0.5\textwidth}
-      \centering
-      \includegraphics[width=0.95\textwidth]{matlab/fig2_1}
-      \caption{Raw data and histograms}
-      \label{plot_2_1}
-    \end{subfigure}%
-    \begin{subfigure}{0.5\textwidth}
-      \centering
-      \includegraphics[width=0.7\textwidth]{matlab/fig2_2}
-      \caption{ECDFs}
-      \label{plot_2_2}
-    \end{subfigure}
-    \caption{Figures 2.1 and 2.2}
-  \end{figure}
-    
-    The statistics that are needed to draw Fig.2.3 are shown in
-    Table~\ref{boxplot_table}, in this table the dispersion lower
-    bound is set to zero for both the new and the old execution times
-    because they cannot assume negative values. To compute the mean
-    confidence intervals the function \inlinecode{mean_ci} is used,
-    which uses the central limit theorem to approximate it. The median
-    CIs are computed by \inlinecode{median_ci} which applies the
-    Theorem~2.1. For the dispersion, the definition given in the
-    caption of Fig.~2.3 is used to computed it as 1.5 times the
-    interquartile distance. Theorem~2.5 is used to compute the
-    prediction intervals based on the order statistic in
-    \inlinecode{prediction_interval}.
-    \begin{table}[htbp]
-      \centering
-      \begin{tabular}{lLL}
-        & \text{Old} & \text{New} \\
-        \hline
-        Mean & 60.162 & 34.100 \\
-        Mean CI & [50.928, 69.395] & [29.262, 38.938] \\
-        Median & 48.104 & 28.865 \\
-        Median CI & [44.430, 55.873] & [27.813, 31.233] \\
-        First quartile & 22.956 & 16.626 \\
-        Third quartile & 94.786 & 45.626 \\
-        Dispersion & [0, 202.530] & [0, 89.127] \\
-        Prediction interval & [0.538, 182.308] & [1.511, 100.863] \\
-      \end{tabular}
-      \caption{Data for the box plot of the execution times of Fig.~2.3}
-      \label{boxplot_table}
-    \end{table}
-    
-    The difference between the old and the new execution times of
-    Figure 2.7 is plotted together with its histogram and box plot in
-    Fig.~\ref{diff_plots}. The mean of the difference, along with its
-    95\% confidence interval, is overlayed on the box plot by
-    \inlinecode{box_plot_with_mean}.
-    \begin{figure}[htbp]
+    \includegraphics[width=0.95\textwidth]{matlab/fig2_1}
+    \caption{Raw data and histograms}
+    \label{plot_2_1}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=0.8\textwidth]{matlab/diff_plots}
-    \caption{Difference betweeen the old and the new execution times}
-    \label{diff_plots}
-    \end{figure}
-    
-    Figure 2.8 is replicated in Fig.~\ref{cis_plot}, where the blue
-    bars represent the mean and the CI of the execution times
-    calculated assuming that the samples are gaussian
-    (\inlinecode{mean_ci_gaussian}), the red bars are calculated like
-    in the general case using the central limit theorem, while the
-    green bars are calculated using the bootstrap technique
-    (\inlinecode{mean_ci_bootstrap}).
-    \begin{figure}[htbp]
+    \includegraphics[width=0.7\textwidth]{matlab/fig2_2}
+    \caption{ECDFs}
+    \label{plot_2_2}
+  \end{subfigure}
+  \caption{Figures 2.1 and 2.2}
+\end{figure}
+
+The statistics that are needed to draw Fig.2.3 are shown in
+Table~\ref{boxplot_table}, in this table the dispersion lower
+bound is set to zero for both the new and the old execution times
+because they cannot assume negative values. To compute the mean
+confidence intervals the function \inlinecode{mean_ci} is used,
+which uses the central limit theorem to approximate it. The median
+CIs are computed by \inlinecode{median_ci} which applies the
+Theorem~2.1. For the dispersion, the definition given in the
+caption of Fig.~2.3 is used to computed it as 1.5 times the
+interquartile distance. Theorem~2.5 is used to compute the
+prediction intervals based on the order statistic in
+\inlinecode{prediction_interval}.
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{lLL}
+    & \text{Old} & \text{New} \\
+    \hline
+    Mean & 60.162 & 34.100 \\
+    Mean CI & [50.928, 69.395] & [29.262, 38.938] \\
+    Median & 48.104 & 28.865 \\
+    Median CI & [44.430, 55.873] & [27.813, 31.233] \\
+    First quartile & 22.956 & 16.626 \\
+    Third quartile & 94.786 & 45.626 \\
+    Dispersion & [0, 202.530] & [0, 89.127] \\
+    Prediction interval & [0.538, 182.308] & [1.511, 100.863] \\
+  \end{tabular}
+  \caption{Data for the box plot of the execution times of Fig.~2.3}
+  \label{boxplot_table}
+\end{table}
+
+The difference between the old and the new execution times of
+Figure 2.7 is plotted together with its histogram and box plot in
+Fig.~\ref{diff_plots}. The mean of the difference, along with its
+95\% confidence interval, is overlayed on the box plot by
+\inlinecode{box_plot_with_mean}.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{matlab/diff_plots}
+  \caption{Difference betweeen the old and the new execution times}
+  \label{diff_plots}
+\end{figure}
+
+Figure 2.8 is replicated in Fig.~\ref{cis_plot}, where the blue
+bars represent the mean and the CI of the execution times
+calculated assuming that the samples are gaussian
+(\inlinecode{mean_ci_gaussian}), the red bars are calculated like
+in the general case using the central limit theorem, while the
+green bars are calculated using the bootstrap technique
+(\inlinecode{mean_ci_bootstrap}).
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{matlab/cis_plot}
+  \caption{Confidence intervals calculated assuming normal data, in
+    the general case and using bootstrap}
+  \label{cis_plot}
+\end{figure}
+
+The plots of Example 2.5 are reproduced in
+Figures~\ref{joe_data},~\ref{joe_autocorr}~and~\ref{joe_lagplot}. The
+first one shows the values that the random variable $Y_t$ assumes
+for $N = 93$ days. In the second plot there is the autocorrelation
+$r_Y(n)$ of $Y_t$ (normalized with $r_Y(0)$) along with the 95\%
+confidence interval $[-1.96/\sqrt{N}, 1.96/\sqrt{N}]$ that should
+contain the estimated values of $r_Y(n>0)$ if the samples were
+i.i.d., in this case we can see that they are very correlated when
+the lag $n=1$.  In the last figure there are the lag plots of
+$Y_t$ for lags $1\dots9$. In the plot with lag 1 a downward trend
+can be seen, in agreement with the fact that $r_Y(1) \approx
+-0.5$.
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=0.5\textwidth]{matlab/cis_plot}
-    \caption{Confidence intervals calculated assuming normal data, in
-      the general case and using bootstrap}
-    \label{cis_plot}
-    \end{figure}
-    
-    The plots of Example 2.5 are reproduced in
-    Figures~\ref{joe_data},~\ref{joe_autocorr}~and~\ref{joe_lagplot}. The
-    first one shows the values that the random variable $Y_t$ assumes
-    for $N = 93$ days. In the second plot there is the autocorrelation
-    $r_Y(n)$ of $Y_t$ (normalized with $r_Y(0)$) along with the 95\%
-    confidence interval $[-1.96/\sqrt{N}, 1.96/\sqrt{N}]$ that should
-    contain the estimated values of $r_Y(n>0)$ if the samples were
-    i.i.d., in this case we can see that they are very correlated when
-    the lag $n=1$.  In the last figure there are the lag plots of
-    $Y_t$ for lags $1\dots9$. In the plot with lag 1 a downward trend
-    can be seen, in agreement with the fact that $r_Y(1) \approx
-    -0.5$.
-    \begin{figure}[htbp]
-      \centering
-      \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{matlab/joe_data}
-        \caption{Raw data}
-        \label{joe_data}
-      \end{subfigure}%
-      \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=0.95\textwidth]{matlab/joe_autocorr}
-        \caption{Autocorrelation}
-        \label{joe_autocorr}
-      \end{subfigure}
-      \caption{Data of Fig.~2.10}
-    \end{figure}
-    \begin{figure}[htbp]
-      \centering
-      \includegraphics[width=\textwidth]{matlab/lagplot}
-      \caption{Lag plots pf Fig.~2.10}
-      \label{joe_lagplot}
-    \end{figure}
-    
-    \section*{2}
-    The confidence intervals for the mean of the 48 uniform random
-  variables generated 1000 times are shown in
-  Fig.~\ref{uniform_mean_ci}. $51$ of them don't contain the true
-  value of the mean (0.5) but this is expected as the probability that
-  this intervals contain 0.5 is $\approx 5\%$.
-  \begin{figure}[htbp]
+    \includegraphics[width=0.95\textwidth]{matlab/joe_data}
+    \caption{Raw data}
+    \label{joe_data}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=0.7\textwidth]{matlab/uniform_mean_ci}
-    \caption{Uniform mean CIs}
-    \label{uniform_mean_ci}
-  \end{figure}
-  The plot shape is in accordance with the central limit theorem that
-  allows the distribution of the sample mean to be approximated with a
-  gaussian.
+    \includegraphics[width=0.95\textwidth]{matlab/joe_autocorr}
+    \caption{Autocorrelation}
+    \label{joe_autocorr}
+  \end{subfigure}
+  \caption{Data of Fig.~2.10}
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{matlab/lagplot}
+  \caption{Lag plots pf Fig.~2.10}
+  \label{joe_lagplot}
+\end{figure}
+
+\section*{2}
+The confidence intervals for the mean of the 48 uniform random
+variables generated 1000 times are shown in
+Fig.~\ref{uniform_mean_ci}. $51$ of them don't contain the true
+value of the mean (0.5) but this is expected as the probability that
+this intervals contain 0.5 is $\approx 5\%$.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{matlab/uniform_mean_ci}
+  \caption{Uniform mean CIs}
+  \label{uniform_mean_ci}
+\end{figure}
+The plot shape is in accordance with the central limit theorem that
+allows the distribution of the sample mean to be approximated with a
+gaussian.
 \section*{3}
 \section*{4} The mean for the $n$ uniform random variables generated in the
-  script \inlinecode{ex4.m} for $ 1 \leq n \leq 100 $ are plotted in
-  Fig.~\ref{uniform_mean}. The variances with their confidence
-  intervals at level $\gamma = 95\%$ computed with the bootstrap
-  method are plotted in Fig.~\ref{uniform_var}. It can be seen that
-  the mean goes toward the true value $0.5$ as $1/n$ while the
-  variance goes toward $1/12$ as $1/\sqrt{n}$ (and also the CI
-  decreases with the same speed).
-  \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{matlab/uniform_mean_n}
-    \caption{Mean for $n$ uniform random variables}
-    \label{uniform_mean}
-  \end{figure}
-  \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{matlab/uniform_variance_n}
-    \caption{Variance for $n$ uniform random variables}
-    \label{uniform_var}
-  \end{figure}
-  The prediction interval (Fig.~\ref{pred_int_unif}) does not depend
-  on $n$, so as soon as there are enough samples ($n=39$) it remains
-  around the same value. The theoretical values for a 95\% prediction
-  interval are $[0.025, 0.975]$.
-  \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{matlab/uniform_prediction_interval_n}
-    \caption{Prediction interval for $n$ uniform random variables}
-    \label{pred_int_unif}
-  \end{figure}
+script \inlinecode{ex4.m} for $ 1 \leq n \leq 100 $ are plotted in
+Fig.~\ref{uniform_mean}. The variances with their confidence
+intervals at level $\gamma = 95\%$ computed with the bootstrap
+method are plotted in Fig.~\ref{uniform_var}. It can be seen that
+the mean goes toward the true value $0.5$ as $1/n$ while the
+variance goes toward $1/12$ as $1/\sqrt{n}$ (and also the CI
+decreases with the same speed).
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{matlab/uniform_mean_n}
+  \caption{Mean for $n$ uniform random variables}
+  \label{uniform_mean}
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{matlab/uniform_variance_n}
+  \caption{Variance for $n$ uniform random variables}
+  \label{uniform_var}
+\end{figure}
+The prediction interval (Fig.~\ref{pred_int_unif}) does not depend
+on $n$, so as soon as there are enough samples ($n=39$) it remains
+around the same value. The theoretical values for a 95\% prediction
+interval are $[0.025, 0.975]$.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{matlab/uniform_prediction_interval_n}
+  \caption{Prediction interval for $n$ uniform random variables}
+  \label{pred_int_unif}
+\end{figure}
 \section*{5} In the same way of point 2 the plot of the mean CIs is computed
-  (fig.~\ref{gaussian_mean_ci}), it has $\approx 5\%$ of the CIs that
-  don't contain the true value 0 and the same gaussian shape.
-  \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{matlab/gaussian_mean_ci}
-    \caption{Mean CIs for the gaussian r.v.s}
-    \label{gaussian_mean_ci}
-  \end{figure}
+(fig.~\ref{gaussian_mean_ci}), it has $\approx 5\%$ of the CIs that
+don't contain the true value 0 and the same gaussian shape.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{matlab/gaussian_mean_ci}
+  \caption{Mean CIs for the gaussian r.v.s}
+  \label{gaussian_mean_ci}
+\end{figure}
 
-  As in point 4 the mean (Fig.~\ref{gaussian_mean_n}), variance with
-  CIs (Fig.\ref{gaussian_var_n}) and the prediction interval
-  (Fig.\ref{gaussian_pred_int_n}) are computed for $1 \leq n \leq 100$.
-  \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{matlab/normal_mean_n}
-    \caption{Mean for $n$ gaussian random variables}
-    \label{gaussian_mean_n}
-  \end{figure}
-  \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{matlab/normal_variance_n}
-    \caption{Variance for $n$ gaussian random variables}
-    \label{gaussian_var_n}
-  \end{figure}
-    \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{matlab/normal_prediction_interval_n}
-    \caption{Prediction interval for $n$ gaussian random variables}
-    \label{gaussian_pred_int_n}
-  \end{figure}
+As in point 4 the mean (Fig.~\ref{gaussian_mean_n}), variance with
+CIs (Fig.\ref{gaussian_var_n}) and the prediction interval
+(Fig.\ref{gaussian_pred_int_n}) are computed for $1 \leq n \leq 100$.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{matlab/normal_mean_n}
+  \caption{Mean for $n$ gaussian random variables}
+  \label{gaussian_mean_n}
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{matlab/normal_variance_n}
+  \caption{Variance for $n$ gaussian random variables}
+  \label{gaussian_var_n}
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{matlab/normal_prediction_interval_n}
+  \caption{Prediction interval for $n$ gaussian random variables}
+  \label{gaussian_pred_int_n}
+\end{figure}
 
 \end{document}
