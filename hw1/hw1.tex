@@ -110,13 +110,13 @@ Fig.~\ref{diff_plots}. The mean of the difference, along with its
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{matlab/diff_plots}
-  \caption{Difference betweeen the old and the new execution times}
+  \caption{Difference between the old and the new execution times}
   \label{diff_plots}
 \end{figure}
 
 Figure 2.8 is replicated in Fig.~\ref{cis_plot}, where the blue
 bars represent the mean and the CI of the execution times
-calculated assuming that the samples are gaussian
+calculated assuming that the samples are Gaussian
 (\inlinecode{mean_ci_gaussian}), the red bars are calculated like
 in the general case using the central limit theorem, while the
 green bars are calculated using the bootstrap technique
@@ -170,7 +170,7 @@ $n=48$ uniform random variables, calculates the sample mean of each
 vector with its CI and plots them sorted by lower extreme in
 Fig.~\ref{uniform_mean_ci}. Since the number of samples $n$ in each
 vector is big enough, the CIs are computed approximating the sample
-mean r.v. with a gaussian.
+mean r.v. with a Gaussian.
 
 The confidence intervals don't contain the true value of the mean
 $\mu=0.5$ in 52 cases out of $K$, but this is expected since, by
@@ -182,20 +182,20 @@ definition of CI, the probability that it contains $\mu$ is $\approx
   \caption{Confidence intervals for the mean of $n$ samples of a uniform r.v.}
   \label{uniform_mean_ci}
 \end{figure}
-The two lines in the plot have the shape of a gaussian distribution
+The two lines in the plot have the shape of a Gaussian distribution
 function and this tells that the approximation from the CLT used to
 compute the CIs is good.
 \section*{3}
 The distribution function of the order statistic can be written as
 \[ F_{U_{(k)}}(u) = \Prob{U_{(k)} \leq u} = \Prob{\sum_{j=1}^n\ind{U_j \leq u} \geq k} \]
-which, using the total probabilty theorem, becomes
+which, using the total probability theorem, becomes
 \begin{align*}
   & \sum_{i=0}^n\left(\ProbC{\sum_{j=1}^n\ind{U_j \leq u} \geq k}{\sum_{j=1}^n\ind{U_j \leq u} = i}\Prob{\sum_{j=1}^n\ind{U_j \leq u} = i}\right) = \\
   &= \sum_{i=k}^n\left( \Prob{\sum_{j=1}^n\ind{U_j \leq u} = i} \right) . 
 \end{align*}
-Since the random variable $\ind{U_j \leq u}$ is bernoullian with
+Since the random variable $\ind{U_j \leq u}$ is Bernoullian with
 success probability $u$, the probability inside the sum is the
-probabilty distribution of a binomial random variable with parameters
+probability distribution of a binomial random variable with parameters
 $n$ and $u$. So the distribution function of $U_{(k)}$
 \[  F_{U_{(k)}}(u) = \sum_{i=k}^n\left(\binom{n}{i}u^i(1-u)^{n-i}\right)
 = 1 - \sum_{i=0}^{k-1}\left(\binom{n}{i}u^i(1-u)^{n-i}\right) \]
@@ -204,7 +204,7 @@ $\mathrm{Bin}(n,u)$ evaluated at point $k$.
 
 Now it is possible to directly compute the mean of $U_{(k)}$:
 \[ \E{U_{(k)}} = \int_0^1 u \mathrm{d} F_{U_{(k)}}(u) \]
-where the probablity density function can be obtained by
+where the probability density function can be obtained by
 differentiating the distribution function:
 \[ \frac{\mathrm{d}}{\mathrm{d}u} F_{U_{(k)}}(u) =
 - \sum_{i=0}^{k-1}\binom{n}{i}\left( iu^{i-1}(1-u)^{n-i} - u^i(n-i)(1-u)^{n-i-1} \right) \]
@@ -259,24 +259,24 @@ for a uniform r.v. is just any interval of length 0.95 contained in
 $[0,1]$. In the figure the interval $[0.025, 0.975]$ is compared to
 the estimated one.
 \section*{5}
-For a vector of $n = 48$ gaussian samples the means with CIs are
+For a vector of $n = 48$ Gaussian samples the means with CIs are
 plotted in Fig.~\ref{gaussian_mean_ci}, this time the confidence
-intervals are computed knowing that the samples are gaussian so the
+intervals are computed knowing that the samples are Gaussian so the
 sample mean is distributed like a Student's~t. Also this time the
 number of CIs that do not contain $\mu=0$ is $55/1000 \approx 5\%$.
 The shape also remains the same since $n$ is big and the sample mean's
-distribution could be approximated with a gaussian.
+distribution could be approximated with a Gaussian.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.5\textwidth]{matlab/gaussian_mean_ci}
-  \caption{Sample mean CI for $n$ gaussian samples}
+  \caption{Sample mean CI for $n$ Gaussian samples}
   \label{gaussian_mean_ci}
 \end{figure}
 
 Like in point 4 the mean (Fig.~\ref{gaussian_mean_n}), the variance
 with CIs (Fig.\ref{gaussian_var_n}) and the prediction interval
-(Fig.\ref{gaussian_pred_int_n}) are computed for a vactor of $n$
-gaussian r.v.s with $n = 1,2\dots500$. This time, instead of using the
+(Fig.\ref{gaussian_pred_int_n}) are computed for a vector of $n$
+Gaussian r.v.s with $n = 1,2\dots500$. This time, instead of using the
 CLT, the sample mean is treated as having a Student's
 t-distribution. So the confidence intervals for the mean and the
 variance are computed using theorem 2.3, and the prediction interval
@@ -287,19 +287,19 @@ i.i.d. case.
   \begin{subfigure}{.5\textwidth}
     \centering
     \includegraphics[width=0.95\textwidth]{matlab/normal_mean_n}
-    \caption{Mean for $n$ gaussian random variables}
+    \caption{Mean for $n$ Gaussian random variables}
     \label{gaussian_mean_n}
   \end{subfigure}%
   \begin{subfigure}{.5\textwidth}
     \centering
     \includegraphics[width=0.95\textwidth]{matlab/normal_variance_n}
-    \caption{Variance for $n$ gaussian random variables}
+    \caption{Variance for $n$ Gaussian random variables}
     \label{gaussian_var_n}
   \end{subfigure}
   \begin{subfigure}{.5\textwidth}
     \centering
     \includegraphics[width=0.95\textwidth]{matlab/normal_prediction_interval_n}
-    \caption{Prediction interval for $n$ gaussian random variables}
+    \caption{Prediction interval for $n$ Gaussian random variables}
     \label{gaussian_pred_int_n}
   \end{subfigure}
 \end{figure}
