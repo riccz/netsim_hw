@@ -5,6 +5,7 @@
 \usepackage[english]{babel}
 
 \usepackage{amsmath}
+\usepackage{bbm}
 \usepackage{siunitx}
 \usepackage{hyperref}
 \usepackage{listings}
@@ -21,6 +22,12 @@
 \newcommand{\includecode}[1]{\lstinputlisting[caption={\ttfamily #1.m},
     label={lst:#1}]{matlab/#1.m}}
 \newcommand{\inlinecode}[1]{\lstinline[basicstyle=\ttfamily,keywordstyle={}]{#1}}
+
+\newcommand{\E}[1]{\operatorname{E}\left[#1\right]}
+\newcommand{\Prob}[1]{\operatorname{P}\left[#1\right]}
+\newcommand{\ProbC}[2]{\operatorname{P}\left[#1\middle|#2\right]}
+%\newcommand{\calU}[0]{\mathcal{U}}
+\newcommand{\ind}[1]{\operatorname{\mathbbm{1}}\left\{#1\right\}}
 
 \newcolumntype{L}{>{$}l<{$}}
 
@@ -179,6 +186,38 @@ The two lines in the plot have the shape of a gaussian distribution
 function and this tells that the approximation from the CLT used to
 compute the CIs is good.
 \section*{3}
+The distribution function of the order statistic can be written as
+\[ F_{U_{(k)}}(u) = \Prob{U_{(k)} \leq u} = \Prob{\sum_{j=1}^n\ind{U_j \leq u} \geq k} \]
+which, using the total probabilty theorem, becomes
+\begin{align*}
+  & \sum_{i=0}^n\left(\ProbC{\sum_{j=1}^n\ind{U_j \leq u} \geq k}{\sum_{j=1}^n\ind{U_j \leq u} = i}\Prob{\sum_{j=1}^n\ind{U_j \leq u} = i}\right) = \\
+  &= \sum_{i=k}^n\left( \Prob{\sum_{j=1}^n\ind{U_j \leq u} = i} \right) . 
+\end{align*}
+Since the random variable $\ind{U_j \leq u}$ is bernoullian with
+success probability $u$, the probability inside the sum is the
+probabilty distribution of a binomial random variable with parameters
+$n$ and $u$. So the distribution function of $U_{(k)}$
+\[  F_{U_{(k)}}(u) = \sum_{i=k}^n\left(\binom{n}{i}u^i(1-u)^{n-i}\right)
+= 1 - \sum_{i=0}^{k-1}\left(\binom{n}{i}u^i(1-u)^{n-i}\right) \]
+is the complementary distribution function of a
+$\mathrm{Bin}(n,u)$ evaluated at point $k$.
+
+Now it is possible to directly compute the mean of $U_{(k)}$:
+\[ \E{U_{(k)}} = \int_0^1 u \mathrm{d} F_{U_{(k)}}(u) \]
+where the probablity density function can be obtained by
+differentiating the distribution function:
+\[ \frac{\mathrm{d}}{\mathrm{d}u} F_{U_{(k)}}(u) =
+- \sum_{i=0}^{k-1}\binom{n}{i}\left( iu^{i-1}(1-u)^{n-i} - u^i(n-i)(1-u)^{n-i-1} \right) \]
+and then the integral and the sum can be swapped, since the sum is finite:
+\[ \E{U_{(k)}} = -\sum_{i=0}^{k-1}\binom{n}{i}\left( i\int_0^1u^i(1-u)^{n-i}\mathrm{d}u - (n-i)\int_0^1u^{i+1}(1-u)^{n-i-1}\mathrm{d}u \right) . \]
+Defining the function
+\[ I(i) = \int_0^1u^i(1-u)^{n-i} \mathrm{d}u \]
+the mean can be written as
+\[ \E{U_{(k)}} = -\sum_{i=0}^{k-1}\binom{n}{i}\left( iI(i) - (n-i)I(i+1) \right) \]
+and, since the solution of the integral $I(i)$ is
+\[ I(i) = \frac{m!(n-m)!}{n!(n+1)} \]
+the mean simplifies to
+\[ \E{U_{(k)}} = \frac{k}{n+1} . \]
 \section*{4}
 The script \inlinecode{ex4.m} generates a vector of $n$ uniform random
 variables for $n = 1,2\dots500$, computes the mean, the variance with
