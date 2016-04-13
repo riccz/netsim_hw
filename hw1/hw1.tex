@@ -205,6 +205,12 @@ the same rate).
     \caption{Sample variance for $n$ uniform random variables}
     \label{uniform_var}
   \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/uniform_prediction_interval_n}
+    \caption{Prediction interval for $n$ uniform random variables}
+    \label{pred_int_unif}  
+  \end{subfigure}
   \caption{Statistics for a vector of uniform random variables}
 \end{figure}
 The prediction interval, shown in Fig.~\ref{pred_int_unif}, does not
@@ -213,42 +219,50 @@ remains around the same value. A theoretical 95\% prediction interval
 for a uniform r.v. is just any interval of length 0.95 contained in
 $[0,1]$. In the figure the interval $[0.025, 0.975]$ is compared to
 the estimated one.
+\section*{5}
+For a vector of $n = 48$ gaussian samples the means with CIs are
+plotted in Fig.~\ref{gaussian_mean_ci}, this time the confidence
+intervals are computed knowing that the samples are gaussian so the
+sample mean is distributed like a Student's~t. Also this time the
+number of CIs that do not contain $\mu=0$ is $55/1000 \approx 5\%$.
+The shape also remains the same since $n$ is big and the sample mean's
+distribution could be approximated with a gaussian.
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.5\textwidth]{matlab/uniform_prediction_interval_n}
-  \caption{Prediction interval for $n$ uniform random variables}
-  \label{pred_int_unif}
-\end{figure}
-\section*{5} In the same way of point 2 the plot of the mean CIs is computed
-(fig.~\ref{gaussian_mean_ci}), it has $\approx 5\%$ of the CIs that
-don't contain the true value 0 and the same gaussian shape.
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\textwidth]{matlab/gaussian_mean_ci}
-  \caption{Mean CIs for the gaussian r.v.s}
+  \includegraphics[width=0.5\textwidth]{matlab/gaussian_mean_ci}
+  \caption{Sample mean CI for $n$ gaussian samples}
   \label{gaussian_mean_ci}
 \end{figure}
 
-As in point 4 the mean (Fig.~\ref{gaussian_mean_n}), variance with
-CIs (Fig.\ref{gaussian_var_n}) and the prediction interval
-(Fig.\ref{gaussian_pred_int_n}) are computed for $1 \leq n \leq 100$.
+Like in point 4 the mean (Fig.~\ref{gaussian_mean_n}), the variance
+with CIs (Fig.\ref{gaussian_var_n}) and the prediction interval
+(Fig.\ref{gaussian_pred_int_n}) are computed for a vactor of $n$
+gaussian r.v.s with $n = 1,2\dots500$. This time, instead of using the
+CLT, the sample mean is treated as having a Student's
+t-distribution. So the confidence intervals for the mean and the
+variance are computed using theorem 2.3, and the prediction interval
+is computed using theorem 2.6 instead of the one for the general
+i.i.d. case.
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.7\textwidth]{matlab/normal_mean_n}
-  \caption{Mean for $n$ gaussian random variables}
-  \label{gaussian_mean_n}
-\end{figure}
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\textwidth]{matlab/normal_variance_n}
-  \caption{Variance for $n$ gaussian random variables}
-  \label{gaussian_var_n}
-\end{figure}
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\textwidth]{matlab/normal_prediction_interval_n}
-  \caption{Prediction interval for $n$ gaussian random variables}
-  \label{gaussian_pred_int_n}
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/normal_mean_n}
+    \caption{Mean for $n$ gaussian random variables}
+    \label{gaussian_mean_n}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/normal_variance_n}
+    \caption{Variance for $n$ gaussian random variables}
+    \label{gaussian_var_n}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/normal_prediction_interval_n}
+    \caption{Prediction interval for $n$ gaussian random variables}
+    \label{gaussian_pred_int_n}
+  \end{subfigure}
 \end{figure}
 
 \end{document}
