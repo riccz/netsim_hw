@@ -1,5 +1,5 @@
 ZIPFILE = hw2.zip
-MATLAB_FILES = matlab/*.m matlab/data/
+MATLAB_FILES = matlab/*.m
 
 all: $(ZIPFILE)
 
