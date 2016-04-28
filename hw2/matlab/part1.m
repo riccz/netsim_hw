@@ -5,6 +5,10 @@ lcg1 = lcg(16807, 0, 2^31-1, 1);
 rand1 = lcg1.next(1000);
 
 figure;
+plot(0:999, sort(rand1));
+print('uniform_qq', '-depsc');
+
+figure;
 % n = 0:30; %length(rand1)-1;
 % r = xcorr(rand1, length(n)-1, 'coeff');
 % %r = r ./ r(length(n));
