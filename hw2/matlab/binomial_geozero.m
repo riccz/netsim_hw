@@ -8,8 +8,10 @@ end
 function x = one_binomial_geozero(n, p)
 x = 0;
 i = 0;
+logtheta = log(1-p);
 while i <= n
-    k = geometric(p);
+    %k = geometric(p);
+    k = floor(log(rand(1))/logtheta);
     i = i+k;
     if (i <= n)
         x = x + 1;
