@@ -5,6 +5,7 @@
 
 \usepackage[margin=2.54cm]{geometry}
 \usepackage{amsmath}
+\usepackage{bbm}
 \usepackage{siunitx}
 \usepackage{listings}
 \usepackage{color}
@@ -90,33 +91,79 @@ uncorrelated.
 \end{figure}
 
 \section*{2}
-
+In Tab.~\ref{tab:binomial} there are the times it takes to generate
+$N=10^5$ Binomial random variables with parameters $n$ and $p$ using
+three different methods:
+\begin{enumerate}
+\item By using the algorithm based on the CDF inversion that
+  iteratively computes
+  \begin{align*}
+    \mathrm{pr}(i) &= \Prob{X = i} = \frac{p}{1-p}\frac{n-i}{i+1}\Prob{X = i-1} \\
+    F(i) &= F(i-1) + \mathrm{pr}(i) ,
+  \end{align*}
+  stops as soon as $F(i) > U$, where $U$ is a uniform r.v. in $[0,
+    1]$, and takes $x = i$ as the realization of the Binomial r.v.
+  \item By generating $n$ Bernoullian r.v.s and counting the number of
+    successes, where each Bernoullian $b_i$ is generated from a uniform
+    r.v. $U_i$ as $b_i = \ind{U_i \leq p}$.
+  \item By generating a string of zeros of length $K_i$, geometrically
+    distributed with parameter $p$, counting a one at $K_i+1$ and
+    iterating until $\sum_i \left( K_i + 1 \right) > n$. The geometric
+    r.v.s are generated using the CDF inversion method.
+\end{enumerate}
 \begin{table}[h]
   \centering
   \begin{tabular}{MM|MMM}
     \multicolumn{2}{c}{Binomial parameters} &
     \multicolumn{1}{c}{CDF inversion} &
-    \multicolumn{1}{c}{Bernoullian successes} &
-    \multicolumn{1}{c}{Geometric sequence of zeros} \\
+    \multicolumn{1}{c}{Sum of Bernoullians} &
+    \multicolumn{1}{c}{Geometric sequences of zeros} \\
     \hline
-    n = 10 & p = 0.01 & \SI{2.669}{\s} & \SI{0.851}{\s} & \SI{4.060}{\s} \\
-    n = 10 & p = 0.50 & \SI{2.653}{\s} & \SI{0.835}{\s} & \SI{15.525}{\s} \\
-    n = 10 & p = 0.90 & \SI{2.693}{\s} & \SI{0.820}{\s} & \SI{24.863}{\s} \\
-    n = 50 & p = 0.01 & \SI{2.656}{\s} & \SI{0.960}{\s} & \SI{5.059}{\s} \\
-    n = 50 & p = 0.50 & \SI{2.693}{\s} & \SI{1.060}{\s} & \SI{60.092}{\s} \\
-    n = 50 & p = 0.90 & \SI{2.843}{\s} & \SI{1.006}{\s} & \SI{106.020}{\s} \\
-    n = 100 & p = 0.01 & \SI{2.673}{\s} & \SI{1.125}{\s} & \SI{6.223}{\s} \\
-    n = 100 & p = 0.50 & \SI{2.795}{\s} & \SI{1.266}{\s} & \SI{119.626}{\s} \\
-    n = 100 & p = 0.90 & \SI{2.925}{\s} & \SI{1.159}{\s} & \SI{207.903}{\s} \\
-    n = 200 & p = 0.01 & \SI{2.675}{\s} & \SI{1.514}{\s} & \SI{8.465}{\s} \\
-    n = 200 & p = 0.50 & \SI{2.945}{\s} & \SI{1.729}{\s} & - \\
-    n = 200 & p = 0.90 & \SI{3.158}{\s} & \SI{1.635}{\s} & - \\
-    n = 1000 & p = 0.01 & - & \SI{4.513}{\s} & - \\
-    n = 1000 & p = 0.50 & - & \SI{5.584}{\s} & - \\
-    n = 1000 & p = 0.90 & - & \SI{4.795}{\s} & - \\
+    n = 10 & p = 0.0001 & \SI{2.523}{\s} & \SI{0.856}{\s} & \SI{1.568}{\s} \\
+    n = 10 & p = 0.0100 & \SI{2.456}{\s} & \SI{0.864}{\s} & \SI{1.520}{\s} \\
+    n = 10 & p = 0.5000 & \SI{2.517}{\s} & \SI{0.822}{\s} & \SI{1.731}{\s} \\
+    n = 10 & p = 0.9000 & \SI{2.555}{\s} & \SI{0.867}{\s} & \SI{1.752}{\s} \\
+    n = 50 & p = 0.0001 & \SI{2.537}{\s} & \SI{0.996}{\s} & \SI{1.594}{\s} \\
+    n = 50 & p = 0.0100 & \SI{2.517}{\s} & \SI{0.974}{\s} & \SI{1.630}{\s} \\
+    n = 50 & p = 0.5000 & \SI{2.518}{\s} & \SI{1.069}{\s} & \SI{1.886}{\s} \\
+    n = 50 & p = 0.9000 & \SI{2.637}{\s} & \SI{0.979}{\s} & \SI{2.171}{\s} \\
+    n = 100 & p = 0.0001 & \SI{2.428}{\s} & \SI{1.134}{\s} & \SI{1.434}{\s} \\
+    n = 100 & p = 0.0100 & \SI{2.539}{\s} & \SI{1.147}{\s} & \SI{1.630}{\s} \\
+    n = 100 & p = 0.5000 & \SI{2.622}{\s} & \SI{1.242}{\s} & \SI{2.299}{\s} \\
+    n = 100 & p = 0.9000 & \SI{2.717}{\s} & \SI{1.166}{\s} & \SI{2.733}{\s} \\
+    n = 200 & p = 0.0001 & \SI{2.602}{\s} & \SI{1.504}{\s} & \SI{1.579}{\s} \\
+    n = 200 & p = 0.0100 & \SI{2.496}{\s} & \SI{1.492}{\s} & \SI{1.575}{\s} \\
+    n = 200 & p = 0.5000 & \SI{2.757}{\s} & \SI{1.697}{\s} & \SI{2.923}{\s} \\
+    n = 200 & p = 0.9000 & \SI{3.005}{\s} & \SI{1.569}{\s} & \SI{3.950}{\s} \\
+    n = 1000 & p = 0.0001 & \SI{2.471}{\s} & \SI{4.511}{\s} & \SI{1.680}{\s} \\
+    n = 1000 & p = 0.0100 & \SI{2.560}{\s} & \SI{4.535}{\s} & \SI{1.670}{\s} \\
+    n = 1000 & p = 0.5000 & \SI{3.841}{\s} & \SI{5.415}{\s} & \SI{8.050}{\s} \\
+    n = 1000 & p = 0.9000 & - & \SI{4.776}{\s} & \SI{14.127}{\s} \\
   \end{tabular}
   \caption{Timing of three Binomial generation methods}
   \label{tab:binomial}
 \end{table}
+
+As $n$ increases, the execution time for the second algorithm
+increases linearly and, for all the values of $n \neq 1000$ tried, it
+is the quickest of the three methods.
+
+The third algorithm's speed depends on the number of geometric samples
+that must be generated, which is $\approx \frac{n}{(1-p)/p}$ on
+average: when $p$ is small the execution time increases linearly in
+$n$ but very slowly, so this algorithm gives the best performance in
+the tested cases when $n = 1000$ and $p \in \{10^{-4}, 10^{-2}\}$. As
+$p$ becomes closer and closer to 1, on the other hand, the execution
+time grows more quickly (in the tested cases for $n \geq 100$ and $p
+\in \{0.5, 0.9\}$ this algorithm is the worst performing one).
+
+The execution time of the CDF inversion depends on the value of the
+generated sample, which is on average $np$, but it does not vary much
+in the tested cases. It is quite high compared to the other two
+methods for small values of $n$ and it becomes the best when $n =
+1000$ and $p = 0.5$. In the case $n = 1000$, $p=0.9$ the algorithm
+does not terminate because the probability $\mathrm{pr}(0) = (1-p)^n$ becomes so
+small that Matlab represents it with 0.
+\section*{3}
 
 \end{document}
