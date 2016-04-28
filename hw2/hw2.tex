@@ -1,0 +1,122 @@
+\documentclass[a4paper,oneside]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage[margin=2.54cm]{geometry}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{subcaption}
+%\usepackage{changepage}
+\usepackage[section]{placeins}
+\usepackage{hyperref}
+
+\definecolor{matlabgreen}{RGB}{28,172,0}
+\definecolor{matlablilas}{RGB}{170,55,241}
+
+\newcommand{\includecode}[1]{\lstinputlisting[caption={\ttfamily #1.m},label={lst:#1}]{matlab/#1.m}}
+\newcommand{\inlinecode}[1]{\lstinline[basicstyle=\ttfamily,keywordstyle={},stringstyle={},commentstyle={\itshape}]{#1}}
+
+\renewcommand{\vec}[1]{\underline{#1}}
+\renewcommand{\Re}[1]{\operatorname{Re}\left[#1\right]}
+\newcommand{\E}[1]{\operatorname{E}\left[#1\right]}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\F}[1]{\operatorname{\mathcal{F}}\left[#1\right]}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\Prob}[1]{\operatorname{P}\left[#1\right]}
+\newcommand{\ProbC}[2]{\operatorname{P}\left[#1\middle|#2\right]}
+%\newcommand{\calU}[0]{\mathcal{U}}
+\newcommand{\ind}[1]{\operatorname{\mathbbm{1}}\left\{#1\right\}}
+
+\newcolumntype{M}{>{$}r<{$}}
+
+\author{Riccardo Zanol}
+\title{Homework 2}
+
+\begin{document}
+\lstset{
+  language=Matlab,
+  basicstyle={\ttfamily \footnotesize},
+  breaklines=true,
+  morekeywords={true,false,warning,xlim,ylim},
+  keywordstyle=\color{blue},
+  stringstyle=\color{matlablilas},
+  commentstyle={\color{matlabgreen} \itshape},
+  numberstyle={\ttfamily \tiny},
+  frame=leftline,
+  showstringspaces=false,
+  numbers=left,
+  upquote=true,
+}
+\maketitle
+\section*{1}
+The class \inlinecode{lcg} implements a Linear Congruential Generator,
+which is a RNG that generates numbers according to
+\[ x_{k} = ax_{k-1} +b \mod m . \]
+To replicate Figure~6.5 a LCG with parameters
+$a=16807$,~$b=0$~and~$m=2^{31}-1$ is initialized with the seed value
+$x_0 = 1$, the first 1000 numbers that it generates are then sorted
+and plotted in Fig.~\ref{plot:qqplot}, where they look to be uniformly
+distributed in $[0,1]$.  From their autocorrelation
+(Fig.~\ref{plot:autocorr}) and their lag plots
+(Fig.~\ref{plot:lagplot}) the generated numbers appear to be
+uncorrelated.
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/uniform_qq}
+    \caption{QQ plot}
+    \label{plot:qqplot}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+        \centering
+    \includegraphics[width=0.95\textwidth]{matlab/rand1_autocorr}
+    \caption{Autocorrelation}
+    \label{plot:autocorr}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+        \centering
+    \includegraphics[width=0.95\textwidth]{matlab/rand1_lagplot}
+    \caption{Lag plot}
+    \label{plot:lagplot}
+  \end{subfigure}
+  \caption{Replicas of Figure 6.5}
+\end{figure}
+
+\section*{2}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{MM|MMM}
+    \multicolumn{2}{c}{Binomial parameters} &
+    \multicolumn{1}{c}{CDF inversion} &
+    \multicolumn{1}{c}{Bernoullian successes} &
+    \multicolumn{1}{c}{Geometric sequence of zeros} \\
+    \hline
+    n = 10 & p = 0.01 & \SI{2.669}{\s} & \SI{0.851}{\s} & \SI{4.060}{\s} \\
+    n = 10 & p = 0.50 & \SI{2.653}{\s} & \SI{0.835}{\s} & \SI{15.525}{\s} \\
+    n = 10 & p = 0.90 & \SI{2.693}{\s} & \SI{0.820}{\s} & \SI{24.863}{\s} \\
+    n = 50 & p = 0.01 & \SI{2.656}{\s} & \SI{0.960}{\s} & \SI{5.059}{\s} \\
+    n = 50 & p = 0.50 & \SI{2.693}{\s} & \SI{1.060}{\s} & \SI{60.092}{\s} \\
+    n = 50 & p = 0.90 & \SI{2.843}{\s} & \SI{1.006}{\s} & \SI{106.020}{\s} \\
+    n = 100 & p = 0.01 & \SI{2.673}{\s} & \SI{1.125}{\s} & \SI{6.223}{\s} \\
+    n = 100 & p = 0.50 & \SI{2.795}{\s} & \SI{1.266}{\s} & \SI{119.626}{\s} \\
+    n = 100 & p = 0.90 & \SI{2.925}{\s} & \SI{1.159}{\s} & \SI{207.903}{\s} \\
+    n = 200 & p = 0.01 & \SI{2.675}{\s} & \SI{1.514}{\s} & \SI{8.465}{\s} \\
+    n = 200 & p = 0.50 & \SI{2.945}{\s} & \SI{1.729}{\s} & \SI{0.000}{\s} \\
+    n = 200 & p = 0.90 & \SI{3.158}{\s} & \SI{1.635}{\s} & \SI{0.000}{\s} \\
+    n = 1000 & p = 0.01 & \SI{0.000}{\s} & \SI{4.513}{\s} & \SI{0.000}{\s} \\
+    n = 1000 & p = 0.50 & \SI{0.000}{\s} & \SI{5.584}{\s} & \SI{0.000}{\s} \\
+    n = 1000 & p = 0.90 & \SI{0.000}{\s} & \SI{4.795}{\s} & \SI{0.000}{\s} \\
+  \end{tabular}
+  \caption{Timing of three Binomial generation methods}
+  \label{tab:binomial}
+\end{table}
+
+\end{document}
