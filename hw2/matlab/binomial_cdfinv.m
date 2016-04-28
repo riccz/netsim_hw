@@ -10,6 +10,9 @@ u = rand(1);
 c = p/(1-p);
 i = 0;
 pr = (1-p)^n;
+if pr == 0
+    error '(1-p)^n is zero';
+end
 F = pr;
 while u >= F
     pr = c*(n-i)/(i+1)*pr;
