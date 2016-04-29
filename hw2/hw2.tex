@@ -109,7 +109,8 @@ three different methods:
   \item By generating a string of zeros of length $K_i$, geometrically
     distributed with parameter $p$, counting a one at $K_i+1$ and
     iterating until $\sum_i \left( K_i + 1 \right) > n$. The geometric
-    r.v.s are generated using the CDF inversion method.
+    r.v.s are generated, using the CDF inversion method, as
+    \[ K_i = \floor{\frac{\ln U_i}{\ln (1 - p)}} . \]
 \end{enumerate}
 \begin{table}[h]
   \centering
@@ -157,13 +158,16 @@ $p$ becomes closer and closer to 1, on the other hand, the execution
 time grows more quickly (in the tested cases for $n \geq 100$ and $p
 \in \{0.5, 0.9\}$ this algorithm is the worst performing one).
 
-The execution time of the CDF inversion depends on the value of the
-generated sample, which is on average $np$, but it does not vary much
-in the tested cases. It is quite high compared to the other two
-methods for small values of $n$ and it becomes the best when $n =
-1000$ and $p = 0.5$. In the case $n = 1000$, $p=0.9$ the algorithm
-does not terminate because the probability $\mathrm{pr}(0) = (1-p)^n$ becomes so
-small that Matlab represents it with 0.
+The execution time of the CDF inversion should depend on the value of
+the generated sample, which is on average $np$, because it runs for
+$x=i$ iterations but in the tested cases it does not seem to vary
+much.  Even when $np$ changes of a factor $10^4$ the time to generate
+the Binomial r.v.s remains around the same value. The time this
+algorithm takes is quite high compared to the other two methods for
+small values of $n$ but it becomes the best when $n = 1000$ and $p =
+0.5$. In the case $n = 1000$, $p=0.9$ the algorithm does not terminate
+because the probability $\mathrm{pr}(0) = (1-p)^n$ becomes so small
+that Matlab represents it with 0.
 \section*{3}
 
 \end{document}
