@@ -7,11 +7,19 @@ times = zeros(length(ns), length(ps), 3);
 
 for i=1:length(ns)
     for j=1:length(ps)
-        if ~(ns(i) == 1000 && ps(j) == 0.9)
+        try
             tic;
             x_cdfinv = binomial_cdfinv(ns(i), ps(j), N);
             times(i, j, 1) = toc;
             fprintf('.');
+        catch ex
+            if (strcmp(ex.identifier,'CDFInv:WouldNotTerminate'))
+                warning(ex.message);
+                times(i, j, 1) = NaN;
+                fprintf('!');
+            else
+                rethrow(ex);
+            end
         end
         
         tic;
@@ -19,17 +27,16 @@ for i=1:length(ns)
         times(i, j, 2) = toc;
         fprintf('.');
         
-        %if ns(i) <= 100 || (ps(j) <= 0.01 && ns(i) <= 200)
-            tic;
-            x_geozero = binomial_geozero(ns(i), ps(j), N);
-            times(i, j, 3) = toc;
-            fprintf('.');
-        %end
+        tic;
+        x_geozero = binomial_geozero(ns(i), ps(j), N);
+        times(i, j, 3) = toc;
+        fprintf('.');
         
-        fprintf('\n');
+        fprintf(':');
     end
     
 end
+fprintf('\n');
 
 fprintf('Binomial generation timing:\n');
 for i=1:length(ns)
