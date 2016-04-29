@@ -29,6 +29,7 @@
 \newcommand{\abs}[1]{\left|#1\right|}
 \newcommand{\F}[1]{\operatorname{\mathcal{F}}\left[#1\right]}
 \newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
 \newcommand{\Prob}[1]{\operatorname{P}\left[#1\right]}
 \newcommand{\ProbC}[2]{\operatorname{P}\left[#1\middle|#2\right]}
 %\newcommand{\calU}[0]{\mathcal{U}}
@@ -57,7 +58,7 @@
 \maketitle
 \section*{1}
 The class \inlinecode{lcg} implements a Linear Congruential Generator,
-which is a RNG that generates numbers according to
+which is a RNG the sequence $x_k$ according to the equation
 \[ x_{k} = ax_{k-1} +b \mod m . \]
 To replicate Figure~6.5 a LCG with parameters
 $a=16807$,~$b=0$~and~$m=2^{31}-1$ is initialized with the seed value
@@ -89,6 +90,7 @@ uncorrelated.
   \end{subfigure}
   \caption{Replicas of Figure 6.5}
 \end{figure}
+
 
 \section*{2}
 In Tab.~\ref{tab:binomial} there are the times it takes to generate
