@@ -1,8 +1,7 @@
 close all; clear all; clc;
 
 % 6.5
-lcg1 = lcg(16807, 0, 2^31-1, 1);
-rand1 = lcg1.next(1000);
+rand1 = lcg(16807, 0, 2^31-1, 1, 1000);
 
 figure;
 plot(0:999, sort(rand1));
@@ -31,13 +30,9 @@ end
 print('rand1_lagplot', '-depsc');
 
 % Figure 6.7
-lcg1 = lcg(16807, 0, 2^31-1, 1);
-lcg2 = lcg(16807, 0, 2^31-1, 2);
-
-rand1 = lcg1.next(1000);
-rand2 = lcg2.next(1000);
-lcg2.reset(rand1(1000));
-rand3 = lcg2.next(1000);
+rand1 = lcg(16807, 0, 2^31-1, 1, 1000);
+rand2 = lcg(16807, 0, 2^31-1, 2, 1000);
+rand3 = lcg(16807, 0, 2^31-1, rand1(1000), 1000);
 
 % Close seeds
 figure;
