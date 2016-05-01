@@ -1,8 +1,8 @@
 close all; clear all; clc;
 
-N = 1e5;
-ns = [10, 50, 100, 200, 1000];
-ps = [1e-4 0.01, 0.5, 0.9];
+N = 1e4;
+ns = round(linspace(100, 750, 10));
+ps = [0.01, 0.5, 0.9];
 times = zeros(length(ns), length(ps), 3);
 
 for i=1:length(ns)
