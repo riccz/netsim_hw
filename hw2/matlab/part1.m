@@ -57,6 +57,6 @@ print('rejection_histo', '-depsc');
 
 figure;
 scatter(samples_2(:,1), samples_2(:,2), '.');
-xlabel('x_1');
-ylabel('x_2');
+xlabel('y_1');
+ylabel('y_2');
 print('rejection_scatter', '-depsc');

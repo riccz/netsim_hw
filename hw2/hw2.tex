@@ -32,8 +32,9 @@
 \newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
 \newcommand{\Prob}[1]{\operatorname{P}\left[#1\right]}
 \newcommand{\ProbC}[2]{\operatorname{P}\left[#1\middle|#2\right]}
-%\newcommand{\calU}[0]{\mathcal{U}}
 \newcommand{\ind}[1]{\operatorname{\mathbbm{1}}\left\{#1\right\}}
+\newcommand{\distr}[0]{\sim}
+\newcommand{\unif}[1]{\mathcal{U}_{#1}}
 
 \newcolumntype{M}{>{$}r<{$}}
 
@@ -57,14 +58,15 @@
 }
 \maketitle
 \section*{1}
-The class \inlinecode{lcg} implements a Linear Congruential Generator,
-which is a RNG the sequence $x_k$ according to the equation
-\[ x_{k} = ax_{k-1} +b \mod m . \]
-To replicate Figure~6.5 a LCG with parameters
-$a=16807$,~$b=0$~and~$m=2^{31}-1$ is initialized with the seed value
-$x_0 = 1$, the first 1000 numbers that it generates are then sorted
-and plotted in Fig.~\ref{plot:qqplot}, where they look to be uniformly
-distributed in $[0,1]$.  From their autocorrelation
+The function \inlinecode{lcg} implements a Linear Congruential
+Generator, which is a RNG than produces a specified number of samples
+from the sequence $x_k$, according to the equation
+\[ x_{k} = ax_{k-1} +b \mod m  \]
+and starting with a given $x_0$.  To replicate Figure~6.5 a LCG with
+parameters $a=16807$,~$b=0$~and~$m=2^{31}-1$ is initialized with the
+seed value $x_0 = 1$, the first 1000 numbers that it generates are
+then sorted and plotted in Fig.~\ref{plot:qqplot}, where they look to
+be uniformly distributed in $[0,1]$.  From their autocorrelation
 (Fig.~\ref{plot:autocorr}) and their lag plots
 (Fig.~\ref{plot:lagplot}) the generated numbers appear to be
 uncorrelated.
@@ -82,16 +84,69 @@ uncorrelated.
     \caption{Autocorrelation}
     \label{plot:autocorr}
   \end{subfigure}
-  \begin{subfigure}{0.5\textwidth}
+  \begin{subfigure}{0.75\textwidth}
         \centering
-    \includegraphics[width=0.95\textwidth]{matlab/rand1_lagplot}
+    \includegraphics[width=\textwidth]{matlab/rand1_lagplot}
     \caption{Lag plot}
     \label{plot:lagplot}
   \end{subfigure}
-  \caption{Replicas of Figure 6.5}
+  \caption{LCG}
 \end{figure}
 
+Using the same LCG to generate two sequences the results are very
+different depending on the choice of the seed values: if the two
+parallel sequences start with 1 and 2, their output is very correlated
+as can be seen in Fig.~\ref{plot:lcg_close_seeds}. If, instead, the
+second stream starts from the last value of the first one the two
+sequences look independent in Fig.\ref{plot:lcg_far_seeds}.
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/lcg_close_seeds}
+    \caption{Parallel streams with close seeds}
+    \label{plot:lcg_close_seeds}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/lcg_far_seeds}
+    \caption{Parallel streams with no overlap}
+    \label{plot:lcg_far_seeds}
+  \end{subfigure}
+  \caption{Parallel streams}
+\end{figure}
 
+To generate a random variable $Y_1$ with p.d.f.
+\[ f_{Y_1}(y) = K\frac{\sin^2(y)}{y^2} \qquad -10 \leq y \leq 10 \]
+it is possible to use the algorithm based on theorem 6.3 (rejection
+sampling for distribution with density), where the upper bound of
+$f_{Y_1}^n$ is $M=1$ and the interval where the r.v. $X$ is drawn from
+is $[-10,10]$. The histogram of 2000 generated samples of $Y_1$ is
+shown in Fig.~\ref{plot:rejection_histo}.
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/rejection_histo}
+    \caption{Histogram of $Y_1$}
+    \label{plot:rejection_histo}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/rejection_scatter}
+    \caption{Generated values of $Y_2$}
+    \label{plot:rejection_scatter}
+  \end{subfigure}
+  \caption{Rejection sampling}
+\end{figure}
+
+The other random variable $Y_2$ with p.d.f.
+\[ f_{Y_2}(y_1, y_2) = K\abs{y_1 - y_2} \qquad (y_1, y_2) \in [0, 1]^2 \]
+can be generated in the same way: the upper bound on $f_{Y_2}^n$ is
+$M=1$ also in this case and the random variable $X = (X_1, X_2)$ is
+drawn by generating two r.v.s $X_1, X_2 \distr \unif{[0,1]}$. In
+Fig.~\ref{plot:rejection_scatter} are shown 2000 samples produced with
+this method.
 \section*{2}
 In Tab.~\ref{tab:binomial} there are the times it takes to generate
 $N=10^5$ Binomial random variables with parameters $n$ and $p$ using
