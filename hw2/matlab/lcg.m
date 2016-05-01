@@ -12,6 +12,9 @@ classdef lcg < handle
     
     methods
         function obj = lcg(a, b, m, seed)
+            if nargin < 4
+                seed = 1;
+            end
             obj.a = a;
             obj.b = b;
             obj.m = m;
