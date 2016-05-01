@@ -1,7 +1,7 @@
 close all; clear all; clc;
 
-N = 1e4;
-lambdas = linspace(1e-4, 1e3, 20);
+N = 1e5;
+lambdas = linspace(0.01, 1e3, 20);
 times = zeros(length(lambdas), 3);
 
 for i=1:length(lambdas)
@@ -52,3 +52,4 @@ plot(lambdas, times(:, 3));
 xlabel('lambda');
 ylabel('execution time');
 legend('CDF inversion', 'Exponential interarr.', 'Uniform prod.');
+print('poisson_gen', '-depsc');
