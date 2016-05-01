@@ -38,14 +38,28 @@ for i=1:length(ns)
 end
 fprintf('\n');
 
-fprintf('Binomial generation timing:\n');
-for i=1:length(ns)
-    for j=1:length(ps)
-        fprintf('n = %d & ', ns(i));
-        fprintf('p = %.4f & ', ps(j));
-        fprintf('\\SI{%.3f}{\\s} & ', times(i, j, 1));
-        fprintf('\\SI{%.3f}{\\s} & ', times(i, j, 2));
-        fprintf('\\SI{%.3f}{\\s} ', times(i, j, 3));
-        fprintf('\\\\\n');
-    end
+% fprintf('Binomial generation timing:\n');
+% for i=1:length(ns)
+%     for j=1:length(ps)
+%         fprintf('n = %d & ', ns(i));
+%         fprintf('p = %.4f & ', ps(j));
+%         fprintf('\\SI{%.3f}{\\s} & ', times(i, j, 1));
+%         fprintf('\\SI{%.3f}{\\s} & ', times(i, j, 2));
+%         fprintf('\\SI{%.3f}{\\s} ', times(i, j, 3));
+%         fprintf('\\\\\n');
+%     end
+% end
+
+for j=1:length(ps)
+    figure;
+    title(['p = ' num2str(ps(j))]);    
+hold on;
+plot(ns, times(:,j,1));
+plot(ns, times(:,j, 2));
+plot(ns, times(:,j, 3));
+xlabel('n');
+ylabel('execution time');
+legend('CDF inversion', 'Sum of Bernoullians', 'Geometric string of zeros');
+print(['binomial_gen_' num2str(j)], '-depsc');
 end
+
