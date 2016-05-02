@@ -9,7 +9,7 @@ figure(2);
 hold on;
 view(-36, 22);
 
-chunksize = 1e5;
+chunksize = 5e4;
 iters = ceil((m-1) / chunksize);
 last_x = 1;
 for i=1:iters
