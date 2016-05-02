@@ -148,7 +148,8 @@ drawn by generating two r.v.s $X_1, X_2 \distr \unif{[0,1]}$. In
 Fig.~\ref{plot:rejection_scatter} are shown 2000 samples produced with
 this method.
 \section*{2}
-In Tab.~\ref{tab:binomial} there are the times it takes to generate
+In Figures \ref{plot:binomial_1}, \ref{plot:binomial_2} and
+\ref{plot:binomial_3} there are the times it takes to generate
 $N=5\cdot10^4$ Binomial random variables with parameters $n$ and $p$
 using three different methods:
 \begin{enumerate}
@@ -169,62 +170,42 @@ using three different methods:
     r.v.s are generated, using the CDF inversion method, as
     \[ K_i = \floor{\frac{\ln U_i}{\ln (1 - p)}} . \]
 \end{enumerate}
-\begin{table}[h]
+\begin{figure}[htbp]
   \centering
-  \begin{tabular}{MM|MMM}
-    \multicolumn{2}{c}{Binomial parameters} &
-    \multicolumn{1}{c}{CDF inversion} &
-    \multicolumn{1}{c}{Sum of Bernoullians} &
-    \multicolumn{1}{c}{Geometric sequences of zeros} \\
-    \hline
-    n = 10 & p = 0.0001 & \SI{2.523}{\s} & \SI{0.856}{\s} & \SI{1.568}{\s} \\
-    n = 10 & p = 0.0100 & \SI{2.456}{\s} & \SI{0.864}{\s} & \SI{1.520}{\s} \\
-    n = 10 & p = 0.5000 & \SI{2.517}{\s} & \SI{0.822}{\s} & \SI{1.731}{\s} \\
-    n = 10 & p = 0.9000 & \SI{2.555}{\s} & \SI{0.867}{\s} & \SI{1.752}{\s} \\
-    n = 50 & p = 0.0001 & \SI{2.537}{\s} & \SI{0.996}{\s} & \SI{1.594}{\s} \\
-    n = 50 & p = 0.0100 & \SI{2.517}{\s} & \SI{0.974}{\s} & \SI{1.630}{\s} \\
-    n = 50 & p = 0.5000 & \SI{2.518}{\s} & \SI{1.069}{\s} & \SI{1.886}{\s} \\
-    n = 50 & p = 0.9000 & \SI{2.637}{\s} & \SI{0.979}{\s} & \SI{2.171}{\s} \\
-    n = 100 & p = 0.0001 & \SI{2.428}{\s} & \SI{1.134}{\s} & \SI{1.434}{\s} \\
-    n = 100 & p = 0.0100 & \SI{2.539}{\s} & \SI{1.147}{\s} & \SI{1.630}{\s} \\
-    n = 100 & p = 0.5000 & \SI{2.622}{\s} & \SI{1.242}{\s} & \SI{2.299}{\s} \\
-    n = 100 & p = 0.9000 & \SI{2.717}{\s} & \SI{1.166}{\s} & \SI{2.733}{\s} \\
-    n = 200 & p = 0.0001 & \SI{2.602}{\s} & \SI{1.504}{\s} & \SI{1.579}{\s} \\
-    n = 200 & p = 0.0100 & \SI{2.496}{\s} & \SI{1.492}{\s} & \SI{1.575}{\s} \\
-    n = 200 & p = 0.5000 & \SI{2.757}{\s} & \SI{1.697}{\s} & \SI{2.923}{\s} \\
-    n = 200 & p = 0.9000 & \SI{3.005}{\s} & \SI{1.569}{\s} & \SI{3.950}{\s} \\
-    n = 1000 & p = 0.0001 & \SI{2.471}{\s} & \SI{4.511}{\s} & \SI{1.680}{\s} \\
-    n = 1000 & p = 0.0100 & \SI{2.560}{\s} & \SI{4.535}{\s} & \SI{1.670}{\s} \\
-    n = 1000 & p = 0.5000 & \SI{3.841}{\s} & \SI{5.415}{\s} & \SI{8.050}{\s} \\
-    n = 1000 & p = 0.9000 & - & \SI{4.776}{\s} & \SI{14.127}{\s} \\
-  \end{tabular}
-  \caption{Timing of three Binomial generation methods}
-  \label{tab:binomial}
-\end{table}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{binomial_gen_1}
+    \caption{Succes probability $p=0.01$}
+    \label{plot:binomial_1}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{binomial_gen_2}
+    \caption{Success probability $p=0.5$}
+    \label{plot:binomial_2}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{binomial_gen_3}
+    \caption{Success probability $p=0.9$}
+    \label{plot:binomial_3}
+  \end{subfigure}
+  \caption{Performance of the three Binomial generation algorithms}
+\end{figure}
 
-As $n$ increases, the execution time for the second algorithm
-increases linearly and, for all the values of $n \neq 1000$ tried, it
-is the quickest of the three methods.
-
-The third algorithm's speed depends on the number of geometric samples
-that must be generated, which is $\approx \frac{n}{(1-p)/p}$ on
-average: when $p$ is small the execution time increases linearly in
-$n$ but very slowly, so this algorithm gives the best performance in
-the tested cases when $n = 1000$ and $p \in \{10^{-4}, 10^{-2}\}$. As
-$p$ becomes closer and closer to 1, on the other hand, the execution
-time grows more quickly (in the tested cases for $n \geq 100$ and $p
-\in \{0.5, 0.9\}$ this algorithm is the worst performing one).
-
-The execution time of the CDF inversion should depend on the value of
-the generated sample, which is on average $np$, because it runs for
-$x=i$ iterations but in the tested cases it does not seem to vary
-much.  Even when $np$ changes of a factor $10^4$ the time to generate
-the Binomial r.v.s remains around the same value. The time this
-algorithm takes is quite high compared to the other two methods for
-small values of $n$ but it becomes the best when $n = 1000$ and $p =
-0.5$. In the case $n = 1000$, $p=0.9$ the algorithm does not terminate
-because the probability $\mathrm{pr}(0) = (1-p)^n$ becomes so small
-that Matlab represents it with 0.
+In Figures \ref{plot:binomial_1}, \ref{plot:binomial_2} and
+\ref{plot:binomial_3} there are the measured execution times for three
+diffenrent values of the success probability $p \in \{ 0.01, 0.5, 0.9
+\}$ and for $n$ that varies in $[100, 750]$. All the three algorithms
+have an execution time that increases linearly with $n$ and the CDF
+inversion is always the best algorithm. The first and the second
+method do not depend on the value of $p$, but when the samples are
+generated with geometric strings of zeros the performnce is very close
+to that of the CDF inversion if $p$ is small and moves toward that of
+the sum of Bernoullians when $p$ increases. When $p=0.9$ the CDF
+inversion algorithm does not terminate because the probability
+$\mathrm{pr}(0) = (1-p)^n$ becomes so small, when $n \geq n_{max} =
+324$, that Matlab represents it with 0.
 \section*{3}
 Like in the previous section three methods are used to generate
 $N=5\cdot10^4$ samples of a Poisson random variable with parameter
