@@ -9,7 +9,7 @@ figure(2);
 hold on;
 view(-36, 22);
 
-chunksize = 1000;
+chunksize = 1e5;
 iters = ceil((m-1) / chunksize);
 last_x = 1;
 for i=1:iters
@@ -28,6 +28,7 @@ for i=1:iters
     scatter3(u1, u2, u3, 'b.');
     
     last_x = x(chunksize+1);
+    break;
 end
 
 figure(1);
