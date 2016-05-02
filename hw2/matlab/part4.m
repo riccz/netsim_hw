@@ -33,14 +33,12 @@ else
     fprintf('LCG2 is not full period\n');
 end
 
-[u1, x1] = lcg(a1, 0, m, 1, m-1);
-u1_shift = lcg(a1, 0, m, x1(2), m-1);
-
+u1 = lcg(a1, 0, m, 1, m-1);
 figure;
-scatter(u1, u1_shift, '.');
+scatter(u1, circshift(u1, 1), '.');
+print('lcg1_scatter', '-depsc');
 
-[u2, x2] = lcg(a2, 0, m, 1, m-1);
-u2_shift = lcg(a2, 0, m, x2(2), m-1);
-
+u2 = lcg(a2, 0, m, 1, m-1);
 figure;
-scatter(u2, u2_shift, '.');
+scatter(u2, circshift(u2, 1), '.');
+print('lcg2_scatter', '-depsc');
