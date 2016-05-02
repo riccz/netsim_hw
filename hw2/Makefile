@@ -4,7 +4,7 @@ MATLAB_FILES = matlab/*.m
 all: $(ZIPFILE)
 
 $(ZIPFILE): $(ZIPFILE:.zip=.pdf) $(MATLAB_FILES)
-	zip -r $@ $^
+	zip -9 -r $@ $^
 
 %.pdf: %.tex clean
 	pdflatex $<
