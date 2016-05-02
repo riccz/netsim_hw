@@ -1,7 +1,7 @@
 close all; clear all; clc;
 
-N = 1e4;
-ns = round(linspace(100, 750, 10));
+N = 5e4;
+ns = round(linspace(100, 750, 15));
 ps = [0.01, 0.5, 0.9];
 times = zeros(length(ns), length(ps), 3);
 

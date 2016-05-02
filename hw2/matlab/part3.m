@@ -1,7 +1,7 @@
 close all; clear all; clc;
 
-N = 1e5;
-lambdas = linspace(0.01, 1e3, 12);
+N = 5e4;
+lambdas = linspace(0.01, 1e3, 15);
 times = zeros(length(lambdas), 3);
 
 for i=1:length(lambdas)
