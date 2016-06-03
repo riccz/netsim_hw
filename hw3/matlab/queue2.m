@@ -2,13 +2,13 @@
 % avg. delay vs rho
 close all; clear all; clc;
 
-bs = linspace(0.5, 1, 20);
-slots = 1e4;
+bs = linspace(0.5, 1, 100);
+slots = 1e5;
 
 rhos = 1/2 ./ bs;
 avg_d = zeros(1, length(bs));
 for i=1:length(bs)
-    [~, delays] = simulate_queue_2(slots, bs(i));
+    [~, delays] = simulate_queue_2(slots, bs(i), Inf, 500);
     avg_d(i) = mean(delays);
 end
 
