@@ -7,9 +7,11 @@ slots = 1e5;
 
 rhos = 1/2 ./ bs;
 avg_d = zeros(1, length(bs));
+ci_d = zeros(2, length(bs));
 for i=1:length(bs)
     [~, delays] = simulate_queue_2(slots, bs(i), Inf, 500);
     avg_d(i) = mean(delays);
+    ci_d(:,i) = [-1.96; 1.96] .* std(delays) + avg_d(i);
 end
 
 figure;
