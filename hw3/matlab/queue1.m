@@ -6,15 +6,15 @@ slots = 1e5;
 
 rhos = 3 .* as;
 avg_d = zeros(1, length(as));
-ci_d = zeros(2, length(as));
+std_d = zeros(1, length(as));
 for i=1:length(as)
     [~, delays] = simulate_queue_1(slots, as(i), Inf, 500);
     avg_d(i) = mean(delays);
-    ci_d(:,i) = [-1.96; 1.96] .* std(delays) + avg_d(i);
+    std_d(i) = std(delays);
 end
 
 figure;
-plot(rhos, avg_d);
+errorbar_some(rhos, avg_d, std_d, 30);
 xlabel('\rho');
 ylabel('avg. delay [slots]');
 print('queue_1_delay', '-depsc');
@@ -28,10 +28,11 @@ for i=1:length(as)
 end
 
 figure;
-stairs(1:slots, queue_size(1,:), 'g');
+plot(1:slots, queue_size(1,:));
 hold on;
-stairs(1:slots, queue_size(2,:), 'b');
-stairs(1:slots, queue_size(3,:), 'r');
+plot(1:slots, queue_size(2,:));
+plot(1:slots, queue_size(3,:));
+legend(['a = ' num2str(as(1))], ['a = ' num2str(as(2))], ['a = ' num2str(as(3))]);
 ylim([0 100]);
 print('queue_1_sizes_small', '-depsc');
 ylim([0, Inf]);
