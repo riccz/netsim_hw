@@ -7,7 +7,7 @@ slots = 1e5;
 rhos = 3 .* as;
 avg_d = zeros(1, length(as));
 std_d = zeros(1, length(as));
-for i=1:length(as)
+parfor i=1:length(as)
     [~, delays] = simulate_queue_1(slots, as(i), Inf, 500);
     avg_d(i) = mean(delays);
     std_d(i) = std(delays);
@@ -17,6 +17,8 @@ figure;
 errorbar_some(rhos, avg_d, std_d, 30);
 xlabel('\rho');
 ylabel('avg. delay [slots]');
+ylim([0, Inf]);
+xlim([0, 1]);
 print('queue_1_delay', '-depsc');
 
 % Queue size realization
