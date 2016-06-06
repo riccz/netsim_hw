@@ -1,4 +1,6 @@
 close all; clear all; clc;
+addpath(genpath('./queues/'));
+addpath(genpath('./utils/'));
 
 bs = [1/2, 2/3];
 p_over_target = 1e-5;

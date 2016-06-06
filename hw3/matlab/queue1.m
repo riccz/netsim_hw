@@ -1,4 +1,6 @@
 close all; clear all; clc;
+addpath(genpath('./queues/'));
+addpath(genpath('./utils/'));
 
 % avg. delay vs rho
 as = linspace(0, 1/3, 100);
