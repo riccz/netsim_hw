@@ -17,7 +17,7 @@ parfor i=1:length(Ms)
         
     sim_run = zeros(Nsim, 1);
     for k=1:Nsim
-        sim_run(i) = geraf_sim([0,0], [Ds(j),0], Ms(i));
+        sim_run(k) = geraf_sim(Ds(j), Ms(i));
     end
     sim(i, j) = mean(sim_run);
     sim_var(i,j) = var(sim_run);
@@ -28,7 +28,10 @@ plot(Ms, bounds_mc(:, 2, 1));
 hold on;
 plot(Ms, bounds_mc(:, 2, 2));
 
-plot(Ms, sim(:,2));
+errorbar_some(Ms, sim(:,2), sqrt(sim_var(:,2)), 10, 1);
+
+
+legend('Lower MC bound', 'Upper MC bound', 'Simulation');
 
 ylim([0, 50]);
 xlim([0, 30]);

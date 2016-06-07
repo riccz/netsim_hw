@@ -1,4 +1,6 @@
-function hopcount = geraf_sim(src, dst, M)
+function hopcount = geraf_sim(D, M)
+src = [0,0];
+dst =[D,0];
 hopcount = 0;
 while true
     if sum((dst - src).^2) <= 1
