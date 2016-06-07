@@ -2,33 +2,40 @@ close all; clear all; clc;
 addpath(genpath('./geraf/'));
 addpath(genpath('./utils/'));
 
-Ms = linspace(3, 30, 20);
+Ms = linspace(2, 30, 30);
 Ds = [5, 10, 20];
-Nsamples = 1e6;
-Nsim = 1e1;
+Nsamples = 1e5;
+ni = 30;
+Nsim = 1e4;
 
 bounds_mc = zeros(length(Ms), length(Ds), 2);
+bounds_rec = zeros(length(Ms), length(Ds), 2);
 sim = zeros(length(Ms), length(Ds));
 sim_var = zeros(length(Ms), length(Ds));
-j = 2;
-parfor i=1:length(Ms)
-    [l, u] = geraf_bounds(Ds(j), Ms(i), Nsamples);
-    bounds_mc(i, j, :) = [l,u];
+for j=1:length(Ds)
+    D = Ds(j);
+    parfor i=1:length(Ms)
+        [l, u] = geraf_bounds(D, Ms(i), Nsamples);
+        bounds_mc(i, j, :) = [l,u];
         
-    sim_run = zeros(Nsim, 1);
-    for k=1:Nsim
-        sim_run(k) = geraf_sim(Ds(j), Ms(i));
+        [l, u] = geraf_bounds_rec(D, Ms(i), ni);
+        bounds_rec(i, j, :) = [l,u];
+                
+        sim_run = zeros(Nsim, 1);
+        for k=1:Nsim
+            sim_run(k) = geraf_sim(D, Ms(i));
+        end
+        sim(i, j) = mean(sim_run);
+        sim_var(i,j) = var(sim_run);
     end
-    sim(i, j) = mean(sim_run);
-    sim_var(i,j) = var(sim_run);
 end
 
 figure;
-plot(Ms, bounds_mc(:, 2, 1));
+plot(Ms, bounds_mc(:, 1, 1));
 hold on;
-plot(Ms, bounds_mc(:, 2, 2));
+plot(Ms, bounds_mc(:, 1, 2));
 
-errorbar_some(Ms, sim(:,2), sqrt(sim_var(:,2)), 10, 1);
+errorbar_some(Ms, sim(:,1), sqrt(sim_var(:,1)), 10, 1);
 
 
 legend('Lower MC bound', 'Upper MC bound', 'Simulation');
