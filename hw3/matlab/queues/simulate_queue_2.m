@@ -1,10 +1,8 @@
-function [queue_size, delays] = simulate_queue_2(time_slots, b, queue_lim, transient)
+function [queue_size, delays] = simulate_queue_2(time_slots, b, queue_lim)
 if nargin < 3
     queue_lim = Inf;
 end
-if nargin < 4
-    transient = 0;
-end
+transient = ceil(log(1e-3)/log(1 - b)); % Max service time w.p. 0.999
 queue_size = zeros(1, time_slots);
 delays = [];
 queue = [];
