@@ -4,7 +4,7 @@ addpath(genpath('./utils/'));
 
 % avg. delay vs rho
 bs = linspace(0.5, 1, 51);
-slots = 1e5;
+slots = 5e5;
 
 rhos = 1/2 ./ bs;
 avg_d = zeros(1, length(bs));
