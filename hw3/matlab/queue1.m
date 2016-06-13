@@ -10,7 +10,7 @@ rhos = 3 .* as;
 avg_d = zeros(1, length(as));
 std_d = zeros(1, length(as));
 parfor i=1:length(as)
-    [~, delays] = simulate_queue_1(slots, as(i), Inf, 500);
+    [~, delays] = simulate_queue_1(slots, as(i), Inf);
     avg_d(i) = mean(delays);
     std_d(i) = std(delays);
 end
