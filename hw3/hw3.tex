@@ -57,5 +57,103 @@
   upquote=true,
 }
 \maketitle
+\section{Single-server queues}
+\subsection*{a)}
+The first queueing system is simulated by initializing a queue length
+to zero, and at each slot, decrese by one if not empty and simulate
+one or two arrivals extractng a uniform and see when it's less than
+$a$ oe $2a$. In this way the arrivals must wait for the next slot even
+if the server is idle. At each arrival the delay that the job will
+suffer is stored, since it depends only on the size of the
+queue. Since the server always processes one job per slot ($\mu = 1$)
+and the average number of arrivals per slot is $\lambda = 3a$, the
+load factor of the system is $\rho = \frac{\mu}{\lambda} = 3a$. The
+simulation skips the maximum service time (1 slot) to measure the
+statistics only in stationary regime.
 
+If we simulate this system for 51 values of $a \in [0, 1/3]$, letting
+it run for $10^5$ time slots we get the average delays shown in
+Fig.~\ref{plot:queue1_delay} along with their 95\% confidence intervals.
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.6\textwidth]{matlab/queue_1_delay}
+    \caption{Average delay of Queue 1}
+    \label{plot:queue1_delay}
+\end{figure}
+We see that as $a$ grows toward $1/3$ the average delay becomes bigger
+and bigger because the system is going toward instability.
+
+In
+Fig.s~\ref{plot:queue1_sizes_stable},~\ref{plot:queue1_sizes_limit}~and~\ref{plot:queue1_sizes_unstable}
+there are the results of the simulation of a queue length realization
+plotted vs the time slots. As we can see when $\rho < 1$
+(Fig.~\ref{plot:queue1_sizes_stable}) the queue length oscillates but
+remains low and returns often to zero. At $\rho = 1$
+(Fig.~\ref{plot:queue1_sizes_limit}) the system becomes unstable and
+the queue starts to grow indefinitely, even if not very quickly. In
+the last case the queue length cannot ever decrease so it becomes very
+large after only a few slots (Fig.~\ref{plot:queue1_sizes_unstable}).
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{matlab/queue1_sizes_1}
+    \caption{Realization of the queue size}
+    \label{plot:queue1_sizes_stable}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{matlab/queue1_sizes_2}
+    \caption{Realization of the queue size}
+    \label{plot:queue1_sizes_limit}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{matlab/queue1_sizes_3}
+    \caption{Realization of the queue size}
+    \label{plot:queue1_sizes_unstable}
+  \end{subfigure}
+\end{figure}
+
+\subsection*{b)}
+In this case the service time is not bounded but we can pick a value
+that will be larger than the first service time with arbitrary probability:
+\begin{align}
+  \Prob{Y \leq k} \geq \alpha \\
+  1-(1-b)^k \geq \alpha \\
+  k \geq \frac{\ln(1-\alpha)}{\ln(1-b)}
+\end{align}
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.6\textwidth]{matlab/queue_2_delay}
+    \caption{Average delay of Queue 2}
+    \label{plot:queue2_delay}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{matlab/queue2_sizes_1}
+    \caption{Realization of the queue size}
+    \label{plot:queue2_sizes_unstable}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{matlab/queue2_sizes_2}
+    \caption{Realization of the queue size}
+    \label{plot:queue2_sizes_limit}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{matlab/queue2_sizes_3}
+    \caption{Realization of the queue size}
+    \label{plot:queue2_sizes_stable}
+  \end{subfigure}
+\end{figure}
+
+
+\section{Capture probabilities}
+\section{GeRaF}
 \end{document}
