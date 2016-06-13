@@ -3,7 +3,7 @@ addpath(genpath('./queues/'));
 addpath(genpath('./utils/'));
 
 % avg. delay vs rho
-as = linspace(0, 1/3, 100);
+as = linspace(0, 1/3, 51);
 slots = 1e5;
 
 rhos = 3 .* as;
@@ -16,10 +16,10 @@ parfor i=1:length(as)
 end
 
 figure;
-errorbar_some(rhos, avg_d, std_d, 30);
+errorbar_some(rhos, avg_d, std_d, 26);
 xlabel('\rho');
 ylabel('avg. delay [slots]');
-ylim([0, Inf]);
+ylim([0, 50]);
 xlim([0, 1]);
 print('queue_1_delay', '-depsc');
 
@@ -31,13 +31,11 @@ for i=1:length(as)
     queue_size(i,:) = simulate_queue_1(slots, as(i));
 end
 
-figure;
-plot(1:slots, queue_size(1,:));
-hold on;
-plot(1:slots, queue_size(2,:));
-plot(1:slots, queue_size(3,:));
-legend(['a = ' num2str(as(1))], ['a = ' num2str(as(2))], ['a = ' num2str(as(3))]);
-ylim([0 100]);
-print('queue_1_sizes_small', '-depsc');
-ylim([0, Inf]);
-print('queue_1_sizes_big', '-depsc');
+for i=1:length(as)
+    figure;
+    plot(1:slots, queue_size(i,:));
+    xlabel('time slot');
+    ylabel('queue size');
+    title(sprintf('a = %.2f', as(i)));
+    print(sprintf('queue1_sizes_%d', i), '-depsc');
+end
