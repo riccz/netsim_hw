@@ -127,17 +127,41 @@ least one arrival per slot so the queue length can never decrease
     10000 slots}
 \end{figure}
 \subsection*{b)}
-In this case the service time is not bounded but we can pick a value
-that will be larger than the first service time with arbitrary probability:
-\begin{align}
-  \Prob{Y \leq k} \geq \alpha \\
-  1-(1-b)^k \geq \alpha \\
-  k \geq \frac{\ln(1-\alpha)}{\ln(1-b)}
-\end{align}
+The second queueing system is simulated like the first one with some
+differences:
+\begin{itemize}
+  \item since the service time is random the delay that a packet will
+    suffer is not known at the arrival time, so the arrival times of
+    the packets are stored in a FIFO queue and are used at the end of
+    the service time to compute the delay,
+  \item the service time is not bounded anymore so a certain value $k$
+    that it does not exceed with some probability $\alpha$ is chosen,
+    in order to set a transient duration after which the delay and
+    queue size are recorded. From
+    \begin{align}
+      \Prob{Y \leq k} & \geq \alpha \\
+      1-(1-b)^k & \geq \alpha \\
+      k & \geq \frac{\ln(1-\alpha)}{\ln(1-b)}
+    \end{align}
+    the value that is chosen is
+    \begin{equation}
+      k = \ceil{\frac{\ln10^{-3}}{\ln(1-b)}} .
+    \end{equation}
+\end{itemize}
+
+For this system the arrival rate is $\lambda = 1/2$, the service rate
+is $\mu = b$ so the load factor is $\rho = \frac{1}{2b}$. The values
+of $b \in [1/2, 1]$ for which the system will be simulated correspond
+to a stable $\rho$, except for $b=1/2$.
+
+If this system is simulated for 51 values of $b$ letting it run for $5
+\cdot 10^5$ time slots, the average delays suffered by each packet are
+the ones shown in Fig.~\ref{plot:queue2_delay} along with their 95\%
+confidence intervals.
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=0.6\textwidth]{matlab/queue_2_delay}
-    \caption{Average delay of Queue 2}
+    \caption{Average delay of the second queueing system}
     \label{plot:queue2_delay}
 \end{figure}
 
