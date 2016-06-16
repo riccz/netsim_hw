@@ -43,6 +43,8 @@
 \title{Homework 4}
 
 \begin{document}
+\maketitle
+\section{Queue}
 \lstset{
   language=Matlab,
   basicstyle={\ttfamily \footnotesize},
@@ -57,6 +59,277 @@
   numbers=left,
   upquote=true,
 }
-\maketitle
+\section{UW polling}
+\lstset{
+  language=Python,
+  basicstyle={\ttfamily \footnotesize},
+  breaklines=true,
+  morekeywords={},
+  keywordstyle=\color{blue},
+  stringstyle=\color{matlablilas},
+  commentstyle={\color{matlabgreen} \itshape},
+  numberstyle={\ttfamily \tiny},
+  frame=leftline,
+  showstringspaces=false,
+  numbers=left,
+  upquote=true,
+}
 
+In order to compute the metrics from the log files, the Python script
+\inlinecode{polling.py} reads each file line by line and extracts the
+information needed by matching the lines to some regular expressions.
+
+To compute the packet delivery ratio at the MAC level the script
+counts the packets that were received by the AUV, the packets that
+were transmitted by the nodes and takes their ratio.  The lines in the
+log file of the AUV that match the regular expression
+\inlinecode{.*RX_DATA_ID_\\d+_FROM_NODE_(\\d+)} are grouped by node
+id and counted. The same thing is done to the log files of the nodes
+using the regular expression
+\inlinecode{.*NODE\\((\\d+)\\)::TX_DATA_.*}.  The resulting PDR for
+the two experiments are shown in Tab.~\ref{tab:pdr_mac}.
+\begin{table}[h]
+  \centering
+  \begin{subtable}{0.5\textwidth}
+    \centering
+    \begin{tabular}{lr}
+      \multicolumn{2}{c}{Experiment 35} \\
+      \hline
+      \multicolumn{1}{c}{Node} & \multicolumn{1}{c}{PDR} \\
+      1 & 1.000000 \\
+      2 & 1.000000 \\
+      3 & 0.888889 \\
+      4 & 1.000000 \\
+      Whole network & 0.970588
+    \end{tabular}
+  \end{subtable}%
+  \begin{subtable}{0.5\textwidth}
+    \centering
+    \begin{tabular}{lr}
+      \multicolumn{2}{c}{Experiment 40} \\
+      \hline
+      \multicolumn{1}{c}{Node} & \multicolumn{1}{c}{PDR} \\
+      1 & 1.000000 \\
+      2 & 1.000000 \\
+      3 & 0.888889 \\
+      4 & 0.833333 \\
+      Whole network & 0.943820
+    \end{tabular}
+  \end{subtable}
+  \caption{Packet delivery ratio at the MAC level}
+  \label{tab:pdr_mac}
+\end{table}
+
+To compute the packet delivery ratio at the application level the
+scripts counts the packets in the same way as the previous paragraph,
+with the difference that it now matches the packets that are received
+from the upper layer with the expression
+\inlinecode{.*NODE\\((\\d+)\\)::RECV_FROM_U_LAYERS_.*}. The computed
+PDR is show in Tab.~\ref{tab:pdr_app} where it can be seen that in the
+first experiment the network is working near its capacity, since the
+application PDR is slightly less than the MAC PDR, while in the second
+experiment more than half of the generated packets are still queued at
+the end of the experiment. Looking at the way in which the PDRs are
+sorted it can also be seen that the AUV prioritizes the nodes with a
+lower id when it sends out the POLL packets.
+\begin{table}[h]
+  \centering
+  \begin{subtable}{0.5\textwidth}
+    \centering
+    \begin{tabular}{lr}
+      \multicolumn{2}{c}{Experiment 35} \\
+      \hline
+      \multicolumn{1}{c}{Node} & \multicolumn{1}{c}{PDR} \\
+      1 & 1.000000 \\
+      2 & 0.944444 \\
+      3 & 0.888889 \\
+      4 & 0.833333 \\
+      Whole network & 0.916667 
+    \end{tabular}
+  \end{subtable}%
+  \begin{subtable}{0.5\textwidth}
+    \centering
+    \begin{tabular}{lr}
+      \multicolumn{2}{c}{Experiment 40} \\
+      \hline
+      \multicolumn{1}{c}{Node} & \multicolumn{1}{c}{PDR} \\
+      1 & 0.734694 \\
+      2 & 0.346939 \\
+      3 & 0.326531 \\
+      4 & 0.306122 \\
+      Whole network & 0.428571 
+    \end{tabular}
+  \end{subtable}
+  \caption{Packet delivery ratio at the application level}
+  \label{tab:pdr_app}
+\end{table}
+
+To compute the throughput of each node and of the network the script
+just has to divide the count of the received packets used in the first
+paragraph by the last timestamp of the AUV node. The results are shown
+in Tab.~\ref{tab:thr}.
+\begin{table}[h]
+  \centering
+  \begin{subtable}{0.5\textwidth}
+    \centering
+    \begin{tabular}{lr}
+      \multicolumn{2}{c}{Experiment 35} \\
+      \hline
+      \multicolumn{1}{c}{Node} & \multicolumn{1}{c}{Throughput} \\
+      1 & 0.711191 pkts/min \\
+      2 & 0.671680 pkts/min \\
+      3 & 0.632170 pkts/min \\
+      4 & 0.592659 pkts/min \\
+      Whole network & 2.607699 pkts/min
+    \end{tabular}
+  \end{subtable}%
+  \begin{subtable}{0.5\textwidth}
+    \centering
+    \begin{tabular}{lr}
+      \multicolumn{2}{c}{Experiment 40} \\
+      \hline
+      \multicolumn{1}{c}{Node} & \multicolumn{1}{c}{Throughput} \\
+      1 & 1.427335 pkts/min \\
+      2 & 0.674019 pkts/min \\
+      3 & 0.634371 pkts/min \\
+      4 & 0.594723 pkts/min \\
+      Whole network & 3.330448 pkts/min
+    \end{tabular}
+  \end{subtable}
+  \caption{Throughput}
+  \label{tab:thr}
+\end{table}
+
+For the computation of the overhead the number of every kind of packet
+must be extracted from the log files. According to the protocol rules
+the AUV sends TRIGGER and POLL packets, while the other nodes send
+PROBE and DATA packets. The size of the control information in each
+kind of packet is shown in Tab.~\ref{tab:pktsizes}.
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Packet} & \multicolumn{1}{c}{Size} \\
+    \hline
+    TRIGGER & 48 bits \\
+    PROBE & 72 bits \\
+    POLL & 24 bits \\
+    DATA header & 61 bits
+  \end{tabular}
+  \caption{Size of the control information contained by each kind of packet}
+  \label{tab:pktsizes}
+\end{table}
+Multiplying the number of packets of each kind sent by the AUV and the
+nodes by the size of their control information, the script obtains the
+total number of control bits sent. The overhead is calculated as the
+number of control bits divided by the number of received data packets
+and is shown in Tab.~\ref{tab:overh}.
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Experiment} & \multicolumn{1}{c}{Overhead} \\
+    \hline
+    35 &  190.848485 bits/pkt \\
+    40 & 112.059524 bits/pkt
+  \end{tabular}
+  \caption{Overhead}
+  \label{tab:overh}
+\end{table}
+By looking at the log files it is possible to see that the lower
+overhead in the second case is due to the fact that the PROBEs sent by
+the nodes ask to be allowed to transmit many packets, while in the previous
+case most of the time the nodes only have one packet ready to be sent.
+
+To compute the packet delays the script needs to record the time when
+a specific packet was sent and received so it extracts from the AUV
+logs the information needed using the regular expression
+\inlinecode{(?P<time>[\\d\\.]+)Uwpolling_.*RX_DATA_ID_(?P<pkt_id>\\d+)_FROM_NODE_(?P<node_id>\\d+)}
+and stores the packet ids and the associated times grouped by node id.
+From the log files of the other nodes the information about the times
+when the packets are received from the application layer is extracted
+using the expression
+\inlinecode{(?P<time>[\\d\\.]+)Uwpolling_NODE\\((?P<node_id>\\d+)\\)::RECV_FROM_U_LAYERS_ID_(?P<pkt_id>\\d+)}. Then
+for each one of the received packets, a corresponding packet id is
+looked up in the data relative to the sending node.
+
+Since the nodes are not synchronized the difference between the
+timestamps must take into account the clock shift between the sending
+node and the AUV. In Tab.~\ref{tab:clockshifts} there are the clock
+shifts between the nodes during the two experiments.
+\begin{table}[h]
+  \centering
+  \begin{subtable}{0.5\textwidth}
+    \centering
+    \begin{tabular}{lr}
+      \multicolumn{2}{c}{Experiment 35} \\
+      \hline
+      \multicolumn{1}{c}{Node} & \multicolumn{1}{c}{Clock shift} \\
+      1 & 3 s \\
+      2 & 3 s \\
+      3 & 3 s \\
+      4 & 3 s \\
+      AUV & 0 s
+    \end{tabular}
+    \caption{Referenced to the AUV}
+  \end{subtable}%
+  \begin{subtable}{0.5\textwidth}
+    \centering
+    \begin{tabular}{lr}
+      \multicolumn{2}{c}{Experiment 40} \\
+      \hline
+      \multicolumn{1}{c}{Node} & \multicolumn{1}{c}{Clock shift} \\
+      1 & 0 s \\
+      2 & 2 s \\
+      3 & 5 s \\
+      4 & 8 s \\
+      AUV & 11 s
+    \end{tabular}
+    \caption{Referenced to node 1}
+  \end{subtable}
+  \caption{Clock shifts}
+  \label{tab:clockshifts}
+\end{table}
+So the delay suffered by a packet sent by node $i$ at time $t_s$ and
+received by the AUV at time $t_r$ is $ t_r - t_s - \Delta t_i $ where
+the clock shift between the node and the AUV is
+\begin{equation*}
+  \Delta t_i = \begin{cases}
+    3 & \text{experiment 35} \\
+    -11 + \overline{\Delta t}_i & \text{experiment 40}
+  \end{cases}
+\end{equation*}
+using for $\overline{\Delta t}_i$ the values of
+Tab.~\ref{tab:clockshifts}.
+
+The average delays are shown in Tab.~\ref{tab:delay}.
+\begin{table}[h]
+  \centering
+  \begin{subtable}{0.5\textwidth}
+    \centering
+    \begin{tabular}{lr}
+      \multicolumn{2}{c}{Experiment 35} \\
+      \hline
+      \multicolumn{1}{c}{Node} & \multicolumn{1}{c}{Avg. delay} \\
+      1 & 75.777278 s \\
+      2 & 70.546059 s \\
+      3 & 97.251375 s \\
+      4 & 102.188267 s \\
+      Whole network & 85.638182 s
+    \end{tabular}
+  \end{subtable}%
+  \begin{subtable}{0.5\textwidth}
+    \centering
+    \begin{tabular}{lr}
+      \multicolumn{2}{c}{Experiment 40} \\
+      \hline
+      \multicolumn{1}{c}{Node} & \multicolumn{1}{c}{Avg. delay} \\
+      1 & 470.549583 s \\
+      2 & 133.377088 s \\
+      3 & 133.191906 s \\
+      4 & 538.686233 s \\
+      Whole network & 350.220946 s
+    \end{tabular}
+  \end{subtable}
+  \caption{Average packet delays}
+  \label{tab:delay}
+\end{table}
 \end{document}
