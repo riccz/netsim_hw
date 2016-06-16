@@ -1,0 +1,7 @@
+*.aux
+*.pdf
+/*.out
+*.log
+/hw*.zip
+*.eps
+*.asv
