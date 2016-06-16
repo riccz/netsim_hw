@@ -175,7 +175,7 @@ for exp_id in EXP_IDS:
         for pkt_id in counters['pkt_rx_times'][n_id]:
             sent_time = counters['pkt_tx_times'][n_id][pkt_id]
             recvd_time = counters['pkt_rx_times'][n_id][pkt_id]
-            delays.append(recvd_time - sent_time + clock_shift(exp_id, n_id, AUV_ID))
+            delays.append(recvd_time - sent_time - clock_shift(exp_id, AUV_ID, n_id))
         all_delays.extend(delays)
         mean_delay = sum(delays) / len(delays)
         print('Avg. pkt delay for node %d = %f s' % (n_id, mean_delay))
