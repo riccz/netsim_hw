@@ -1,0 +1,10 @@
+#!/bin/bash
+#$ -cwd -m ea 
+
+pushd queue
+matlab -nodesktop -nosplash -r queue
+popd
+
+pushd polling
+./polling.py
+popd
