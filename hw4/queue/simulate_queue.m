@@ -10,7 +10,7 @@ clock = 0;
 
 counters.delays = [];
 counters.queuesizes = [];
-counters.busy = [];
+%counters.busy = [];
 
 state.busy = 0;
 state.queued_arrival_times = [];
@@ -37,10 +37,10 @@ while clock <= term_time
         counters.delays = [counters.delays, delay];
         
         % Schedule next departure
-        if isempty(state.queued_arrival_times)
-            next_departure = Inf;
-        else
-            next_departure = state.last_event_time + service_time();
+        if state.busy
+	  next_departure = state.last_event_time + service_time();
+	else
+          next_departure = Inf;
         end
     else
         state.last_event_time = next_arrival;
@@ -59,7 +59,7 @@ while clock <= term_time
     
     % Count statistics
     counters.queuesizes = [counters.queuesizes, [state.last_event_time; length(state.queued_arrival_times)]];
-    counters.busy = [counters.busy, [state.last_event_time; state.busy]];
+    %counters.busy = [counters.busy, [state.last_event_time; state.busy]];
     
     % Advance the clock
     clock = state.last_event_time;
