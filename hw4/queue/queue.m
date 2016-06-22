@@ -13,6 +13,8 @@ parfor i=1:length(bs)
     std_d(i) = std(counters.delays);
 end
 
+save('avg_d', 'std_d', 'rhos', 'bs', 'slots');
+
 figure;
 errorbar_some(rhos, avg_d, std_d, 26);
 xlabel('\rho');
@@ -35,8 +37,8 @@ for i=1:length(bs)
     figure;
     qs = queue_sizes{i};
     plot(qs(1,:), qs(2,:));
-    xlabel('time');
+    xlabel('time [slots]');
     ylabel('queue size');
-    title(sprintf('b = %.2f', bs(i)));
+    %title(sprintf('b = %.2f', bs(i)));
     print(sprintf('queue_sizes_%d', i), '-depsc');
 end
