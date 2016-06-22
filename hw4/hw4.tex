@@ -44,7 +44,7 @@
 
 \begin{document}
 \maketitle
-\section{Queue}
+\section{Discrete-event queue}
 \lstset{
   language=Matlab,
   basicstyle={\ttfamily \footnotesize},
@@ -59,6 +59,65 @@
   numbers=left,
   upquote=true,
 }
+
+The discrete-event queue simulation is implemtnted as described in
+Law's book with the difference that, instead of counting just the
+cumulative statistics, the simulation stores the queue size and the
+delays after each event has occurred. This is necessary to plot the
+realization of the queue size and to compute the confidence intervals
+for the average delay. The simulation does not store the busy/idle
+state of the server because it is not used in the plots, but if it
+keeps track of it to decide when to schedule the next departure.
+
+The simulation is run with the same parameters of the previous
+homework:
+\begin{itemize}
+\item $ b \in [1/2, 1]$,
+\item slot duration $T_{slot} = \SI{1}{\s}$,
+\item stop the simulation at $T_{sim} = 5 \cdot 10^5 T_{slot}$,
+\item interarrival time $A = G(1/2)T_{slot}$,
+\item service time $Y = G(b)T_{slot}$
+\end{itemize}
+where $G(p)$ is a geometrically distributed random variable with
+success probability $p$ and minimum value 1. So the results are very
+similar to the ones of homework 3: in Fig.~\ref{plot:queue_delay}
+there is the average delay between the arrival of a packet and its
+departure, along with its 95\% confidence interval.
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.6\textwidth]{queue/queue_delay}
+    \caption{Average delay of the queueing system}
+    \label{plot:queue_delay}
+\end{figure}
+In
+Fig.s~\ref{plot:queue_sizes_unstable},~\ref{plot:queue_sizes_limit}~and~\ref{plot:queue_sizes_stable}
+there are three realizations of the queue length for a simulation that
+went on for $10000T_{slot}$ and for three values of $b$ that make the
+system, respectively, unstable ($\rho > 1$ and $\rho = 1$) and stable
+($\rho < 1$).
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{queue/queue_sizes_1}
+    \caption{$ b = 1/3 $}
+    \label{plot:queue_sizes_unstable}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{queue/queue_sizes_2}
+    \caption{$ b = 1/2 $}
+    \label{plot:queue_sizes_limit}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{queue/queue_sizes_3}
+    \caption{$ b = 2/3 $}
+    \label{plot:queue_sizes_stable}
+  \end{subfigure}
+  \caption{Realizations of the queue length of the system during 10000 slots}
+\end{figure}
+
 \section{UW polling}
 \lstset{
   language=Python,
