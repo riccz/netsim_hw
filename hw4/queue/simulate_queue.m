@@ -38,9 +38,9 @@ while clock <= term_time
         
         % Schedule next departure
         if state.busy
-	  next_departure = state.last_event_time + service_time();
-	else
-          next_departure = Inf;
+            next_departure = state.last_event_time + service_time();
+        else
+            next_departure = Inf;
         end
     else
         state.last_event_time = next_arrival;

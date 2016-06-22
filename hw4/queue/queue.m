@@ -39,6 +39,7 @@ for i=1:length(bs)
     plot(qs(1,:), qs(2,:));
     xlabel('time [slots]');
     ylabel('queue size');
+    xlim([0, 1e4]);
     %title(sprintf('b = %.2f', bs(i)));
     print(sprintf('queue_sizes_%d', i), '-depsc');
 end
