@@ -11,7 +11,14 @@ parfor i=1:length(bs)
     counters = simulate_queue(bs(i), slots, 1);
     avg_d(i) = mean(counters.delays);
     std_d(i) = std(counters.delays);
+
+    if mod(i, 5) == 0
+        fprintf('%d', i);
+    else 
+        fprintf('.');
+    end
 end
+fprintf('\n');
 
 save('avg_d', 'std_d', 'rhos', 'bs', 'slots');
 
