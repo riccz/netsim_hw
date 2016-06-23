@@ -4,9 +4,9 @@ addpath(genpath('./utils/'));
 
 stable_b = 2/3;
 p_over_target = 1e-5;
-slots = 30e5;
-queue_lim_inf = 0;
-queue_lim_sup = 64;
+slots = 60e5;
+queue_lim_inf = 1;
+queue_lim_sup = 32;
 
 [qs, last_p] = binary_search(@(queue_lim) -overflow_prob_2(queue_lim, stable_b, slots), ...
     -p_over_target, queue_lim_inf, queue_lim_sup);
