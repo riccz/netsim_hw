@@ -1,5 +1,5 @@
 ZIPFILE = hw4.zip
-CODE_FILES = queue/*.m polling/*.py
+CODE_FILES = queue/*.m polling/*.py polling/uwpolling_logs
 
 all: $(ZIPFILE)
 
