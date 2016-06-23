@@ -11,7 +11,7 @@ queue_lim_sup = 64;
 [qs, last_p] = binary_search(@(queue_lim) -overflow_prob_2(queue_lim, stable_b, slots), ...
     -p_over_target, queue_lim_inf, queue_lim_sup);
 last_p = -last_p;
-if last_p < p_over_target
+if last_p > p_over_target
     qs = qs+1;
 end
 estimated_size = qs;
