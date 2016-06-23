@@ -17,6 +17,9 @@ assert(all(and(r > D-1, r <= D)));
 
 w = (D^2 - r.^2 + 1) ./ (2*D);
 A = beta(w, 1) + beta(D-w, r);
+
+assert(isreal(A));
+assert(all(A >= 0));
 end
 
 function b = beta(x, y)
