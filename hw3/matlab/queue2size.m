@@ -19,5 +19,5 @@ estimated_size = qs;
 
 fprintf('b = %f\n', stable_b);
 fprintf('  queue size = %d\n', estimated_size);
-fprintf('  prob overflow = %f\n', check_pi);
+fprintf('  prob overflow = %f\n', check_p);
 fprintf('  CI = [%f, %f]\n', p_ci(:));
