@@ -4,9 +4,10 @@ addpath(genpath('./utils/'));
 
 Ms = linspace(2, 30, 30);
 Ds = [5, 10, 20];
-Nsamples = 1e5;
-ni = 30;
-Nsim = 1e4;
+
+Nsamples = 1e5; % Monte carlo
+ni = 30; % Recursive bounds
+Nsim = 1e4; % Simulations
 
 bounds_mc = zeros(length(Ms), length(Ds), 2);
 bounds_rec = zeros(length(Ms), length(Ds), 2);
@@ -20,7 +21,7 @@ for j=1:length(Ds)
         
         [l, u] = geraf_bounds_rec(D, Ms(i), ni);
         bounds_rec(i, j, :) = [l,u];
-                
+        
         sim_run = zeros(Nsim, 1);
         for k=1:Nsim
             sim_run(k) = geraf_sim(D, Ms(i));
@@ -30,17 +31,36 @@ for j=1:length(Ds)
     end
 end
 
-figure;
-plot(Ms, bounds_mc(:, 1, 1));
-hold on;
-plot(Ms, bounds_mc(:, 1, 2));
+% Figs 1,2,3
+for j=1:length(Ds)
+    figure;
+    
+    plot(Ms, bounds_mc(:, j, 1));
+    hold on;
+    plot(Ms, bounds_mc(:, j, 2));
+    
+    errorbar_some(Ms, sim(:,j), sqrt(sim_var(:,j)), 10, 1);
+    
+    legend('Lower MC bound', 'Upper MC bound', 'Simulation');
+    
+    ylim([0, 50]);
+    xlim([0, 30]);
+    grid on;
+end
 
-errorbar_some(Ms, sim(:,1), sqrt(sim_var(:,1)), 10, 1);
-
-
-legend('Lower MC bound', 'Upper MC bound', 'Simulation');
-
-ylim([0, 50]);
-xlim([0, 30]);
-grid on;
-
+% Figs 8,9,10
+for j=1:length(Ds)
+    figure;
+    
+    plot(Ms, bounds_rec(:, j, 1));
+    hold on;
+    plot(Ms, bounds_rec(:, j, 2));
+    
+    errorbar_some(Ms, sim(:,j), sqrt(sim_var(:,j)), 10, 1);
+    
+    legend('Lower recursive bound', 'Upper recursive bound', 'Simulation');
+    
+    ylim([0, 50]);
+    xlim([0, 30]);
+    grid on;
+end
