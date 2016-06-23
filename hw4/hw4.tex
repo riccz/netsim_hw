@@ -69,13 +69,18 @@ for the average delay. The simulation does not store the busy/idle
 state of the server because it is not used in the plots, but if it
 keeps track of it to decide when to schedule the next departure.
 
+The main function of the simulation,
+\inlinecode{simulate_queue_times}, takes as input two functions to
+generate the inter-arrival and service times, so they can be
+continuous or discrete with any distribution.
+
 The simulation is run with the same parameters of the previous
 homework:
 \begin{itemize}
 \item $ b \in [1/2, 1]$,
 \item slot duration $T_{slot} = \SI{1}{\s}$,
 \item stop the simulation at $T_{sim} = 5 \cdot 10^5 T_{slot}$,
-\item inter-arrival time $A = G(1/2)T_{slot}$,
+\item inter-arrival time $\tau = G(1/2)T_{slot}$,
 \item service time $Y = G(b)T_{slot}$
 \end{itemize}
 where $G(p)$ is a geometrically distributed random variable with
