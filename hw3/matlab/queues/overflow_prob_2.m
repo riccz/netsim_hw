@@ -10,8 +10,12 @@ if ~exist('compute_ci', 'var') || ~compute_ci
     return;
 end
 
-assert(z >= 6);
-assert(n-z >= 6);
+if z < 6
+    warning('too few overflows: z = %d', z);
+end
+if n-z < 6
+    warning('too many overflows: n-z = %d', n-z);
+end
 
 eta =  norminv((1+0.95)/2);
 p_ci = p + eta/n*sqrt(z*(1-p)) .* [-1, +1];
