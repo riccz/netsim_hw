@@ -24,6 +24,7 @@
 
 \renewcommand{\vec}[1]{\underline{#1}}
 \renewcommand{\Re}[1]{\operatorname{Re}\left[#1\right]}
+\renewcommand{\approx}[0]{\simeq}
 \newcommand{\E}[1]{\operatorname{E}\left[#1\right]}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\abs}[1]{\left|#1\right|}
@@ -59,8 +60,8 @@
 \maketitle
 \section{Single-server queues}
 \subsection*{a)}
-The first queueing system is simulated by initializing a variable that
-keeps the queue length to zero and, at each slot,
+The first queueing system is simulated by initializing to zero a
+variable that represents the queue length and, at each slot,
 \begin{itemize}
 \item the queue length decreases by one if it's not empty,
   \item one arrival or two arrivals are generated with the same
@@ -69,9 +70,9 @@ keeps the queue length to zero and, at each slot,
     the service time is deterministic),
   \item the queue length at the end of the slot is stored
 \end{itemize}
-What happens in the first slot is not stored in the output data
-because the queue is in a transient state until the maximum service
-time has passed.
+What happens in the first slot is not considered in the output because
+the queue is in a transient state until the maximum service time has
+passed.
 
 Since the server always processes one packet per slot and the average
 number of arrivals per slot is $\lambda = 3a$, the load factor of the
@@ -79,30 +80,30 @@ system is $\rho = \frac{\mu}{\lambda} = 3a$. The values of $a$ for
 which the system will be simulated ($ a \in [0, \frac{1}{3}]$)
 correspond to stable values of $\rho$, except for $a=\frac{1}{3}$.
 
-If this system is simulated for 51 values of $a$ letting it run for
-$10^5$ time slots, the average delays suffered by each packet are the
-ones shown in Fig.~\ref{plot:queue1_delay} along with their 95\%
-confidence intervals.
+If this system is simulated for 51 values of $a$ and for $10^5$ time
+slots, the average delay suffered by each packet is the one plotted in
+Fig.~\ref{plot:queue1_delay} along with its 95\% confidence
+interval.
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=0.6\textwidth]{matlab/queue_1_delay}
     \caption{Average delay of the first queueing system}
     \label{plot:queue1_delay}
 \end{figure}
-As it is expected, when $a$ grows toward $1/3$ the average delay becomes bigger
-and bigger because the system is going toward instability.
+As expected, when $a$ approaches $1/3$ the average delay becomes
+bigger and bigger because the system is going toward instability.
 
 In
 Fig.s~\ref{plot:queue1_sizes_stable},~\ref{plot:queue1_sizes_limit}~and~\ref{plot:queue1_sizes_unstable}
-there are three realizations of the queue length of a system that ran
-for 10000 slots. When $a = 1/4$ the system is stable so it can be seen
-(Fig.~\ref{plot:queue1_sizes_stable}) that the queue length oscillates
-but remains low and returns often to zero. When $a = 1/3$ the system's
-load factor is $\rho = 1$ and the queue size tends to grow as time
-goes on (Fig.~\ref{plot:queue1_sizes_limit}) because the queueing
-system is unstable. In the last case ($a = 1/2$) there is always at
-least one arrival per slot so the queue length can never decrease
-(Fig.~\ref{plot:queue1_sizes_unstable}).
+there are three realizations of the queue length for the same system
+that ran for 10000 slots. When $a = 1/4$ the system is stable so it
+can be seen (Fig.~\ref{plot:queue1_sizes_stable}) that the queue
+length oscillates but remains low and returns often to zero. When $a =
+1/3$ the system's load factor is $\rho = 1$ and the queue size tends
+to grow as time goes on (Fig.~\ref{plot:queue1_sizes_limit}) because
+the queueing system is unstable. In the last case ($a = 1/2$) there is
+always at least one arrival per slot so the queue length can never
+decrease (Fig.~\ref{plot:queue1_sizes_unstable}).
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}{0.5\textwidth}
@@ -126,18 +127,19 @@ least one arrival per slot so the queue length can never decrease
   \caption{Realizations of the queue length of the first system during
     10000 slots}
 \end{figure}
+
 \subsection*{b)}
 The second queueing system is simulated like the first one with some
 differences:
 \begin{itemize}
   \item since the service time is random the delay that a packet will
     suffer is not known at the arrival time, so the arrival times of
-    the packets are stored in a FIFO queue and are used at the end of
-    the service time to compute the delay,
-  \item the service time is not bounded anymore so a certain value $k$
-    that it does not exceed with some probability $\alpha$ is chosen,
-    in order to set a transient duration after which the delay and
-    queue size are recorded. From
+    the packets are stored in a queue and are used at the end of the
+    service time to compute the delay,
+  \item the service time is not bounded anymore so, in order to set a
+    transient duration after which the delay and queue size are
+    recorded, a certain value $k$ that the service time does not
+    exceed with probability $\alpha = 0.999$ is chosen. From
     \begin{align}
       \Prob{Y \leq k} & \geq \alpha \\
       1-(1-b)^k & \geq \alpha \\
@@ -154,41 +156,101 @@ is $\mu = b$ so the load factor is $\rho = \frac{1}{2b}$. The values
 of $b \in [1/2, 1]$ for which the system will be simulated correspond
 to a stable $\rho$, except for $b=1/2$.
 
-If this system is simulated for 51 values of $b$ letting it run for $5
-\cdot 10^5$ time slots, the average delays suffered by each packet are
-the ones shown in Fig.~\ref{plot:queue2_delay} along with their 95\%
-confidence intervals.
+If this system is simulated for 51 values of $b$, letting it run for
+$5 \cdot 10^5$ time slots, the average delays suffered by each packet
+are the ones shown in Fig.~\ref{plot:queue2_delay} along with their
+95\% confidence intervals.
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=0.6\textwidth]{matlab/queue_2_delay}
     \caption{Average delay of the second queueing system}
     \label{plot:queue2_delay}
 \end{figure}
+Like in the previous case as $\rho$ gets closer and closer to $1$, and
+the corresponding $b$ decreases toward $1/2$, the average delay
+increases and goes to infinity when $\rho = 1$ ($b = 1/2$).
 
-
+The queue length realization for three simulations of this system with
+different values of $b$ are shown in
+Fig.s~\ref{plot:queue2_sizes_stable},~\ref{plot:queue2_sizes_limit}~and~\ref{plot:queue2_sizes_unstable},
+where it can be seen that when the queueing system is unstable ($\rho
+\geq 1$) the queue length tends to increase, like in the previous
+case. When $\rho < 1$, instead, the queue length oscillates but it
+remains close to zero.
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}{0.5\textwidth}
     \centering
     \includegraphics[width=\textwidth]{matlab/queue2_sizes_1}
-    \caption{Realization of the queue size}
+    \caption{$ b = 1/3 $}
     \label{plot:queue2_sizes_unstable}
   \end{subfigure}%
   \begin{subfigure}{0.5\textwidth}
     \centering
     \includegraphics[width=\textwidth]{matlab/queue2_sizes_2}
-    \caption{Realization of the queue size}
+    \caption{$ b = 1/2 $}
     \label{plot:queue2_sizes_limit}
   \end{subfigure}
   \begin{subfigure}{0.5\textwidth}
     \centering
     \includegraphics[width=\textwidth]{matlab/queue2_sizes_3}
-    \caption{Realization of the queue size}
+    \caption{$ b = 2/3 $}
     \label{plot:queue2_sizes_stable}
   \end{subfigure}
+  \caption{Realizations of the queue length of the second system
+    during 10000 slots}
 \end{figure}
 
+\subsection*{c)}
+For the two cases where the queueing system is unstable, i.e. $b =
+1/3$ and $b=1/2$, there is no finite size of the queue that guarantees
+$P_o = 10^{-5}$ because it grows indefinitely.
 
+When $b = 2/3$, instead, the system is stable so the minimum queue
+size that guarantees $P_o = 10^{-5}$ can be found doing a binary
+search on the possible values of the queue size between two extremes.
+Looking at Fig.~\ref{plot:queue2_sizes_stable}, an upper bound of $n_u
+= 32$ looks big enough, while for the lower bound the minimum possible
+value $n_l = 1$ is chosen. Then at each iteration of the binary
+search:
+\begin{itemize}
+\item pick the integer $n$ in the middle of the interval $[n_l, n_u]$,
+\item run a simulation to determine the overflow probability $P_o(n)$
+  corresponding to the middle point,
+\item if $P_o(n) < 10^{-5}$ take $[n_l, n]$ as the interval for the next iteration,
+\item if $P_o(n) > 10^{-5}$ take $[n, n_u]$ as the interval for the next iteration,
+\item if $P_o(n) = 10^{-5}$ or $n_u - n_l < 2$ stop the search and return $n$.
+\end{itemize}
+The overflow probability is determined by running the same simulation
+of part b) with a finite queue length, counting the slots when the
+queue is full and dividing by the number of simulated slots. The
+number of simulated slots is quite high ($60 \cdot 10^5$) because with
+a shorter interval there are too few overflows.
+
+The result of the binary search is $n=16$ with $P_o(16) \approx
+1.6\cdot10^{-5}$, so to have $P_o \leq 10^{-5}$ the queue size must be
+increased by one: $n^* = n+1$.
+
+At the end another simulation is ran with queue size $n^*$ that also
+computes the 95\% confidence interval $[L, U]$ using the Gaussian
+approximation of Theorem 2.4
+\begin{align*}
+  L(z) & \approx \frac{z}{n} - \frac{\eta}{n}\sqrt{z\left(1-\frac{z}{n}\right)} \\
+  U(z) & \approx \frac{z}{n} + \frac{\eta}{n}\sqrt{z\left(1-\frac{z}{n}\right)}
+\end{align*}
+where $\eta = 1.96$, $z$ is the number of slots when the queue is full
+and $n$ is the number of simulated slots. This last simulation also
+checks that the number of overflows allows this approximation:
+\begin{align*}
+  z & \geq 6 \\
+  n-z & \geq 6
+\end{align*}
+
+The results of the last simulation are:
+\begin{align*}
+  & P_o(n^* = 17) \approx 1.05 \cdot 10^{-5} \\
+  & \text{with 95\% confidence interval} \quad [0.79 \cdot 10^{-5}, 1.31 \cdot 10^{-5}] .
+\end{align*}
 \section{Capture probabilities}
 \section{GeRaF}
 \end{document}
