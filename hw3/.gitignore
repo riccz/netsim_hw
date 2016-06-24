@@ -1,7 +1,8 @@
-*.aux
-*.pdf
-*.out
-*.log
+/*.aux
+/*.pdf
+/*.out
+/*.log
 /hw*.zip
-matlab/*.eps
-matlab/*.asv
+matlab/**/*.eps
+matlab/**/*.pdf
+matlab/**/*.asv
