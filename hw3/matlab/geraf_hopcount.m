@@ -46,6 +46,8 @@ for j=1:length(Ds)
     ylim([0, 50]);
     xlim([0, 30]);
     grid on;
+
+    print(sprintf('sim_mc_%d', Ds(j)), '-depsc');
 end
 
 % Figs 8,9,10
@@ -63,4 +65,6 @@ for j=1:length(Ds)
     ylim([0, 50]);
     xlim([0, 30]);
     grid on;
+
+     print(sprintf('sim_rec_%d', Ds(j)), '-depsc');
 end
