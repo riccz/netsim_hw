@@ -5,7 +5,6 @@ addpath(genpath('./utils/'));
 Ms = linspace(2, 30, 30);
 Ds = [5, 10, 20];
 
-Nsamples = 1e5; % Monte carlo
 ni = 30; % Recursive bounds
 Nsim = 1e4; % Simulations
 
@@ -16,7 +15,7 @@ sim_var = zeros(length(Ms), length(Ds));
 for j=1:length(Ds)
     D = Ds(j);
     parfor i=1:length(Ms)
-        [l, u] = geraf_bounds(D, Ms(i), Nsamples);
+        [l, u] = geraf_bounds(D, Ms(i));
         bounds_mc(i, j, :) = [l,u];
         
         [l, u] = geraf_bounds_rec(D, Ms(i), ni);
