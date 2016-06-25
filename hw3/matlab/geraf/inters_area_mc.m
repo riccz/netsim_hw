@@ -1,4 +1,4 @@
-function A = inters_area_integral(r, D, samples)
+function A = inters_area_mc(r, D, samples)
 assert(length(r) == 1);
 assert(length(D) == 1);
 
