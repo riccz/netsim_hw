@@ -6,8 +6,14 @@ I = dz * (transpose(w) * f(z));
 end
 
 function [x, w] = lg_coeff(n)
-fname = sprintf('lg_weights_%d.csv', n);
-lg = csvread(fname);
-x = lg(:,1);
-w = lg(:,2);
+persistent cache;
+if isempty(cache) || cache.n ~= n
+    fname = sprintf('lg_weights_%d.csv', n);
+    lg = csvread(fname);
+    cache.x = lg(:,1);
+    cache.w = lg(:,2);
+    cache.n = n;
+end
+x = cache.x;
+w = cache.w;
 end
