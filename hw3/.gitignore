@@ -6,3 +6,5 @@
 matlab/**/*.eps
 matlab/**/*.pdf
 matlab/**/*.asv
+matlab/hg*.csv
+matlab/lg*.csv
