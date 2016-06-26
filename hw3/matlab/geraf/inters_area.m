@@ -7,6 +7,9 @@ assert(r >= D-1 && r <= D);
 
 f = @(a) integrand(a, D);
 A = lg_quad(f, D-1, r, 16);
+
+assert(isreal(A));
+assert(A >= 0);
 end
 
 function y = integrand(a, D)
