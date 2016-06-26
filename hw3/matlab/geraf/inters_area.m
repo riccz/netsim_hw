@@ -6,7 +6,7 @@ assert(D >= 1);
 assert(r >= D-1 && r <= D);
 
 f = @(a) integrand(a, D);
-A = lg_quad(f, D-1, r, 16);
+A = lg_quad(f, D-1, r, 64);
 
 assert(isreal(A));
 assert(A >= 0);

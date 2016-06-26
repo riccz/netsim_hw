@@ -2,7 +2,7 @@ function E = mean_adv(D, M)
 assert(M >= 0);
 
 f = @(a) integrand(a, D, M);
-E = 1 - lg_quad(f, 0, 1, 16);
+E = 1 - lg_quad(f, 0, 1, 64);
 end
 
 function y = integrand(a, D, M)
