@@ -2,7 +2,8 @@ function w = adv_probability(i, k, ni, D, M)
 assert(length(i) == 1);
 assert(length(k) == 1);
 
-assert(i >= 1 && i <= D*ni);
+assert(i <= D*ni);
+assert(i > ni);
 
 if k < 1 || k > ni
     warning('k out of range: prob. of adv. = 0');
