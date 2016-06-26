@@ -5,8 +5,8 @@ addpath(genpath('./utils/'));
 Ms = linspace(2, 30, 30);
 Ds = [5, 10, 20];
 
-ni = 30; % Recursive bounds
-Nsim = 1e4; % Simulations
+ni = 50; % Recursive bounds
+Nsim = 1e3; % Simulations
 
 bounds_rec = zeros(length(Ms), length(Ds), 2);
 sim = zeros(length(Ms), length(Ds));
