@@ -10,6 +10,8 @@ while true
         neigh_count = poissrnd(M, 1);
         if neigh_count > 0
             [x, y] = uniform_circle(neigh_count);
+            x = [x, 0];
+            y = [y, 0];
             x = x + src(1);
             y = y + src(2);
             d2s = (x - dst(1)).^2 + (y - dst(2)).^2;
