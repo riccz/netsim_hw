@@ -11,11 +11,21 @@ if k < 1 || k > ni
     return;
 end
 
-r1ni = i - ni + k - 1;
-r2ni = i - ni + k;
+r1 = (i - ni + k - 1)/ni;
+r2 = (i - ni + k)/ni;
 
-A1 = inters_area(r1ni/ni, i/ni);
-A2 = inters_area(r2ni/ni, i/ni);
+if abs(r1 - (i/ni - 1)) < 1e-8
+    A1 = 0;
+else
+    A1 = inters_area(r1, i/ni);
+end
+
+if abs(r2 - (i/ni - 1)) < 1e-8
+    A2 = 0;
+else
+    A2 = inters_area(r2, i/ni);
+end
+
 w = exp(-M * A1 / pi) - exp(-M * A2 / pi);
 
 assert(w >= 0 && w <= 1);
