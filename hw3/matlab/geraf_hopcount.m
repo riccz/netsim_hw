@@ -33,6 +33,8 @@ for j=1:length(Ds)
     
     xlim([0, 30]);
     grid on;
+    xlabel('M');
+    ylabel('avg. hops');
     
     print(sprintf('sim_mc_%d', Ds(j)), '-depsc');
 end
@@ -51,6 +53,8 @@ for j=1:length(Ds)
     legend('Simulation', 'Lower recursive bound', 'Upper recursive bound');
     xlim([0, 30]);
     grid on;
+    xlabel('M');
+    ylabel('avg. hops');
     
     print(sprintf('sim_rec_%d', Ds(j)), '-depsc');
 end
