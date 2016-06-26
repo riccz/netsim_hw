@@ -1,9 +1,9 @@
 ZIPFILE = hw3.zip
-MATLAB_FILES = matlab/*.m
+CODE_FILES = matlab/*.m matlab/*/*.m matlab/*.csv generate_gqr.py
 
 all: $(ZIPFILE)
 
-$(ZIPFILE): $(ZIPFILE:.zip=.pdf) $(MATLAB_FILES)
+$(ZIPFILE): $(ZIPFILE:.zip=.pdf) $(CODE_FILES)
 	zip -9 -r $@ $^
 
 %.pdf: %.tex clean
