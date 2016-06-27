@@ -252,6 +252,21 @@ The results of the last simulation are:
   & \text{with 95\% confidence interval} \quad [0.79 \cdot 10^{-5}, 1.31 \cdot 10^{-5}] .
 \end{align*}
 \section{Capture probabilities}
+
+The Gauss-Legendre integration formula allows to approximate integrals
+of the form
+\begin{equation}
+  \int_{-1}^1 f(x) dx \approx \sum_{i=1}^n w_i f(x_i)
+\end{equation}
+but this can be used to compute any integral over finite intervals
+\begin{equation}
+  \int_a^b f(z) dz
+\end{equation}
+by applying the substitution $z = \frac{b-a}{2} x + \frac{b+a}{2}$
+\begin{equation}
+  \int_a^b f(z) dz = \frac{b-a}{2}\int_{-1}^1 f\left( \frac{b-a}{2} x + \frac{b+a}{2} \right) dx \approx \frac{b-a}{2} \sum_{i=1}^n w_i f\left( \frac{b-a}{2} x_i + \frac{b+a}{2} \right)
+\end{equation}
+
 \section{GeRaF}
 The GeRaF protocol is simulated assuming, like in the paper, that the
 active nodes seen at each hop are independent and that the packet is
