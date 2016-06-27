@@ -278,6 +278,9 @@ neighbors $M$ varies. As the node density increases the average number
 of hops goes toward the optimal value $\floor{D+1}$ because it is more
 likely to find an active node in the optimal position: at the border
 of the coverage area and aligned between the source and destination.
+%
+The results are the average and standard deviation of 1000
+simulations.
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}{0.5\textwidth}
@@ -303,9 +306,73 @@ of the coverage area and aligned between the source and destination.
     represent the standard deviation of the number of hops}
 \end{figure}
 
-The paper gives two ways to compute an upper and lower bound on the
-average number of hops
+The paper gives a recursive algorithm to compute an upper and lower
+bound on the average number of hops: first it quantizes the unit
+distance in $\nu$ intervals (so the whole distance contains $D\nu$
+intervals) and computes the probabilities $\omega(i,k)$ of forwarding
+from a source at distance $\gamma = i/\nu$ to a node in interval $i -
+\nu + k$ (in the distance interval $(\frac{i - \nu + k - 1}{\nu},
+\frac{i - \nu + k}{\nu}]$) as
+  \begin{equation}
+    \omega(i, k) = \begin{cases}
+      e^{-MA(\frac{i - \nu + k - 1}{\nu}, \frac{i}{\nu})/\pi}
+      - e^{-MA(\frac{i - \nu + k}{\nu}, \frac{i}{\nu})/\pi}
+      \quad & k = 1, \dots \nu \\
+      0 & \text{otherwise}
+    \end{cases}
+    \label{eq:omega}
+  \end{equation}
+  where $A(r, D)$ is the area of the intersection between the unit
+  circle centered on the source and the circle of radius $r$, centered
+  on the destination at distance $D$.
+  
+The area in equation~(\ref{eq:omega}) is given by the integral
+\begin{equation}
+  A(r, D) = 2\int_{D-1}^r a \arccos\left( \frac{a^2 + D^2 - 1}{2aD} \right) da
+  \qquad D \geq 1, D-1 \leq r \leq D  
+\end{equation}
+  which has a closed solution in the paper. Using the solution given
+  in the paper, however, yielded results that were different from the
+  approximation of the integral computed using Monte Carlo and the
+  Gauss quadrature rule. So in the recursive bound $A(r, D)$ is
+  computed using the GQR with $n=64$ coefficients.
 
+  The probabilities of equation~(\ref{eq:omega}), together with the
+  probability of not forwarding the packet
+  \begin{equation}
+    \omega_0(i) = e^{-MA(\frac{i}{nu},\frac{i}{nu})/\pi}
+  \end{equation}
+  can be used to write two recursive relationships for the number of
+  hops from position $i$ to the destination, assuming that the relay
+  node is always placed, respectively, in the worst or the best point
+  of its interval:
+  \begin{align}
+    n_1(i) &= \frac{
+      1 + \sum_{k=1}^{\nu-1} \omega(i,k)n_1(i-\nu+k)
+    }{
+      1 - \omega_0(i) - \omega(i,\nu)
+    }
+    \label{eq:n1} \\
+    n_2(i) &= \frac{
+      1 + \sum_{k=1}^{\nu} \omega(i,k)n_2(i-\nu+k-1)
+    }{
+      1 - \omega_0(i)
+    }
+    \label{eq:n2}
+    .
+  \end{align}
+
+  The bounds of equations~(\ref{eq:n1})~and~(\ref{eq:n2}) can be
+  computed iteratively starting from the initial conditions
+  \begin{equation}
+    n_1(i) = n_2(i) = 1 \qquad i = 1, \dots, \nu 
+  \end{equation}
+  and the results for the same cases of the previous plots are shown
+  in
+  Fig.s~\ref{plot:geraf_rec_5},~\ref{plot:geraf_rec_10}~and~\ref{plot:geraf_rec_20}. The
+  bounds were computed with $\nu = 50$ and it can be seen that, since
+  they are very close, they give a precise value for the average
+  number of hops under the stated assumptions.
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}{0.5\textwidth}
