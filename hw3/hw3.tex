@@ -253,8 +253,31 @@ The results of the last simulation are:
 \end{align*}
 \section{Capture probabilities}
 \section{GeRaF}
+The GeRaF protocol is simulated assuming, like in the paper, that the
+active nodes seen at each hop are independent and that the packet is
+always forwarded to the best possible node.
+%
+The positions of the active nodes are generated before each hop by
+drawing a Poisson distributed random variable with mean $M$, which is
+the number of active nodes in the coverage area, and distributing the
+nodes uniformly in a unit circle around the source node.
+%
+Then the node with minimum distance from the destination is selected
+as the next source and this process is repeated until the destination
+is in the coverage range.
+%
+When there are no active nodes or they are all farther than the source
+from the destination, one hop is counted anyway and the forwarding is
+tried again at the next iteration.
 
-
+In
+Fig.s~\ref{plot:geraf_sim_5},~\ref{plot:geraf_sim_10}~and~\ref{plot:geraf_sim_20}
+there are the simulation results for three values of the distance $D$
+between the source and the destination, as the average number of
+neighbors $M$ varies. As the node density increases the average number
+of hops goes toward the optimal value $\floor{D+1}$ because it is more
+likely to find an active node in the optimal position: at the border
+of the coverage area and aligned between the source and destination.
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}{0.5\textwidth}
@@ -280,6 +303,8 @@ The results of the last simulation are:
     represent the standard deviation of the number of hops}
 \end{figure}
 
+The paper gives two ways to compute an upper and lower bound on the
+average number of hops
 
 \begin{figure}[htbp]
   \centering
