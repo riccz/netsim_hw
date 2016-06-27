@@ -43,7 +43,7 @@ end
 for j=1:length(Ds)
     figure;
     
-    plot(Ms, sim(:,j));
+    errorbar_some(Ms, sim(:,j), sqrt(sim_var(:,j)), 10, 1);
     hold on;
     plot(Ms, bounds_rec(:, j, 1));
     
