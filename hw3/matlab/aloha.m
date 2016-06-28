@@ -4,7 +4,7 @@ addpath(genpath('./aloha/'));
 
 bs = [6, 10];
 ns = 1:30;
-nsim = 1e5;
+nsim = 1e6;
 
 cn = zeros(length(ns), length(bs));
 cn_stddev = zeros(length(ns), length(bs));

@@ -1,0 +1,7 @@
+#!/bin/bash
+#$ -cwd -m ea -q parallel 
+
+pushd matlab
+matlab -nodesktop -nosplash -r aloha
+popd
+
