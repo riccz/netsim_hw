@@ -18,7 +18,7 @@ b_lin = db2pow(b);
 captured = 0;
 for i=1:nsim
     % Random variables
-    r = rand(n, 1);
+    r = sqrt(rand(n, 1));
     csi = sigma * randn(n, 1);
     shadow = exp(csi);
     fading = raylrnd(ones(n, 1) ./ sqrt(2));
