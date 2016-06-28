@@ -1,10 +1,12 @@
-function capture_prob = aloha_capture_sim(b, n, nsim)
+function [capture_prob, capture_stddev] = aloha_capture_sim(b, n, nsim)
 if n == 1
     capture_prob = 1;
+    capture_stddev = 0;
     return;
 end
 captured = aloha_captured(b, n, nsim);
 capture_prob = captured * n / nsim;
+capture_stddev = 1/nsim * sqrt((capture_prob * nsim) * (1 - capture_prob));
 end
 
 function captured = aloha_captured(b, n, nsim)
