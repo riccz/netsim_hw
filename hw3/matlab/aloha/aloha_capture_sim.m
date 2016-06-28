@@ -4,12 +4,12 @@ if n == 1
     capture_stddev = 0;
     return;
 end
-captured = aloha_captured(b, n, nsim);
-capture_prob = captured * n / nsim;
-capture_stddev = 1/nsim * sqrt((capture_prob * nsim) * (1 - capture_prob));
+[~, captured_when_times_n] = aloha_captured(b, n, nsim);
+capture_prob = mean(captured_when_times_n);
+capture_stddev = std(captured_when_times_n);
 end
 
-function captured = aloha_captured(b, n, nsim)
+function [captured, captured_when_times_n] = aloha_captured(b, n, nsim)
 % Fixed params
 eta = 4;
 sigma_db = 8;
@@ -18,6 +18,7 @@ sigma = 0.1 * log(10) * sigma_db;
 
 b_lin = db2pow(b);
 captured = 0;
+captured_when_times_n = zeros(nsim, 1);
 for i=1:nsim
     % Random variables
     r = sqrt(rand(n, 1));
@@ -29,5 +30,6 @@ for i=1:nsim
     G = fading.^2 .* shadow .* r.^(-eta);
     SIR = G(1) / sum(G(2:n));
     captured = captured + (SIR > b_lin);
+    captured_when_times_n(i) = n * (SIR > b_lin);
 end
 end
