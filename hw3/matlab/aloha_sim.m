@@ -44,3 +44,5 @@ xlabel('G');
 ylabel('S');
 xlim([0, 30]);
 print('aloha_thr_sim', '-depsc');
+
+save('aloha_sim_workspace.mat');
