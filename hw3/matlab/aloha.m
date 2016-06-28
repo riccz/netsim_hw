@@ -24,3 +24,23 @@ xlabel('n');
 ylabel('C_n');
 xlim([1, 30]);
 print('aloha_capture_sim', '-depsc');
+
+figure;
+hold on;
+leg = cell(length(bs), 1);
+G = linspace(0, 30, 200);
+S = zeros(length(G), length(bs));
+for j=1:length(bs)
+    for i=1:length(G)
+        poiss = exp(-G(i)) * power(G(i), ns) ./ factorial(ns);
+        S(i, j) = sum(transpose(poiss) .* cn(:,j));
+    end
+    plot(G, S(:,j));
+    leg{j} = sprintf('b = %d dB', bs(j));
+end
+grid on;
+legend(leg{:})
+xlabel('G');
+ylabel('S');
+xlim([0, 30]);
+print('aloha_thr_sim', '-depsc');
