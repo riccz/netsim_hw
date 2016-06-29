@@ -16,7 +16,7 @@ for j=1:length(bs)
 end
 
 % Throughput
-G = linspace(0, 30, 200);
+G = linspace(0, 20, 30);
 S = zeros(length(G), length(bs));
 for j=1:length(bs)
     for i=1:length(G)
