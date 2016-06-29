@@ -277,6 +277,7 @@ The SIR is
 \begin{equation}
   SIR = \frac{P_{R_0}}{\sum_{i=1}^{n-1} P_{R_i}} =
   \frac{R_0^2 e^{\xi_0} r_0^{-\eta}}{\sum_{i=1}^{n-1} R_i^2 e^{\xi_i} r_i^{-\eta}}
+  \label{eq:SIR}
 \end{equation}
 with the random variables that are all i.i.d.
 
@@ -392,6 +393,50 @@ be seen in Fig.s \ref{plot:aloha_capture_comp} and
 \end{figure}
 
 \subsection*{Outage probability in a cellular network}
+\subsubsection*{Monte Carlo}
+This simulation is very similar to the one of the Aloha capture
+probability: in both cases the Matlab script places the transmitter
+and interferers, computes the SIR using equation (\ref{eq:SIR}) and compares it to
+a threshold.
+%
+In this case the transmitter position is picked uniformly inside a
+circle of radius
+\begin{equation}
+  R=\frac{3^{3/4}}{\sqrt{2\pi}} \approx 0.91
+\end{equation}
+that approximates an hexagonal cell with unit side using a circle with
+the same area.  The interferers are supposed to be the clients of the
+6 closest base stations and each one can be active with probability
+$\alpha$. The distance of the interfering cells depends on the reuse
+factor $N$: $R_{cell} = \sqrt{3N}$ and these cells are approximated
+with a segment of circular ring, so the possible distances of the
+interfering nodes from the base station are $[R_{cell} -R,
+  R_{cell}+R]$ and this is the region where the active interferers are
+uniformly placed.
+
+Running the simulation for various values of $N$ and the same
+thresholds $b= 6, 10 \, \si{dB}$ used for Aloha gives the results
+shown in Fig.s~\ref{plot:outage_sim_b6} and \ref{plot:outage_sim_b10}.
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/outage_sim_b6}
+    \caption{$ b = \SI{6}{\dB}$}
+    \label{plot:outage_sim_b6}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\textwidth]{matlab/outage_sim_b10}
+    \caption{$ b = \SI{10}{\dB}$}
+    \label{plot:outage_sim_b10}
+  \end{subfigure}
+  \caption{Simulation of the outage probability vs. the interferer
+    activity}
+\end{figure}
+
+
+\subsubsection*{Numerical integration}
 
 \section{GeRaF}
 The GeRaF protocol is simulated assuming, like in the paper, that the
