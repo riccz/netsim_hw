@@ -1,17 +1,17 @@
-function [outage_prob, stddev] = outage_sim(b, N, nsim)
+function [outage_prob, stddev] = outage_sim(b, N, alpha, nsim)
 outage_count = 0;
 for i=1:nsim
-    outage_count = outage_count + outage_sim_one(b, N);
+    outage_count = outage_count + outage_sim_one(b, N, alpha);
 end
 outage_prob = outage_count / nsim;
 stddev = 0;
 end
 
-function outage = outage_sim_one(b, N)
+function outage = outage_sim_one(b, N, alpha)
 % Fixed params
 eta = 4;
 sigma_db = 8;
-n = 6;
+n_cells = 6;
 R_hex = 0.91;
 
 sigma = 0.1 * log(10) * sigma_db;
@@ -20,6 +20,9 @@ sigma = 0.1 * log(10) * sigma_db;
 R_cell = sqrt(3*N);
 R1 = R_cell - R_hex;
 R2 = R_cell + R_hex;
+
+% Number of active interferers
+n = binornd(n_cells, alpha);
 
 % R.vs
 r0 = rand(1);
