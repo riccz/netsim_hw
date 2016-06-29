@@ -251,21 +251,143 @@ The results of the last simulation are:
   & P_o(n^* = 17) \approx 1.05 \cdot 10^{-5} \\
   & \text{with 95\% confidence interval} \quad [0.79 \cdot 10^{-5}, 1.31 \cdot 10^{-5}] .
 \end{align*}
-\section{Capture probabilities}
+\section{Aloha and cellular systems}
+\subsection*{Capture probability and throughput of slotted Aloha}
+To simulate the slotted Aloha system described in the paper, the
+Matlab script just has to randomly place $n$ nodes in a unit circle
+around the base station, the first one is taken as the real
+transmittter while the other $n-1$ are interferers. Then it computes
+the SIR and counts a capture event if it bigger than a certain
+threshold.
+%
+The SIR is computed using the formula for the received power
+\begin{equation}
+  P_R = R^2e^\xi Kr^{-\eta}P_T
+\end{equation}
+where $R$ is rayleigh-distributed with unit power and models the
+channl fading, $\xi$ is Gaussian with zero mean and standard deviation
+$\sigma = 0.1 \ln10 \sigma_{dB}$, so $e^\xi$ is a log-normal random
+variable that models the shadowing. $Kr^{-\eta}$ is the deterministic
+loss law, where $\eta = 4$ is typical for land based mobile radio
+environments, and $P_T$ is the transmitted power, equal for all the
+nodes.
+%
+The SIR is
+\begin{equation}
+  SIR = \frac{P_{R_0}}{\sum_{i=1}^{n-1} P_{R_i}} =
+  \frac{R_0^2 e^{\xi_0} r_0^{-\eta}}{\sum_{i=1}^{n-1} R_i^2 e^{\xi_i} r_i^{-\eta}}
+\end{equation}
+with the random variables that are all i.i.d.
+
+The scripts simulates $10^6$ times the system and counts how many
+times the SIR exceeds the thresholds $b = 6, 10 \, \si{dB}$. This count
+diveded by the number of simulations $10^6$ gives the probability of
+capturing a packet sent from a node at distance $r_0$ with $n$
+simultanous transmissions, averaged over $r_0$
+\begin{equation}
+  \E{P_n(r_0)} = \frac{C_n}{n}
+\end{equation}
+so, in order to get the capture probability, the output must be
+multiplied by $n$.
+
+In Fig.\ref{plot:aloha_capture_sim} there are the results of the
+simulation for the two values of $b$ and $n$ up to 30.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{matlab/aloha_capture_sim}
+  \caption{Capture probability of slotted Aloha computed by Monte
+    Carlo simulation}
+  \label{plot:aloha_capture_sim}
+\end{figure}
+
+The throughput can be computed by averaging the capture probability
+over a Poisson-distributed random variable with the offered traffic
+$G$ as mean:
+\begin{equation}
+  S = \sum_{i=1}^{n_{max}} \frac{e^{-G} G^i}{i!} C_i
+\end{equation}
+and it is plotted vs. $G$ in Fig.~\ref{plot:aloha_thr_sim}.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{matlab/aloha_thr_sim}
+  \caption{Throughput of slotted Aloha computed by Monte Carlo
+    simulation}
+  \label{plot:aloha_thr_sim}
+\end{figure}
+
+The capture probability can also be approximated by numerical
+integration using the Gauss-Legendre and Gauss-Hermite integration
+formulas. The expression for $C_n$ given in the paper is
+\begin{equation}
+  C_n = \int_{-\infty}^{+\infty} \frac{d\xi_0}{\sqrt{2\pi}\sigma} e^{-\frac{\xi_0^2}{2\sigma^2}}
+  \int_0^1 n\left( I(\xi_0, r_0) \right)^{n-1} h(r_0)dr_0
+  \label{eq:cn_int}
+\end{equation}
+where $h(r) = 2r$ is the probability density function of the distance of
+the nodes from the base station and
+\begin{equation}
+  I(\xi_0, r_0) = \int_{-\infty}^{+\infty} \frac{d\xi}{\sqrt{2\pi}\sigma} e^{-\frac{\xi^2}{2\sigma^2}}
+  \int_0^1 \frac{h(r)dr}{1 + be^{\xi - \xi_0}\left( \frac{r}{r_0} \right)^{-\eta}} .
+  \label{eq:I}
+\end{equation}
 
 The Gauss-Legendre integration formula allows to approximate integrals
 of the form
 \begin{equation}
   \int_{-1}^1 f(x) dx \approx \sum_{i=1}^n w_i f(x_i)
 \end{equation}
-but this can be used to compute any integral over finite intervals
-\begin{equation}
-  \int_a^b f(z) dz
-\end{equation}
-by applying the substitution $z = \frac{b-a}{2} x + \frac{b+a}{2}$
+but this can be used to compute any integral over finite intervals:
 \begin{equation}
   \int_a^b f(z) dz = \frac{b-a}{2}\int_{-1}^1 f\left( \frac{b-a}{2} x + \frac{b+a}{2} \right) dx \approx \frac{b-a}{2} \sum_{i=1}^n w_i f\left( \frac{b-a}{2} x_i + \frac{b+a}{2} \right)
 \end{equation}
+where the substitution $z = \frac{b-a}{2} x + \frac{b+a}{2}$ was used.
+The function \inlinecode{lg_quad} automatically does this so there is
+no need to do a change of variable in the integrals over $(0,1)$ of
+equations (\ref{eq:cn_int}) and (\ref{eq:I}).
+
+Since the Gauss-Hermite integration formula requires the integral to
+be of the kind
+\begin{equation}
+  \int_{-\infty}^{+\infty} e^{-x^2}f(x)dx \approx \sum_{i=1}^n w_i f(x_i)
+\end{equation}
+the two integrals over $(-\infty, +\infty)$ in equations
+(\ref{eq:cn_int}) and (\ref{eq:I}) require the change of variables
+\begin{align}
+  \tilde{\xi}_0 &= \frac{\xi_0}{\sqrt{2}\sigma} \\
+  \tilde{\xi} &= \frac{\xi}{\sqrt{2}\sigma} 
+\end{align}
+and they become
+\begin{align}
+  C_n &= \int_{-\infty}^{+\infty} \frac{d\tilde{\xi}_0}{\sqrt{\pi}} e^{-\tilde{\xi}_0^2}
+  \int_0^1 n\left( I(\tilde{\xi}_0\sqrt{2}\sigma, r_0) \right)^{n-1} h(r_0)dr_0
+  \label{eq:cn_int_sub} \\
+  I(\xi_0, r_0) &= \int_{-\infty}^{+\infty} \frac{d\tilde{\xi}}{\sqrt{\pi}} e^{-\tilde{\xi}^2}
+  \int_0^1 \frac{h(r)dr}{1 + be^{\tilde{\xi}\sqrt{2}\sigma - \xi_0}\left( \frac{r}{r_0} \right)^{-\eta}} .
+  \label{eq:I_sub}
+\end{align}
+These integrals were computed using 64 coefficients for the two
+integrals over a finite interval and 32 coefficients for the other two
+integrals.
+
+The results match those obtained in the Monte Carlo simulation as can
+be seen in Fig.s \ref{plot:aloha_capture_comp} and
+\ref{plot:aloha_thr_comp}.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{matlab/aloha_capture_comp}
+  \caption{Comparison of the capture probability of slotted Aloha
+    computed by Monte Carlo simulation and using the GQR}
+  \label{plot:aloha_capture_comp}
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{matlab/aloha_thr_comp}
+  \caption{Comparison of the throughput of slotted Aloha computed by
+    Monte Carlo simulation and using the GQR}
+  \label{plot:aloha_thr_comp}
+\end{figure}
+
+\subsection*{Outage probability in a cellular network}
 
 \section{GeRaF}
 The GeRaF protocol is simulated assuming, like in the paper, that the
