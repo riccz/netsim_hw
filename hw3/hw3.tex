@@ -253,6 +253,7 @@ The results of the last simulation are:
 \end{align*}
 \section{Aloha and cellular systems}
 \subsection*{Capture probability and throughput of slotted Aloha}
+\subsubsection*{Monte Carlo}
 To simulate the slotted Aloha system described in the paper, the
 Matlab script just has to randomly place $n$ nodes in a unit circle
 around the base station, the first one is taken as the real
@@ -306,7 +307,9 @@ $G$ as mean:
 \begin{equation}
   S = \sum_{i=1}^{n_{max}} \frac{e^{-G} G^i}{i!} C_i
 \end{equation}
-and it is plotted vs. $G$ in Fig.~\ref{plot:aloha_thr_sim}.
+and computing the sample mean of the throughput at each iteration.
+The values it takes are plotted vs. $G$ in
+Fig.~\ref{plot:aloha_thr_sim}.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.6\textwidth]{matlab/aloha_thr_sim}
@@ -315,6 +318,7 @@ and it is plotted vs. $G$ in Fig.~\ref{plot:aloha_thr_sim}.
   \label{plot:aloha_thr_sim}
 \end{figure}
 
+\subsubsection*{Numerical integration}
 The capture probability can also be approximated by numerical
 integration using the Gauss-Legendre and Gauss-Hermite integration
 formulas. The expression for $C_n$ given in the paper is
