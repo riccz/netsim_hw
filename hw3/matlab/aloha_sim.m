@@ -54,5 +54,5 @@ grid on;
 legend(leg_thr{:})
 xlabel('G');
 ylabel('S');
-xlim([0, 30]);
+xlim([0, 20]);
 print('aloha_thr_sim', '-depsc');
