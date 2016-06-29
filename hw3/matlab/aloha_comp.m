@@ -5,8 +5,8 @@ addpath(genpath('./utils/'));
 % Plot the capture probs.
 figure;
 hold on;
-leg_cap = cell(2*length(bs), 1);
 load('aloha_sim_data.mat');
+leg_cap = cell(2*length(bs), 1);
 for j=1:length(bs)
     errorbar_some(ns, cn(:,j), cn_stddev(:,j)/sqrt(nsim), 15, 1.96);
     leg_cap{j} = sprintf('b = %d dB - Monte Carlo', bs(j));
@@ -17,17 +17,17 @@ for j=1:length(bs)
     leg_cap{length(bs)+j} = sprintf('b = %d dB - GQR', bs(j));
 end
 grid on;
-legend(leg{:})
+legend(leg_cap{:})
 xlabel('n');
 ylabel('C_n');
 xlim([1, 30]);
 print('aloha_capture_comp', '-depsc');
 
 % Plot the throughput
-figure(2);
+figure;
 hold on;
-leg_thr = cell(2*length(bs), 1);
 load('aloha_sim_data.mat');
+leg_thr = cell(2*length(bs), 1);
 for j=1:length(bs)
     plot(G, S(:,j));
     leg_thr{j} = sprintf('b = %d dB - Monte Carlo', bs(j));

@@ -36,7 +36,7 @@ for j=1:length(bs)
     leg_cap{j} = sprintf('b = %d dB', bs(j));
 end
 grid on;
-legend(leg{:})
+legend(leg_cap{:})
 xlabel('n');
 ylabel('C_n');
 xlim([1, 30]);
