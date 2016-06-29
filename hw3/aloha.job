@@ -2,6 +2,6 @@
 #$ -cwd -m ea -q parallel 
 
 pushd matlab
-matlab -nodesktop -nosplash -r aloha
+matlab -nodesktop -nosplash -r aloha_sim,aloha_gqr,aloha_comp
 popd
 
