@@ -13,7 +13,7 @@ outage_prob = zeros(length(alpha), length(N), length(b));
 outage_prob_stddev = zeros(length(alpha), length(N), length(b));
 for j=1:length(b)
     for i=1:length(N)
-        for k=1:length(alpha)
+        parfor k=1:length(alpha)
             [outage_prob(k, i, j), outage_prob_stddev(k, i, j)] = outage_sim(b(j), N(i), alpha(k), nsim);
         end
     end
