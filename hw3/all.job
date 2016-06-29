@@ -1,0 +1,8 @@
+#!/bin/bash
+#$ -cwd -m ea -q parallel 
+
+source queues.job
+source aloha.job
+source outage.job
+source geraf.job
+
