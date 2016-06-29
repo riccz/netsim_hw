@@ -12,7 +12,7 @@ function outage = outage_sim_one(b, N, alpha)
 eta = 4;
 sigma_db = 8;
 n_cells = 6;
-R_hex = 0.91;
+R_hex = 3^(3/4) / sqrt(2*pi);
 
 sigma = 0.1 * log(10) * sigma_db;
 
