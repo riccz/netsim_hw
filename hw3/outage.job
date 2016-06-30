@@ -1,7 +1,6 @@
 #!/bin/bash
-#$ -cwd -m ea -q parallel 
+#$ -cwd -m ea -q parallel -l par_cpu=32
 
 pushd matlab
 matlab -nodesktop -nosplash -r outage
 popd
-

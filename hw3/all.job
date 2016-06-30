@@ -1,8 +1,7 @@
 #!/bin/bash
-#$ -cwd -m ea -q parallel 
+#$ -cwd -m ea -q parallel -l par_cpu=32
 
 source queues.job
 source aloha.job
 source outage.job
 source geraf.job
-
