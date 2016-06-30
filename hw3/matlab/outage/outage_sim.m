@@ -18,15 +18,18 @@ sigma = 0.1 * log(10) * sigma_db;
 
 % Cell sizes
 R_cell = sqrt(3*N);
-R1 = R_cell - R_hex;
-R2 = R_cell + R_hex;
 
 % Number of active interferers
 n = binornd(n_cells, alpha);
 
 % R.vs
-r0 = sqrt(rand(1));
-r = sqrt(rand(n, 1) * (R2-R1) + R1);
+[x0, y0] = uniform_circle(1, R_hex);
+r0 = sqrt(x0^2 + y0^2);
+
+[x, y] = uniform_circle(n, R_hex);
+x = x + R_cell;
+r = transpose(sqrt(x.^2 + y.^2));
+
 csi = sigma * randn(n+1, 1);
 shadow = exp(csi);
 fading = raylrnd(ones(n+1, 1) ./ sqrt(2));
