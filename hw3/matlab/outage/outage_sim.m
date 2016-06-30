@@ -25,8 +25,8 @@ R2 = R_cell + R_hex;
 n = binornd(n_cells, alpha);
 
 % R.vs
-r0 = rand(1);
-r = rand(n, 1) * (R2-R1) + R1;
+r0 = sqrt(rand(1));
+r = sqrt(rand(n, 1) * (R2-R1) + R1);
 csi = sigma * randn(n+1, 1);
 shadow = exp(csi);
 fading = raylrnd(ones(n+1, 1) ./ sqrt(2));
