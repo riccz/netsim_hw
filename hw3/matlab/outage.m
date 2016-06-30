@@ -16,12 +16,12 @@ for j=1:length(b)
     for i=1:length(N)
         parfor k=1:length(alpha)
             [outage_prob(k, i, j), outage_prob_stddev(k, i, j)] = outage_sim(b(j), N(i), alpha(k), nsim);
-            outage_prib_gqr(k, i, j) = outage_gqr(b(j), N(i), alpha(k));
+            outage_prob_gqr(k, i, j) = outage_gqr(b(j), N(i), alpha(k));
         end
     end
 end
 
-save('outage_sim_data.mat');
+save('outage_data.mat');
 
 for j=1:length(b)
     figure;
@@ -33,7 +33,7 @@ for j=1:length(b)
     end
     legend(leg{:}, 'Location', 'northwest');
     xlim([0, 1]);
-    ylim([0, 0.6]);
+    ylim([0, 0.7]);
     xlabel('alpha');
     ylabel('outage prob.');
     grid on;
