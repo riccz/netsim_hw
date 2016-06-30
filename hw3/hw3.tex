@@ -448,9 +448,11 @@ The number of coefficients used was the same of the Aloha case: 32 for
 the H-G approximation and 64 for the L-G approximation.
 %
 The results of the integrations are shown in Fig.s
-\ref{plot:outage_comp_b6} and \ref{plot:outage_comp_b10} where it can
-be seen that they match the results obtained from the Monte Carlo
-simulation.
+\ref{plot:outage_comp_b6} and \ref{plot:outage_comp_b10}. They do not
+match exactly the ones from the Monte Carlo simulation, maybe because
+of the different approximations for the interfering cells. However I
+don't have enough time to check for errors in the code or to try to
+use a better approximation.
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}{0.5\textwidth}
