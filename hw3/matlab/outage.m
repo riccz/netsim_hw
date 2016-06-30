@@ -49,8 +49,8 @@ for j=1:length(b)
     for i=1:length(N)
         plot(alpha, outage_prob_gqr(:, i, j));
         plot(alpha, outage_prob(:, i, j));
-        leg{i} = sprintf('N = %d - GQR', N(i));
-        leg{i} = sprintf('N = %d - MC', N(i));
+        leg{2*i-1} = sprintf('N = %d - GQR', N(i));
+        leg{2*i} = sprintf('N = %d - MC', N(i));
     end
     legend(leg{:}, 'Location', 'northwest');
     xlim([0, 1]);
