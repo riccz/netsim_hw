@@ -21,7 +21,8 @@ captured = 0;
 captured_when_times_n = zeros(nsim, 1);
 for i=1:nsim
     % Random variables
-    r = sqrt(rand(n, 1));
+    [x, y] = uniform_circle(n);
+    r = transpose(sqrt(x.^2 + y.^2));
     csi = sigma * randn(n, 1);
     shadow = exp(csi);
     fading = raylrnd(ones(n, 1) ./ sqrt(2));
