@@ -224,7 +224,7 @@ The results of the last simulation are:
 \subsection*{Capture probability and throughput of slotted Aloha}
 \subsubsection*{Monte Carlo}
 To simulate the slotted Aloha system described in the paper, the
-Matlab script just has to randomly place $n$ nodes in a unit circle
+function \inlinecode{aloha_capture_sim} just has to randomly place $n$ nodes in a unit circle
 around the base station, the first one is taken as the real
 transmittter while the other $n-1$ are interferers. Then it computes
 the SIR and counts a capture event if it bigger than a certain
@@ -252,7 +252,7 @@ with the random variables that are all i.i.d.
 
 The scripts simulates $10^6$ times the system and counts how many
 times the SIR exceeds the thresholds $b = 6, 10 \, \si{dB}$. This count
-diveded by the number of simulations $10^6$ gives the probability of
+diveded by the number of simulations gives the probability of
 capturing a packet sent from a node at distance $r_0$ with $n$
 simultanous transmissions, averaged over $r_0$
 \begin{equation}
@@ -319,10 +319,10 @@ The function \inlinecode{lg_quad} automatically does this so there is
 no need to do a change of variable in the integrals over $(0,1)$ of
 equations (\ref{eq:cn_int}) and (\ref{eq:I}).
 
-Since the Gauss-Hermite integration formula requires the integral to
-be of the kind
+Since the Gauss-Hermite integration formula can be used to approximate
+integrals of the kind
 \begin{equation}
-  \int_{-\infty}^{+\infty} e^{-x^2}f(x)dx \approx \sum_{i=1}^n w_i f(x_i)
+  \int_{-\infty}^{+\infty} e^{-x^2}f(x)dx \approx \sum_{i=1}^n w_i f(x_i) ,
 \end{equation}
 the two integrals over $(-\infty, +\infty)$ in equations
 (\ref{eq:cn_int}) and (\ref{eq:I}) require the change of variables
@@ -341,8 +341,8 @@ and they become
   \int_0^1 \frac{h(r)dr}{1 + be^{\tilde{\xi}\sqrt{2}\sigma - \xi_0}\left( \frac{r}{r_0} \right)^{-\eta}} .
   \label{eq:I_sub}
 \end{align}
-These integrals were computed using 64 coefficients for the two
-integrals over a finite interval and 32 coefficients for the other two
+These integrals were computed using 64 coefficients for the approximation of the two
+integrals over $(0,1)$ and 32 coefficients for the other two
 integrals.
 
 The results match those obtained in the Monte Carlo simulation as can
@@ -366,7 +366,7 @@ be seen in Fig.s \ref{plot:aloha_capture_comp} and
 \subsection*{Outage probability in a cellular network}
 \subsubsection*{Monte Carlo}
 This simulation is very similar to the one of the Aloha capture
-probability: in both cases the Matlab script places the transmitter
+probability: the function \inlinecode{outage_sim} places the transmitter
 and interferers, computes the SIR using equation (\ref{eq:SIR}) and compares it to
 a threshold.
 %
@@ -441,6 +441,8 @@ After having applied the same substitutions used in the two integrals
 for the capture probability (equations (\ref{eq:sub_xi0}) and
 (\ref{eq:sub_xi})) $P_s(\alpha)$ can be computed using the
 Legendre-Gauss and Hermite-Gauss integration formulas.
+%
+The outage probability is then $1 - P_s(\alpha)$.
 
 The number of coefficients used was the same of the Aloha case: 32 for
 the H-G approximation and 64 for the L-G approximation.
@@ -468,6 +470,7 @@ simulation.
 \end{figure}
 
 \section{GeRaF}
+\subsection*{Monte Carlo}
 The GeRaF protocol is simulated assuming, like in the paper, that the
 active nodes seen at each hop are independent and that the packet is
 always forwarded to the best possible node.
@@ -521,13 +524,14 @@ hops obtained in $10^4$~simulations.
     represent the standard deviation of the number of hops}
 \end{figure}
 
+\subsection*{Recursive bounds}
 The paper gives a recursive algorithm to compute an upper and lower
 bound on the average number of hops: first it quantizes the unit
 distance in $\nu$ intervals (so the whole distance contains $D\nu$
 intervals) and computes the probabilities $\omega(i,k)$ of forwarding
 from a source at distance $\gamma = i/\nu$ to a node in interval $i -
-\nu + k$ (in the distance interval $(\frac{i - \nu + k - 1}{\nu},
-\frac{i - \nu + k}{\nu}]$) as
+\nu + k$, that corresponds to the distance interval $(\frac{i - \nu + k - 1}{\nu},
+\frac{i - \nu + k}{\nu}]$, as
   \begin{equation}
     \omega(i, k) = \begin{cases}
       e^{-MA(\frac{i - \nu + k - 1}{\nu}, \frac{i}{\nu})/\pi}
@@ -548,7 +552,7 @@ The area in equation~(\ref{eq:omega}) is given by the integral
 \end{equation}
   which has a closed-form solution in the paper. Using the solution given
   in the paper, however, yielded results that were different from the
-  approximation of the integral computed using Monte Carlo and the
+  approximation of the integral computed using Monte Carlo or the
   Gauss quadrature rule. So in the recursive bound $A(r, D)$ is
   computed using the GQR with 64~coefficients.
 
