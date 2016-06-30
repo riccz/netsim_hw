@@ -29,7 +29,7 @@ for j=1:length(b)
         plot(alpha, outage_prob(:, i, j));
         leg{i} = sprintf('N = %d', N(i));
     end
-    legend(leg{:}, 'Position', 'northwest');
+    legend(leg{:}, 'Location', 'northwest');
     xlim([0, 1]);
     ylim([0, 0.6]);
     xlabel('alpha');
