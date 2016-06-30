@@ -1,5 +1,5 @@
 ZIPFILE = hw3.zip
-CODE_FILES = matlab/*.m matlab/*/*.m matlab/*.csv generate_gqr.py
+CODE_FILES = matlab/*.m matlab/*/*.m matlab/*.mat matlab/*.csv generate_gqr.py
 
 all: $(ZIPFILE)
 
