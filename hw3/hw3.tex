@@ -376,14 +376,17 @@ circle of radius
   R=\frac{3^{3/4}}{\sqrt{2\pi}} \approx 0.91
 \end{equation}
 that approximates an hexagonal cell with unit side using a circle with
-the same area.  The interferers are supposed to be the clients of the
-6 closest base stations and each one can be active with probability
-$\alpha$. The distance of the interfering cells depends on the reuse
-factor $N$: $R_{cell} = \sqrt{3N}$ and these cells are approximated
-with a segment of circular ring, so the possible distances of the
-interfering nodes from the base station are $[R_1,R_2] = [R_{cell} -R,
-  R_{cell}+R]$ and this is the region where the active interferers are
-uniformly placed.
+the same area.
+%
+The interferers are supposed to be the clients of the 6 closest base
+stations, whose distance depends on the reuse factor: $R_{cell} =
+\sqrt{3N}$, and each client is supposed to be active at the same time
+of the transmitter with probability $\alpha$.
+%
+The interfering cells are also approximated with a circle of radius
+$R$ and, since they are all at the same distance, they can be
+represened by a single cell with 6 interferers uniformly placed inside
+it to make the simulation simpler.
 
 Running the simulation for various values of $N$ and the same
 thresholds $b= 6, 10 \, \si{dB}$ used for Aloha gives the results
@@ -422,26 +425,30 @@ interfering nodes form the base station is
 \begin{equation}
   h(r) = \frac{2r}{R_2^2 - R_1^2} \qquad r \in [R_1, R_2]
 \end{equation}
-because they are assumed to be uniformly distributed over a circular
-ring with radii $R_1$ and $R_2$.
+because they are assumed to be uniformly distributed over a segment of
+circular ring, with radii $R_1$ and $R_2$, that approximates their
+cell.
 %
 Taking the average of $P_s$ over the distribution of the number of
-active interfereers and then over $r_0$, equation (\ref{eq:Ps})
-becomes
+active interfereers (which is a binomial with parameters $n=6$ and
+$p=\alpha$) and then over $r_0$, equation (\ref{eq:Ps}) becomes
 \begin{equation}
   P_s(\alpha) = \int_{-\infty}^{+\infty} \frac{d\xi_0}{\sqrt{2\pi}\sigma} e^{-\frac{\xi_0^2}{2\sigma^2}}
   \int_0^R dr_0 h(r_0) 
-  \left( 1-\alpha+ \alpha I(\xi_0, r_0) \right)^{6}
+  \left( 1-\alpha+ \alpha I(\xi_0, r_0) \right)^{6} .
 \end{equation}
-which, after having applied the same substitutions of the Aloha
-integrals (equations (\ref{eq:sub_xi0}) and (\ref{eq:sub_xi})), can be
-computed using the Legendre-Gauss and Hermite-Gauss integration
-formulas.
+After having applied the same substitutions used in the two integrals
+for the capture probability (equations (\ref{eq:sub_xi0}) and
+(\ref{eq:sub_xi})) $P_s(\alpha)$ can be computed using the
+Legendre-Gauss and Hermite-Gauss integration formulas.
 
 The number of coefficients used was the same of the Aloha case: 32 for
-the H-G approximation and 64 for the L-G approximation. The results,
-compared to those obtained in the Monte Carlo simulation, are shown in
-Fig.s \ref{plot:outage_comp_b6} and \ref{plot:outage_comp_b10}.
+the H-G approximation and 64 for the L-G approximation.
+%
+The results of the integrations are shown in Fig.s
+\ref{plot:outage_comp_b6} and \ref{plot:outage_comp_b10} where it can
+be seen that they match the results obtained from the Monte Carlo
+simulation.
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}{0.5\textwidth}
