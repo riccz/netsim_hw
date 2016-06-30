@@ -487,8 +487,8 @@ of hops goes toward the optimal value $\floor{D+1}$ because it is more
 likely to find an active node in the optimal position: at the border
 of the coverage area and aligned between the source and destination.
 %
-The results are the average and standard deviation of
-1000~simulations.
+The results are the average and standard deviation of the number of
+hops obtained in $10^4$~simulations.
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}{0.5\textwidth}
@@ -581,11 +581,9 @@ The area in equation~(\ref{eq:omega}) is given by the integral
   bounds were computed with $\nu = 50$ and it can be seen that, since
   they are very close, they give a precise value for the average
   number of hops under the stated assumptions.
-  %
-  The curves from the previous plots do not appear to fall between
-  the bounds, but this may be due to the variance of the
-  simulations. If the number of simulations was to be increased a lot,
-  their average should fall between the two recursive bounds.
+%
+  The curves obtained from the Mone Carlo simulations are between the
+  two bounds as expected.
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}{0.5\textwidth}
