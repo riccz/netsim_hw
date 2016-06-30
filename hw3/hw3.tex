@@ -226,7 +226,7 @@ The results of the last simulation are:
 To simulate the slotted Aloha system described in the paper, the
 function \inlinecode{aloha_capture_sim} just has to randomly place $n$ nodes in a unit circle
 around the base station, the first one is taken as the real
-transmittter while the other $n-1$ are interferers. Then it computes
+transmitter while the other $n-1$ are interferers. Then it computes
 the SIR and counts a capture event if it bigger than a certain
 threshold.
 %
@@ -234,8 +234,8 @@ The SIR is computed using the formula for the received power
 \begin{equation}
   P_R = R^2e^\xi Kr^{-\eta}P_T
 \end{equation}
-where $R$ is rayleigh-distributed with unit power and models the
-channl fading, $\xi$ is Gaussian with zero mean and standard deviation
+where $R$ is Rayleigh-distributed with unit power and models the
+channel fading, $\xi$ is Gaussian with zero mean and standard deviation
 $\sigma = 0.1 \ln10 \sigma_{dB}$, so $e^\xi$ is a log-normal random
 variable that models the shadowing. $Kr^{-\eta}$ is the deterministic
 loss law, where $\eta = 4$ is typical for land based mobile radio
@@ -252,9 +252,9 @@ with the random variables that are all i.i.d.
 
 The scripts simulates $10^6$ times the system and counts how many
 times the SIR exceeds the thresholds $b = 6, 10 \, \si{dB}$. This count
-diveded by the number of simulations gives the probability of
+divided by the number of simulations gives the probability of
 capturing a packet sent from a node at distance $r_0$ with $n$
-simultanous transmissions, averaged over $r_0$
+simultaneous transmissions, averaged over $r_0$
 \begin{equation}
   \E{P_n(r_0)} = \frac{C_n}{n}
 \end{equation}
@@ -385,7 +385,7 @@ of the transmitter with probability $\alpha$.
 %
 The interfering cells are also approximated with a circle of radius
 $R$ and, since they are all at the same distance, they can be
-represened by a single cell with 6 interferers uniformly placed inside
+represented by a single cell with 6 interferers uniformly placed inside
 it to make the simulation simpler.
 
 Running the simulation for various values of $N$ and the same
@@ -430,7 +430,7 @@ circular ring, with radii $R_1$ and $R_2$, that approximates their
 cell.
 %
 Taking the average of $P_s$ over the distribution of the number of
-active interfereers (which is a binomial with parameters $n=6$ and
+active interferers (which is a binomial with parameters $n=6$ and
 $p=\alpha$) and then over $r_0$, equation (\ref{eq:Ps}) becomes
 \begin{equation}
   P_s(\alpha) = \int_{-\infty}^{+\infty} \frac{d\xi_0}{\sqrt{2\pi}\sigma} e^{-\frac{\xi_0^2}{2\sigma^2}}
@@ -593,7 +593,7 @@ The area in equation~(\ref{eq:omega}) is given by the integral
   they are very close, they give a precise value for the average
   number of hops under the stated assumptions.
 %
-  The curves obtained from the Mone Carlo simulations are between the
+  The curves obtained from the Monte Carlo simulations are between the
   two bounds as expected.
 \begin{figure}[htbp]
   \centering
